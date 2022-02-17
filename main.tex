@@ -10,23 +10,40 @@
 \usepackage{geometry} %For margins.
 
 % Define verse counters
+\newcounter{chapter}
 \newcounter{versea}
-  \setcounter{versea}{0}
 \newcounter{verseb}
-  \setcounter{verseb}{0}
 
 \begin{document}
 
+%Command at the start of chapter
+	\NewDocumentCommand{\chapterStart}{o O{Chap}}{%
+		\setcounter{versea}{0}%
+		\setcounter{verseb}{0}%
+		\stepcounter{chapter}%
+		\IfNoValueF{#1}{%
+			\begin{center}%
+			\textbf{#2. \arabic{chapter}} \\
+			{#1}\end{center}%
+		}%
+	}
+	
+%Command at the start of book
+	\newcommand{\bookStart}{%
+		\setcounter{chapter}{0} % Set chapter count to zero.
+		\chapterStart{}%
+	}
+
 % Verse counting commands
-  \NewDocumentCommand{\bva}{o}{%
-  	\stepcounter{versea}%
-  	\IfNoValueF{#1}{%
-  		\ifnum\value{versea}>1 % If it is the first verse, we do not show it.
-  			\textsuperscript{\arabic{versea}}\fi % Styling. The verse is just the number in superscript. 
-  	}{%
-  		\textsuperscript{\arabic{versea}}%
-  	}%
-  }
+	\NewDocumentCommand{\bva}{o}{%
+		\stepcounter{versea}%
+		\IfNoValueF{#1}{%
+		\ifnum\value{versea}>1 % If it is the first verse, we do not show it.
+			\textsuperscript{\arabic{versea}}\fi % Styling. The verse is just the number in superscript. 
+		}{%
+			\textsuperscript{\arabic{versea}}%
+		}%
+	}
 	\NewDocumentCommand{\bvb}{o}{%
 		\stepcounter{verseb}%
 		\IfNoValueF{#1}{%
