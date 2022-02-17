@@ -1,0 +1,58 @@
+\documentclass[openany]{memoir}
+
+% Packages
+\usepackage{lmodern}
+\usepackage{xparse}
+\usepackage{geometry} %For margins.
+
+% Define verse counters
+\newcounter{versea}
+  \setcounter{versea}{0}
+\newcounter{verseb}
+  \setcounter{verseb}{0}
+
+\begin{document}
+
+% Verse counting commands
+  \NewDocumentCommand{\bva}{o}{%
+  	\stepcounter{versea}%
+  	\IfNoValueF{#1}{%
+  		\ifnum\value{versea}>1 % If it is the first verse, we do not show it.
+  			\textsuperscript{\arabic{versea}}\fi % Styling. The verse is just the number in superscript. 
+  	}{%
+  		\textsuperscript{\arabic{versea}}%
+  	}%
+  }
+	\NewDocumentCommand{\bvb}{o}{%
+		\stepcounter{verseb}%
+		\IfNoValueF{#1}{%
+		\ifnum\value{verseb}>1 % If it is the first verse, we do not show it.
+			\textsuperscript{\arabic{verseb}}\fi % Styling. The verse is just the number in superscript. 
+		}{%
+			\textsuperscript{\arabic{verseb}}%
+		}%
+	}
+	
+% Poem formatting
+	% No left-indentation.
+	\setlength{\vleftmargin}{0em}
+
+	% Mark cæsura.
+	\newcommand{\hld}{|| }%\leavevmode\unskip\quad\ignorespaces}
+
+	% Indent lines (in Ljóðaháttr or Galdralag).
+	\newcommand{\ind}{%
+		\hspace{1.5em}%
+	}
+
+	% Mark alliteration. This might not be present in the final version.
+	\NewDocumentCommand{\alst}{m}{%
+		\underline{#1}%
+	}
+
+% Books
+	\include{books/01_prophecy-of-the-wale.tex}
+	\include{books/02_web-strengthener.tex}
+	\include{books/03_high-one.tex}
+
+\end{document}
