@@ -6,7 +6,8 @@
 \usepackage{fontspec}
 \setmainfont{Junicode}[
   Extension=.ttf,
-  BoldFont=*-Bold]
+  BoldFont=*-Bold,
+  ItalicFont=*-Italic]
  
 % Packages
 \usepackage{xparse}
@@ -75,7 +76,7 @@
 
 % Index link
 \NewDocumentCommand{\inx}{m}{%
-	\underline{#1}%
+	{#1}†%
 }
 
 % Sigla
