@@ -3,8 +3,11 @@
 \documentclass[openany]{memoir}
 
 % Font
-\usepackage{lmodern}
-
+\usepackage{fontspec}
+\setmainfont{Junicode}[
+  Extension=.ttf,
+  BoldFont=*-Bold]
+ 
 % Packages
 \usepackage{xparse}
 \usepackage{geometry} %For margins.
@@ -71,8 +74,6 @@
 	}
 
 % Books
-	\include{books/01_prophecy-of-the-wale.tex}
-	\include{books/02_web-strengthener.tex}
-	\include{books/03_high-one.tex}
+	\include{books/01 Spae of the Wallow.tex}
 
 \end{document}
