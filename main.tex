@@ -8,6 +8,9 @@
   Extension=.ttf,
   BoldFont=*-Bold,
   ItalicFont=*-Italic]
+
+% Underline that does not skip descender
+% Should be called \nsunderline
  
 % Packages
 \usepackage{xparse}
@@ -40,6 +43,7 @@
 % Verse counting commands
 	\NewDocumentCommand{\bva}{o}{%
 		\stepcounter{versea}%
+		\noindent% No indentation for the verse
 		\IfNoValueF{#1}{%
 		\ifnum\value{versea}>1 % If it is the first verse, we do not show it.
 			\textsuperscript{\arabic{versea}}\fi % Styling. The verse is just the number in superscript. 
@@ -62,7 +66,7 @@
 	\setlength{\vleftmargin}{0em}
 
 	% Mark cæsura.
-	\newcommand{\hld}{\hspace{1cm} }%\leavevmode\unskip\quad\ignorespaces}
+	\newcommand{\hld}{\hspace{5mm} }%\leavevmode\unskip\quad\ignorespaces}
 
 	% Indent lines (in Ljóðaháttr or Galdralag).
 	\newcommand{\ind}{%
@@ -75,8 +79,11 @@
 	}
 
 % Index link
+%	{#1}\textsuperscript{†}%	Dagger at the end
+%	\nsunderline{#1}%	Underline
+
 \NewDocumentCommand{\inx}{m}{%
-	{#1}†%
+	{#1}\textsuperscript{†}%
 }
 
 % Sigla
