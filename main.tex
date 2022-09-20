@@ -16,6 +16,10 @@
 \usepackage{xparse}
 \usepackage{geometry} %For margins.
 
+% Formatting
+\usepackage{reledmac}
+\usepackage{reledpar}
+
 % Define verse counters
 \newcounter{versea}
 \newcounter{verseb}
@@ -40,8 +44,8 @@
 		\chapterStart{}%
 	}
 
-% Verse counting commands
-	\NewDocumentCommand{\bva}{o}{%
+% Verse format commands
+	\NewDocumentCommand{\bva}{o}{% Begin verse a
 		\stepcounter{versea}%
 		\noindent% No indentation for the verse
 		\IfNoValueF{#1}{%
@@ -51,7 +55,11 @@
 			\textsuperscript{\arabic{versea}}%
 		}%
 	}
-	\NewDocumentCommand{\bvb}{o}{%
+	\NewDocumentCommand{\eva}{o}{% End verse a
+		\\%
+	}
+	
+	\NewDocumentCommand{\bvb}{o}{% Begin verse b
 		\stepcounter{verseb}%
 		\IfNoValueF{#1}{%
 		\ifnum\value{verseb}>1 % If it is the first verse, we do not show it.
@@ -59,6 +67,9 @@
 		}{%
 			\textsuperscript{\arabic{verseb}}%
 		}%
+	}
+	\NewDocumentCommand{\evb}{o}{% End verse b
+		\\%
 	}
 	
 % Poem formatting
