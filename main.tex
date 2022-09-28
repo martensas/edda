@@ -51,12 +51,10 @@
 	\NewDocumentCommand{\bva}{o}{% Begin verse a
 		\stepcounter{versea}%
 		\begin{stanza}% Begin stanza
-		\IfNoValueF{#1}{%
-		\ifnum\value{versea}>1% If it is the first verse, we do not show it.
-			\textbf{\arabic{versea}} \fi % Styling. The verse is just the number in superscript. 
-		}{%
-			\textbf{\arabic{versea}} %
-		}%
+		\newdimen\width% Display verse number; offset it from the base line (is this too hacky?)
+		\setbox0=\hbox{\textbf{\arabic{versea} }}%
+		\width=\wd0 \advance\width by \dp0%
+		\hspace{-\the\width}\textbf{\arabic{versea} }%
 	}
 	\NewDocumentCommand{\eva}{o}{% End verse a
 		\& \end{stanza}\endnumbering\vspace{1.5mm}% End reledmac numbering and stanza
