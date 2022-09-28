@@ -5,9 +5,9 @@
 % Font
 \usepackage{fontspec}
 \setmainfont{Junicode}[
-  Extension=.ttf,
-  BoldFont=*-Bold,
-  ItalicFont=*-Italic]
+	Extension=.ttf,
+	BoldFont=*-Bold,
+	ItalicFont=*-Italic]
 
 % Underline that does not skip descender
 % Should be called \nsunderline
@@ -18,7 +18,6 @@
 
 % Formatting
 \usepackage{reledmac}
-\usepackage{reledpar}
 
 % Define verse counters
 \newcounter{versea}
@@ -26,8 +25,8 @@
 
 \begin{document}
 
-%Command at the start of chapter
-	\NewDocumentCommand{\chapterStart}{o O{Chap}}{%
+% Book and chapter commands
+	\NewDocumentCommand{\chapterStart}{o O{Chap}}{% Command at the start of chapter
 		\setcounter{versea}{0}%
 		\setcounter{verseb}{0}%
 		\stepcounter{chapter}%
@@ -37,44 +36,58 @@
 			{#1}\end{center}%
 		}%
 	}
-	
-%Command at the start of book
-	\newcommand{\bookStart}{%
+
+	\newcommand{\bookStart}{% Command at the start of book
 		\setcounter{chapter}{0} % Set chapter count to zero.
 		\chapterStart{}%
 	}
 
 % Verse format commands
+	\NewDocumentCommand{\bvg}{o}{% Begin verse group
+		\begin{minipage}{1\textwidth}%
+		\beginnumbering%
+	}
+
 	\NewDocumentCommand{\bva}{o}{% Begin verse a
 		\stepcounter{versea}%
-		\noindent% No indentation for the verse
+		\begin{stanza}% Begin stanza
 		\IfNoValueF{#1}{%
-		\ifnum\value{versea}>1 % If it is the first verse, we do not show it.
-			\textsuperscript{\arabic{versea}}\fi % Styling. The verse is just the number in superscript. 
+		\ifnum\value{versea}>1% If it is the first verse, we do not show it.
+			\textbf{\arabic{versea}} \fi % Styling. The verse is just the number in superscript. 
 		}{%
-			\textsuperscript{\arabic{versea}}%
+			\textbf{\arabic{versea}} %
 		}%
 	}
 	\NewDocumentCommand{\eva}{o}{% End verse a
-		\\%
+		\& \end{stanza}\endnumbering\vspace{1.5mm}% End reledmac numbering and stanza
 	}
 	
 	\NewDocumentCommand{\bvb}{o}{% Begin verse b
 		\stepcounter{verseb}%
 		\IfNoValueF{#1}{%
-		\ifnum\value{verseb}>1 % If it is the first verse, we do not show it.
-			\textsuperscript{\arabic{verseb}}\fi % Styling. The verse is just the number in superscript. 
+		\ifnum\value{verseb}>1% If it is the first verse, we do not show it.
+			\textbf{\arabic{verseb}} \fi % Styling. The verse is just the number in superscript. 
 		}{%
-			\textsuperscript{\arabic{verseb}}%
+			\textbf{\arabic{verseb}} %
 		}%
 	}
 	\NewDocumentCommand{\evb}{o}{% End verse b
-		\\%
+		% Nothing (for now)
+	}
+	
+	\NewDocumentCommand{\evg}{o}{% End verse group
+		\end{minipage}%
+		\vspace{1cm}%
 	}
 	
 % Poem formatting
-	% No left-indentation.
-	\setlength{\vleftmargin}{0em}
+	% First line number at 5
+	\firstlinenum{1}
+	\linenumincrement{2}
+	
+	% Stanza indentation (required for \astanza to work)
+	\setstanzaindents{5, 2, 2}
+	\setcounter{stanzaindentsrepetition}{2}
 
 	% Mark cæsura.
 	\newcommand{\hld}{\hspace{5mm} }%\leavevmode\unskip\quad\ignorespaces}
@@ -89,13 +102,13 @@
 		\underline{#1}%
 	}
 
-% Index link
+% Index link command
 %	{#1}\textsuperscript{†}%	Dagger at the end
 %	\nsunderline{#1}%	Underline
 
-\NewDocumentCommand{\inx}{m}{%
-	{#1}\textsuperscript{†}%
-}
+	\NewDocumentCommand{\inx}{m}{%
+		{#1}\textsuperscript{†}%
+	}
 
 % Sigla
 	% Authors
@@ -104,6 +117,9 @@
 	}
 	\newcommand{\Snorri}{%
 		Snorri%
+	}
+	\newcommand{\CV}{%
+		Cleasby-Vigfússon%
 	}
 	
 	% Manuscripts
@@ -115,14 +131,23 @@
 	}
 	
 	% Texts
+	\newcommand{\Ynglingatal}{%
+		\emph{Ing}%
+	}
+	\newcommand{\Hervarar}{%
+		\emph{HarS}%
+	}
 	\newcommand{\Gylfaginning}{%
 		\emph{Yilf}%
 	}
-	\newcommand{\Vafthrudnismal}{%
-		\emph{Web}%
+	\newcommand{\Haleygjatal}{%
+		\emph{Hal}% Reckoning of the Hallowlendings
 	}
 	\newcommand{\Rigsthula}{%
 		\emph{Righ}%
+	}
+	\newcommand{\Vafthrudnismal}{%
+		\emph{Web}%
 	}
 
 % Books
