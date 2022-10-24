@@ -44,20 +44,23 @@
 
 % Verse format commands
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
-		\begin{minipage}{1\textwidth}%
+		\begin{ledgroup}%
 		\beginnumbering%
 	}
 
 	\NewDocumentCommand{\bva}{o}{% Begin verse a
 		\stepcounter{versea}%
-		\begin{stanza}% Begin stanza
-		\newdimen\width% Display verse number; offset it from the base line (is this too hacky?)
-		\setbox0=\hbox{\textbf{\arabic{versea} }}%
-		\width=\wd0 \advance\width by \dp0%
-		\hspace{-\the\width}\textbf{\arabic{versea} }%
+		\begin{large}\begin{stanza}% Begin stanza
+		% Font size
+			\newdimen\width% Create dimension width
+			\setbox0=\hbox{\textbf{\arabic{versea} }}% Create hbox with the verse label
+			\width=\wd0 \advance\width by \dp0% Set width to the width of the box
+			\hspace{-\the\width}% Add a hspace = -(width)
+			\textbf{\arabic{versea} }% Add the verse number
 	}
 	\NewDocumentCommand{\eva}{o}{% End verse a
-		\& \end{stanza}\endnumbering\vspace{1.5mm}% End reledmac numbering and stanza
+		\& \end{stanza}\end{large}\endnumbering% End reledmac numbering and stanza
+		\vspace{1.5mm}% Vertical space
 	}
 	
 	\NewDocumentCommand{\bvb}{o}{% Begin verse b
@@ -74,13 +77,20 @@
 	}
 	
 	\NewDocumentCommand{\evg}{o}{% End verse group
-		\end{minipage}%
+		\end{ledgroup}%
 		\vspace{1cm}%
 	}
 	
+% Note formatting
+	% Side note margin
+	\setlength{\ledlsnotesep}{2 \ledlsnotesep}
+	
+	% Make foot notes paragraphs
+	\Xarrangement[A]{paragraph}
+	
 % Poem formatting
-	% First line number at 5
-	\firstlinenum{1}
+	% First line number at 3
+	\firstlinenum{2}
 	\linenumincrement{2}
 	
 	% Stanza indentation (required for \astanza to work)
@@ -105,7 +115,7 @@
 %	\nsunderline{#1}%	Underline
 
 	\NewDocumentCommand{\inx}{m}{%
-		{#1}\textsuperscript{†}%
+		{#1}%\textsuperscript{†}%
 	}
 
 % Sigla
@@ -120,32 +130,55 @@
 		Cleasby-Vigfússon%
 	}
 	
+	%Modern books
+	\newcommand{\FaulkesEdda}{%
+		\emph{SnE} 2005%
+	}
+	
 	% Manuscripts
-	\newcommand{\Regius}{%
+	\newcommand{\Regius}{% Codex Regius (of the poetic edda)
 		\emph{R}%
 	}
-	\newcommand{\Hauksbok}{%
+	\newcommand{\Hauksbok}{% Hauksbok
 		\emph{H}%
+	}
+	\newcommand{\GylfMS}{% For referring to Gylfaginning manuscripts when verses are attested there.
+		\emph{G}%
+	}
+	\newcommand{\RegiusProse}{% Codex Regius of the Prose Edda
+		\emph{R\textsubscript{2}}%
+	}
+	\newcommand{\Trajectinus}{% Codex Trajectinus
+		\emph{T}%
+	}
+	\newcommand{\Wormianus}{% Codex Wormianus
+		\emph{W}%
+	}
+	\newcommand{\Upsaliensis}{% Codex Upsaliensis
+		\emph{U}%
 	}
 	
 	% Texts
-	\newcommand{\Ynglingatal}{%
+	\newcommand{\Ynglingatal}{% Tally of the Inglings
 		\emph{Ing}%
 	}
-	\newcommand{\Hervarar}{%
+	\newcommand{\Hervarar}{% Saw of Harware
 		\emph{HarS}%
 	}
-	\newcommand{\Gylfaginning}{%
-		\emph{Yilf}%
+	\newcommand{\Gylfaginning}{% For referring to Gylfaginning as a text
+		\emph{Yilf}% F
 	}
-	\newcommand{\Haleygjatal}{%
-		\emph{Hal}% Reckoning of the Hallowlendings
+	\newcommand{\Haleygjatal}{% Tally of the Hallowlendings
+		\emph{Hal}%
 	}
-	\newcommand{\Rigsthula}{%
+	\newcommand{\Rigsthula}{% Thule of Righ
 		\emph{Righ}%
 	}
-	\newcommand{\Vafthrudnismal}{%
+	\newcommand{\Vafthrudnismal}{% Speeches of Webthrithner
 		\emph{Web}%
+	}
+	\newcommand{\FraLoka}{% From Locke
+		\emph{FrL}%
 	}
 
 % Books
