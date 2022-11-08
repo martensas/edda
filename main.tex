@@ -51,12 +51,14 @@
 	\NewDocumentCommand{\bva}{o}{% Begin verse a
 		\stepcounter{versea}%
 		\begin{large}\begin{stanza}% Begin stanza
-		% Font size
+		% Add verse number
+		\IfNoValueT{#1}{%
 			\newdimen\width% Create dimension width
 			\setbox0=\hbox{\textbf{\arabic{versea} }}% Create hbox with the verse label
 			\width=\wd0 \advance\width by \dp0% Set width to the width of the box
 			\hspace{-\the\width}% Add a hspace = -(width)
 			\textbf{\arabic{versea} }% Add the verse number
+		}
 	}
 	\NewDocumentCommand{\eva}{o}{% End verse a
 		\& \end{stanza}\end{large}\endnumbering% End reledmac numbering and stanza
@@ -65,11 +67,8 @@
 	
 	\NewDocumentCommand{\bvb}{o}{% Begin verse b
 		\stepcounter{verseb}%
-		\IfNoValueF{#1}{%
-		\ifnum\value{verseb}>1% If it is the first verse, we do not show it.
-			\textbf{\arabic{verseb}} \fi % Styling. The verse is just the number in superscript. 
-		}{%
-			\textbf{\arabic{verseb}} %
+		\IfNoValueT{#1}{%
+			\textbf{\arabic{verseb} }%
 		}%
 	}
 	\NewDocumentCommand{\evb}{o}{% End verse b
@@ -157,8 +156,17 @@
 	\newcommand{\Upsaliensis}{% Codex Upsaliensis
 		\emph{U}%
 	}
+	\newcommand{\HildMS}{% For referring to the Hildebrandslied manuscript.
+		\emph{ms.}%
+	}
 	
 	% Texts
+	\newcommand{\Hildebrandslied}{% Speeches of Hildbrand
+		\emph{Hild}%
+	}
+	\newcommand{\Beowulf}{% Beewolf
+		\emph{Bee}%
+	}
 	\newcommand{\Ynglingatal}{% Tally of the Inglings
 		\emph{Ing}%
 	}
@@ -182,6 +190,7 @@
 	}
 
 % Books
-	\include{books/01 Spae of the Wallow.tex}
+%	\include{books/01 Spae of the Wallow.tex}
+	\include{books/Speeches of Hildbrand.tex}
 
 \end{document}
