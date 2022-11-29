@@ -108,6 +108,11 @@
 	\NewDocumentCommand{\alst}{m}{%
 		\underline{#1}%
 	}
+	
+	% Mark kennings.
+	\NewDocumentCommand{\ken}{m}{%
+		\textsc{[{#1}]}%
+	}
 
 % Index link command
 %	{#1}\textsuperscript{†}%	Dagger at the end
@@ -127,6 +132,9 @@
 	}
 	\newcommand{\CV}{%
 		Cleasby-Vigfússon%
+	}
+	\newcommand{\Skp}{% Skaldic Poetry of the Scandinavian Middle Ages
+		\emph{Skp}%
 	}
 	
 	%Modern books
@@ -159,6 +167,9 @@
 	\newcommand{\HildMS}{% For referring to the Hildebrandslied manuscript.
 		\emph{ms.}%
 	}
+	\newcommand{\Hickes}{% George Hickes
+		\emph{Hickes}%
+	}
 	
 	% Texts
 	\newcommand{\Hildebrandslied}{% Speeches of Hildbrand
@@ -190,7 +201,28 @@
 	}
 
 % Books
-%	\include{books/01 Spae of the Wallow.tex}
-	\include{books/Speeches of Hildbrand.tex}
 
+% Theology, mythology, independent order
+	\include{books/01 Spae of the Wallow.tex}% — General introduction
+%	\include{books/02 Speeches of Webthrithner.tex}% — Weeden
+%	\include{books/03 Speeches of the High One.tex}% — Weeden
+%	\include{books/04 From the Sons of king Reeding.tex}% — Weeden
+%	\include{books/05 Speeches of Grimner.tex}% — Weeden
+%	\include{books/Leed of Hoarbeard.tex}% — Weeden + Thunder
+%	\include{books/Lay of Hymer.tex}% — Thunder
+%	\include{books/Lay of Thrim.tex}% — Thunder
+%	\include{books/Leed of Hindle.tex}% — Frow
+%	\include{books/Lay of Wayland.tex}% — Heroic/mythological, transition
+%	\include{books/The Thule of Righ.tex}% — Society
+%
+% Heroic poems, order of the Codex Regius
+%	\include{books/First Lay of Hallow Hundingsbane.tex}
+%	\include{books/Second lay of Hallow Hundingsbane.tex}f
+%	\include{books/Lay of Hallow Harwardson.tex}
+%	\include{books/Lay of Attle.tex}
+%	\include{books/Third Lay of Guthrun.tex}
+%	\include{books/Speeches of Sighdrive.tex}
+
+%	\include{books/Speeches of Hildbrand.tex}
+%	\include{books/Fight at Finnsbury.tex}
 \end{document}
