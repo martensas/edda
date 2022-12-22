@@ -11,7 +11,7 @@
 
 % Underline that does not skip descender
 % Should be called \nsunderline
- 
+
 % Packages
 \usepackage{xparse}
 \usepackage{geometry} %For margins.
@@ -50,22 +50,19 @@
 	}
 
 	\NewDocumentCommand{\bva}{o}{% Begin verse a
-		\stepcounter{versea}%
 		\begin{large}\begin{stanza}% Begin stanza
-		% Add verse number
-		\IfNoValueT{#1}{%
-			\newdimen\width% Create dimension width
-			\setbox0=\hbox{\textbf{\arabic{versea} }}% Create hbox with the verse label
-			\width=\wd0 \advance\width by \dp0% Set width to the width of the box
-			\hspace{-\the\width}% Add a hspace = -(width)
-			\textbf{\arabic{versea} }% Add the verse number
+		\IfNoValueTF{#1}{% Add verse number according to counter
+			\stepcounter{versea}% Step verse counter
+			\flagstanza{\textbf{\arabic{versea}}}
+		}{% Add verse number specified as optional argument
+			\flagstanza{\textbf{#1}}
 		}
 	}
 	\NewDocumentCommand{\eva}{o}{% End verse a
 		\& \end{stanza}\end{large}\endnumbering% End reledmac numbering and stanza
 		\vspace{1.5mm}% Vertical space
 	}
-	
+
 	\NewDocumentCommand{\bvb}{o}{% Begin verse b
 		\stepcounter{verseb}%
 		\IfNoValueT{#1}{%
@@ -75,24 +72,24 @@
 	\NewDocumentCommand{\evb}{o}{% End verse b
 		% Nothing (for now)
 	}
-	
+
 	\NewDocumentCommand{\evg}{o}{% End verse group
 		\end{ledgroup}%
 		\vspace{1cm}%
 	}
-	
+
 % Note formatting
 	% Side note margin
 	\setlength{\ledlsnotesep}{2 \ledlsnotesep}
-	
-	% Make foot notes paragraphs
+
+	% Make A foot notes paragraphs
 	\Xarrangement[A]{paragraph}
-	
+
 % Poem formatting
 	% First line number at 3
 	\firstlinenum{2}
 	\linenumincrement{2}
-	
+
 	% Stanza indentation (required for \astanza to work)
 	\setstanzaindents{5, 2, 2}
 	\setcounter{stanzaindentsrepetition}{2}
@@ -109,10 +106,14 @@
 	\NewDocumentCommand{\alst}{m}{%
 		\underline{#1}%
 	}
-	
+
 	% Mark kennings.
-	\NewDocumentCommand{\ken}{m}{%
-		\textsc{[{#1}]}%
+	\NewDocumentCommand{\ken}{m o}{%
+		\IfNoValueTF{#2}{% Not proper noun
+			\textsc{ [{#1}]}% [STONE]
+		}{% Proper noun
+			{ [= {#1}]}% [= Wooden]
+		}%
 	}
 
 % Index link command
@@ -137,15 +138,18 @@
 	\newcommand{\Skp}{% Skaldic Poetry of the Scandinavian Middle Ages
 		\emph{Skp}%
 	}
-	
+
 	%Modern books
 	\newcommand{\FaulkesEdda}{%
 		\emph{SnE} 2005%
 	}
-	
+
 	% Manuscripts
 	\newcommand{\Regius}{% Codex Regius (of the poetic edda)
 		\emph{R}%
+	}
+	\newcommand{\AM}{% AM 748 I a 4to
+		\emph{A}%
 	}
 	\newcommand{\Hauksbok}{% Hauksbok
 		\emph{H}%
@@ -171,7 +175,7 @@
 	\newcommand{\Hickes}{% George Hickes
 		\emph{Hickes}%
 	}
-	
+
 	% Texts
 	\newcommand{\Hildebrandslied}{% Speeches of Hildbrand
 		\emph{Hild}%
@@ -197,33 +201,35 @@
 	\newcommand{\Vafthrudnismal}{% Speeches of Webthrithner
 		\emph{Web}%
 	}
-	\newcommand{\FraLoka}{% From Locke
+	\newcommand{\FraLoka}{% From Lock
 		\emph{FrL}%
 	}
 
 % Books
 
 % Theology, mythology, independent order
-	\include{books/01 Spae of the Wallow.tex}% — General introduction
-%	\include{books/02 Speeches of Webthrithner.tex}% — Weeden
-%	\include{books/03 Speeches of the High One.tex}% — Weeden
-%	\include{books/04 From the Sons of king Reeding.tex}% — Weeden
-%	\include{books/05 Speeches of Grimner.tex}% — Weeden
-%	\include{books/Leed of Hoarbeard.tex}% — Weeden + Thunder
-%	\include{books/Lay of Hymer.tex}% — Thunder
+	\include{books/01 Spae of the Wallow.tex}% — Weden
+%	\include{books/02 Speeches of Webthrithner.tex}% — Weden
+%	\include{books/03 Speeches of the High One.tex}% — Weden
+%	\include{books/04 From the Sons of king Reeding.tex}% — Weden
+%	\include{books/05 Speeches of Grimner.tex}% — Weden
+%	\include{books/The Thule of Righ.tex}% — Weden
+%	\include{books/Leed of Hoarbeard.tex}% — Weden, Thunder
+%	\include{books/Lay of Hymer.tex}% — Thunder, Tue
 %	\include{books/Lay of Thrim.tex}% — Thunder
 %	\include{books/Leed of Hindle.tex}% — Frow
-%	\include{books/Lay of Wayland.tex}% — Heroic/mythological, transition
-%	\include{books/The Thule of Righ.tex}% — Society
-%
-% Heroic poems, order of the Codex Regius
+
+% Heroic poems, in order of the Codex Regius
+% \include{books/Lay of Wayland.tex}% — Heroic/mythological, transition
 %	\include{books/First Lay of Hallow Hundingsbane.tex}
-%	\include{books/Second lay of Hallow Hundingsbane.tex}f
+%	\include{books/Second lay of Hallow Hundingsbane.tex}
 %	\include{books/Lay of Hallow Harwardson.tex}
 %	\include{books/Lay of Attle.tex}
 %	\include{books/Third Lay of Guthrun.tex}
 %	\include{books/Speeches of Sighdrive.tex}
 
+% Additional heroic poems
 %	\include{books/Speeches of Hildbrand.tex}
 %	\include{books/Fight at Finnsbury.tex}
+%	\include{books/Beewolf.tex} — Probably not happening.
 \end{document}
