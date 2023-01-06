@@ -20,6 +20,13 @@
 % Formatting
 \usepackage{reledmac}
 
+% Headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead[OR,EL]{\thepage}
+\fancyhead[EC]{The Great Edda}
+\fancyhead[OC]{\booktitle}
+
 % Define verse counters
 \newcounter{versea}
 \newcounter{verseb}
@@ -38,7 +45,9 @@
 		}%
 	}
 
-	\newcommand{\bookStart}{% Command at the start of book
+	\NewDocumentCommand{\bookStart}{m}{% Command at the start of book
+	  \book{#1}
+		\def\booktitle{#1}
 		\setcounter{chapter}{0} % Set chapter count to zero.
 		\chapterStart{}%
 	}
@@ -110,9 +119,9 @@
 	% Mark kennings.
 	\NewDocumentCommand{\ken}{m o}{%
 		\IfNoValueTF{#2}{% Not proper noun
-			\textsc{ [{#1}]}% [STONE]
+			\textsc{[{#1}]}% [STONE]
 		}{% Proper noun
-			{ [= {#1}]}% [= Wooden]
+			{[= {#1}]}% [= Wooden]
 		}%
 	}
 
@@ -207,15 +216,18 @@
 
 % Books
 
+% Introduction, bibliography and abbreviations
+% \include{intro.tex}
+
 % Theology, mythology, independent order
-	\include{books/01 Spae of the Wallow.tex}% — Weden
+%	\include{books/01 Spae of the Wallow.tex}% — Weden
 %	\include{books/02 Speeches of Webthrithner.tex}% — Weden
 %	\include{books/03 Speeches of the High One.tex}% — Weden
 %	\include{books/04 From the Sons of king Reeding.tex}% — Weden
 %	\include{books/05 Speeches of Grimner.tex}% — Weden
 %	\include{books/The Thule of Righ.tex}% — Weden
 %	\include{books/Leed of Hoarbeard.tex}% — Weden, Thunder
-%	\include{books/Lay of Hymer.tex}% — Thunder, Tue
+	\include{books/Lay of Hymer.tex}% — Thunder, Tue
 %	\include{books/Lay of Thrim.tex}% — Thunder
 %	\include{books/Leed of Hindle.tex}% — Frow
 
@@ -232,4 +244,6 @@
 %	\include{books/Speeches of Hildbrand.tex}
 %	\include{books/Fight at Finnsbury.tex}
 %	\include{books/Beewolf.tex} — Probably not happening.
+
+%	\include{books/blootbook.tex} — Ritual.
 \end{document}
