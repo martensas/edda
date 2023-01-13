@@ -2,7 +2,7 @@
 
 Creative commons poetic edda translation.
 
-## Install
+## Download
 
 Want to get the latest version as a pdf? Just download the source code (ie the root folder "edda"), then compile main.tex in XeLaTeX or LuaLaTeX with your favourite TeX editor. Uncomment the books you want in your .pdf by removing the hashtag before it. (Not all of them exist yet or will work, and if you notice any problems, report them!)
 
