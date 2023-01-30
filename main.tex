@@ -122,7 +122,7 @@
 		\IfNoValueTF{#2}{% Not proper noun
 			\textsc{[{#1}]}% [STONE]
 		}{% Proper noun
-			{[= {#1}]}% [= Wooden]
+			{[= {#1}]}% [= Thunder]
 		}%
 	}
 
@@ -130,8 +130,8 @@
 %	{#1}\textsuperscript{†}%	Dagger at the end
 %	\nsunderline{#1}%	Underline
 
-	\NewDocumentCommand{\inx}{m}{%
-		{#1}%\textsuperscript{†}%
+	\NewDocumentCommand{\inx}{m o}{%
+		{#1}\textsuperscript{#2}%
 	}
 
 % Sigla
@@ -180,24 +180,21 @@
 		\emph{U}%
 	}
 	\newcommand{\HildMS}{% For referring to the Hildebrandslied manuscript.
-		\emph{ms.}%
+		\emph{Hild ms.}%
 	}
 	\newcommand{\Hickes}{% George Hickes
 		\emph{Hickes}%
 	}
 
 	% Texts
-	\newcommand{\Hildebrandslied}{% Speeches of Hildbrand
-		\emph{Hild}%
-	}
 	\newcommand{\Beowulf}{% Beewolf
 		\emph{Bee}%
 	}
-	\newcommand{\Ynglingatal}{% Tally of the Inglings
-		\emph{Ing}%
+	\newcommand{\Fostrbroedhra}{% Saw of the Foster-brothers
+		\emph{FbrS}%
 	}
-	\newcommand{\Hervarar}{% Saw of Harware
-		\emph{HarS}%
+	\newcommand{\FraLoka}{% From Lock
+		\emph{FrL}%
 	}
 	\newcommand{\Gylfaginning}{% For referring to Gylfaginning as a text
 		\emph{Yilf}% F
@@ -205,14 +202,26 @@
 	\newcommand{\Haleygjatal}{% Tally of the Hallowlendings
 		\emph{Hal}%
 	}
+	\newcommand{\Hervarar}{% Saw of Harware
+		\emph{HarS}%
+	}
+	\newcommand{\Hildebrandslied}{% Speeches of Hildbrand
+		\emph{Hild}%
+	}
 	\newcommand{\Rigsthula}{% Thule of Righ
 		\emph{Righ}%
+	}
+	\newcommand{\Skaldskaparmal}{ % The Matter of Scoldship
+		\emph{Scold}%
 	}
 	\newcommand{\Vafthrudnismal}{% Speeches of Webthrithner
 		\emph{Web}%
 	}
-	\newcommand{\FraLoka}{% From Lock
-		\emph{FrL}%
+	\newcommand{\Volsungasaga}{% Saw of the Walsings
+		\emph{WalsS}%
+	}
+	\newcommand{\Ynglingatal}{% Tally of the Inglings
+		\emph{Ing}%
 	}
 
 % Books
@@ -223,12 +232,12 @@
 % Theology, mythology, independent order
 	\include{books/01 Spae of the Wallow.tex}% — Weden
 %	\include{books/02 Speeches of Webthrithner.tex}% — Weden
-%	\include{books/03 Speeches of the High One.tex}% — Weden
+	\include{books/03 Speeches of the High One.tex}% — Weden
 %	\include{books/04 From the Sons of king Reeding.tex}% — Weden
 %	\include{books/05 Speeches of Grimner.tex}% — Weden
 %	\include{books/The Thule of Righ.tex}% — Weden
 %	\include{books/Leed of Hoarbeard.tex}% — Weden, Thunder
-	\include{books/Lay of Hymer.tex}% — Thunder, Tue
+%	\include{books/Lay of Hymer.tex}% — Thunder, Tue
 %	\include{books/Lay of Thrim.tex}% — Thunder
 %	\include{books/Leed of Hindle.tex}% — Frow
 
