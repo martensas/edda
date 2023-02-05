@@ -46,9 +46,16 @@
 		}%
 	}
 
-	\NewDocumentCommand{\bookStart}{m}{% Command at the start of book
-	  \book{#1}
-		\def\booktitle{#1}
+	\NewDocumentCommand{\bookStart}{m o}{% Command at the start of book
+		% arg 1 (mandatory): English title
+		% arg 2 (optional):  Original title
+	  \IfValueTF{#2}{%
+	  	\book{#1. \emph{(#2)}}
+			\def\booktitle{#1. \emph{(#2)}}
+		}{%
+			\book{#1.}
+			\def\booktitle{#1.}
+		}%
 		\setcounter{chapter}{0} % Set chapter count to zero.
 		\chapterStart{}%
 	}
