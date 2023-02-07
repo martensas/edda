@@ -50,11 +50,11 @@
 		% arg 1 (mandatory): English title
 		% arg 2 (optional):  Original title
 	  \IfValueTF{#2}{%
-	  	\book{#1. \emph{(#2)}}
-			\def\booktitle{#1. \emph{(#2)}}
+	  	\book{#1 \\ \emph{#2}}
+			\def\booktitle{#1 \emph{(#2)}}
 		}{%
-			\book{#1.}
-			\def\booktitle{#1.}
+			\book{#1}
+			\def\booktitle{#1}
 		}%
 		\setcounter{chapter}{0} % Set chapter count to zero.
 		\chapterStart{}%
@@ -71,20 +71,22 @@
 		\IfNoValueTF{#1}{% Add verse number according to counter
 			\stepcounter{versea}% Step verse counter
 			\flagstanza{\textbf{\arabic{versea}}}
-		}{% Add verse number specified as optional argument
+		}{\IfEq{#1}{0}{}{% If optional verse number is NOT 0 we show it.
 			\flagstanza{\textbf{#1}}
-		}
+		}}
 	}
 	\NewDocumentCommand{\eva}{o}{% End verse a
 		\& \end{stanza}\end{large}\endnumbering% End reledmac numbering and stanza
 		\vspace{1.5mm}% Vertical space
 	}
 
-	\NewDocumentCommand{\bvb}{o}{% Begin verse b
-		\stepcounter{verseb}%
-		\IfNoValueT{#1}{%
-			\textbf{\arabic{verseb} }%
-		}%
+	\NewDocumentCommand{\bvb}{o}{% Begin verse b (see above)
+		\IfNoValueTF{#1}{%
+			\stepcounter{verseb}%
+%			\textbf{\arabic{verseb} }%
+		}{\IfEq{#1}{0}{}{%
+%			\textbf{\textbf{#1}}
+		}}
 	}
 	\NewDocumentCommand{\evb}{o}{% End verse b
 		% Nothing (for now)
@@ -163,6 +165,9 @@
 	%Modern books
 	\newcommand{\FaulkesEdda}{%
 		\emph{SnE} 2005%
+	}
+	\newcommand{\GudniEdda}{%
+		Guðni Jónsson 1954%
 	}
 
 	% Manuscripts
