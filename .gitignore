@@ -4,3 +4,5 @@
 *.fdb_latexmk
 *.fls
 main.*
+!main.tex
+!main.pdf
