@@ -15,8 +15,9 @@
 
 % Packages
 \usepackage{xparse}
-\usepackage{geometry} %For margins.
-\usepackage{longtable} %Long tables.
+\usepackage{geometry}% For margins.
+\geometry{letterpaper, bottom=1.1in}% Example
+\usepackage{longtable}% Long tables.
 
 % Formatting
 \usepackage{reledmac}
@@ -24,9 +25,11 @@
 % Headers
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead[OR,EL]{\thepage}
-\fancyhead[EC]{The Poetic Edda}
-\fancyhead[OC]{\booktitle}
+\fancyhead{}% Clear
+\fancyfoot{}% Clear
+\fancyhead[OR,EL]{\thepage}% Page numbering on both odd and even
+\fancyhead[EC]{The Poetic Edda}% Title of project (TODO: probably going to change!)
+\fancyhead[OC]{\booktitle}% Title of current book
 
 % Define verse counters
 \newcounter{versea}
@@ -50,13 +53,14 @@
 		% arg 1 (mandatory): English title
 		% arg 2 (optional):  Original title
 	  \IfValueTF{#2}{%
-	  	\book{#1 \\ \emph{#2}}
-			\def\booktitle{#1 \emph{(#2)}}
+	  	\book*{#1 \emph{(#2)}}%
+			\def\booktitle{#1 \emph{(#2)}}%
 		}{%
-			\book{#1}
-			\def\booktitle{#1}
+			\book*{#1}%
+			\def\booktitle{#1}%
 		}%
-		\setcounter{chapter}{0} % Set chapter count to zero.
+		\addcontentsline{toc}{book}{\booktitle}
+		\setcounter{chapter}{0}% Set chapter count to zero.
 		\chapterStart{}%
 	}
 
@@ -70,13 +74,13 @@
 		\begin{large}\begin{stanza}% Begin stanza
 		\IfNoValueTF{#1}{% Add verse number according to counter
 			\stepcounter{versea}% Step verse counter
-			\flagstanza{\textbf{\arabic{versea}}}
+			\flagstanza{\textbf{\arabic{versea}}}%
 		}{\IfEq{#1}{0}{}{% If optional verse number is NOT 0 we show it.
-			\flagstanza{\textbf{#1}}
-		}}
+			\flagstanza{\textbf{#1}}%
+		}}%
 	}
 	\NewDocumentCommand{\eva}{o}{% End verse a
-		\& \end{stanza}\end{large}\endnumbering% End reledmac numbering and stanza
+		\& \end{stanza}\end{large}% End reledmac stanza
 		\vspace{1.5mm}% Vertical space
 	}
 
@@ -89,11 +93,11 @@
 		}}
 	}
 	\NewDocumentCommand{\evb}{o}{% End verse b
-		% Nothing (for now)
+		% Nothing (for now?)
 	}
 
 	\NewDocumentCommand{\evg}{o}{% End verse group
-		\end{ledgroup}%
+		\endnumbering\end{ledgroup}% End numbering and ledgroup
 		\vspace{1cm}%
 	}
 
@@ -109,9 +113,12 @@
 	\firstlinenum{2}
 	\linenumincrement{2}
 
-	% Stanza indentation (required for \astanza to work)
+	% Stanza indentation (required by reledmac)
 	\setstanzaindents{5, 2, 2}
 	\setcounter{stanzaindentsrepetition}{2}
+
+	% Line numbers directly under verse number (kind of a hack)
+	\setlength{\linenumsep}{-1.62pc}
 
 	% Mark cæsura.
 	\newcommand{\hld}{ · }%\hspace{5mm} }
@@ -135,16 +142,22 @@
 		}%
 	}
 
-% Index link command
-%	{#1}\textsuperscript{†}%	Dagger at the end
-%	\nsunderline{#1}%	Underline
+% Index link command (TODO: Make the link clickable in PDF (how??))
 
 	\NewDocumentCommand{\inx}{m o}{%
-		{#1}\textsuperscript{#2}%
+		\IfNoValueTF{#2}{% TODO: phase this out
+			{#1}\textsuperscript{†}%
+		}{% Proper noun
+			{#1}\textsuperscript{#2}%
+		}%
+	}
+
+	\NewDocumentCommand{\inxitem}{m o}{%
+		\item[#1]%
 	}
 
 % Sigla
-  % Meters
+	% Meters
 	\newcommand{\Fornyrdislag}{% Law of ancient speeches
 		\emph{Law of Ancient Utterings}%
 	}
@@ -206,6 +219,9 @@
 	\newcommand{\Allvismal}{% Speeches of Allwise
 		\emph{Allw}%
 	}
+	\newcommand{\Baldrsdraumar}{% The Dreams of Bolder
+		\emph{Dreams}%
+	}
 	\newcommand{\Beowulf}{% Beewolf
 		\emph{Bee}%
 	}
@@ -224,11 +240,17 @@
 	\newcommand{\Haleygjatal}{% Tally of the Hallowlendings
 		\emph{Hal}%
 	}
+	\newcommand{\Harbardsljod}{% Leed of Hoarbeard
+		\emph{Hoar}%
+	}
 	\newcommand{\Hervarar}{% Saw of Harware
 		\emph{HarS}%
 	}
 	\newcommand{\Hildebrandslied}{% Speeches of Hildbrand
 		\emph{Hild}%
+	}
+	\newcommand{\Hymiskvida}{% Lay of Hymer
+		\emph{Hym}%
 	}
 	\newcommand{\Rigsthula}{% Thule of Righ
 		\emph{Righ}%
@@ -236,14 +258,23 @@
 	\newcommand{\Sigrdrifumal}{% Speeches of Sighdrive
 		\emph{Sigh}%
 	}
-	\newcommand{\Skaldskaparmal}{ % The Matter of Scoldship
+	\newcommand{\Skaldskaparmal}{% The Matter of Scoldship
 		\emph{Scold}%
+	}
+	\newcommand{\Skirnismal}{% Speeches of Shirner
+		\emph{Shirn}%
 	}
 	\newcommand{\Vafthrudnismal}{% Speeches of Webthrithner
 		\emph{Web}%
 	}
 	\newcommand{\Volsungasaga}{% Saw of the Walsings
 		\emph{WalsS}%
+	}
+	\newcommand{\Volundarkvida}{% Lay of Wayland
+		\emph{Way}%
+	}
+	\newcommand{\Voluspa}{% Spae of the Wallow
+		\emph{Spae}%
 	}
 	\newcommand{\Ynglingatal}{% Tally of the Inglings
 		\emph{Ing}%
@@ -252,31 +283,54 @@
 % Books
 
 % Introduction, bibliography and abbreviations
-% \include{intro.tex}
 
-% Theology, mythology, independent order
-	\include{books/01 Spae of the Wallow.tex}% — Weden
-%	\include{books/02 Speeches of Webthrithner.tex}% — Weden
-	\include{books/03 Speeches of the High One.tex}% — Weden
-%	\include{books/04 From the Sons of king Reeding.tex}% — Weden
-%	\include{books/05 Speeches of Grimner.tex}% — Weden
-%	\include{books/The Thule of Righ.tex}% — Weden
-%	\include{books/Leed of Hoarbeard.tex}% — Weden, Thunder
-%	\include{books/Lay of Hymer.tex}% — Thunder, Tue
-%	\include{books/Lay of Thrim.tex}% — Thunder
-%	\include{books/Leed of Hindle.tex}% — Frow
+	\include{intro.tex}
+
+% Theology, mythology, generally independent order
+	\include{books/Spae of the Wallow.tex}% Weden
+	\include{books/Speeches of Webthrithner.tex}% Weden
+	\include{books/Speeches of the High One.tex}% Weden
+	\include{books/From the Sons of king Reeding.tex}% Weden
+	\include{books/Speeches of Grimner.tex}% Weden
+%	\include{books/The Thule of Righ.tex}% Weden
+	\include{books/Leed of Hoarbeard.tex}% Weden, Thunder
+	\include{books/Lay of Thrim.tex}% Thunder
+	\include{books/Lay of Hymer.tex}% Thunder, Tue
+	\include{books/Leed of Hindle.tex}% Frow
+	\include{books/Book of Spells.tex}% Assorted spells
+	\include{books/Eddic fragments.tex}% Assorted spells
 
 % Heroic poems, in order of the Codex Regius
-% \include{books/Lay of Wayland.tex}% — Heroic/mythological, transition
-%	\include{books/First Lay of Hallow Hundingsbane.tex}
-%	\include{books/Second lay of Hallow Hundingsbane.tex}
+	\include{books/Lay of Wayland.tex}%
+%	\include{books/Speeches of Allwise.tex}%
+	\include{books/First Lay of Hallow Hundingsbane.tex}%
 %	\include{books/Lay of Hallow Harwardson.tex}
-%	\include{books/Lay of Attle.tex}
-%	\include{books/Third Lay of Guthrun.tex}
-%	\include{books/Speeches of Sighdrive.tex}
+	\include{books/Second Lay of Hallow Hundingsbane.tex}%
+%	\include{books/Spae of Griper.tex}
+%	\include{books/Speeches of Reyn.tex}
+%	\include{books/Speeches of Fathomer.tex}
+	\include{books/Speeches of Sighdrive.tex}%
+% Great lacuna
+%	\include{books/Fragmented Lay of Siward.tex}%
+%	\include{books/From the Death of Siward.tex}%
+%	\include{books/First Lay of Guthrun.tex}
+%	\include{books/Short Lay of Siward.tex}
+%	\include{books/Hell-ride of Byrnhild.tex}
+%	\include{books/Slaying of the Niflings.tex}
+%	\include{books/Second Lay of Guthrun.tex}
+	\include{books/Third Lay of Guthrun.tex}%
+%	\include{books/Weeping of Oddrun.tex}%
+	\include{books/Lay of Attle.tex}%
+%	\include{books/Greenlendish Speeches of Attle.tex}%
+%	\include{books/The Instigation of Guthrun.tex}%
+%	\include{books/The Speeches of Hamthew.tex}%
 
 % Additional heroic poems
-%	\include{books/Speeches of Hildbrand.tex}
+	\include{books/Lay of Hildbrand.tex}%
 %	\include{books/Fight at Finnsbury.tex}
 %	\include{books/Beewolf.tex} — Probably not happening.
+
+% Giga-index at the end
+	\include{index.tex}
+
 \end{document}
