@@ -14,12 +14,14 @@
 % Should be called \nsunderline
 
 % Packages
-\usepackage{xparse}
+\usepackage{xparse}% For better document commands
+\usepackage{graphicx}% For rotating characters (used when citing runic inscriptions)
+\usepackage{hyperref}% For index links
 \usepackage{geometry}% For margins.
 \geometry{letterpaper, bottom=1.1in}% Example
 \usepackage{longtable}% Long tables.
 
-% Formatting
+% Critical edition
 \usepackage{reledmac}
 
 % Headers
@@ -121,7 +123,7 @@
 	\setlength{\linenumsep}{-1.62pc}
 
 	% Mark cæsura.
-	\newcommand{\hld}{ · }%\hspace{5mm} }
+	\newcommand{\hld}{ · }%
 
 	% Indent lines (in Ljóðaháttr or Galdralag).
 	\newcommand{\ind}{%
@@ -142,18 +144,17 @@
 		}%
 	}
 
-% Index link command (TODO: Make the link clickable in PDF (how??))
-
-	\NewDocumentCommand{\inx}{m o}{%
+% Index commands
+	\NewDocumentCommand{\inx}{m o O{#1}}{% Index link (display, type, optional alt link)
 		\IfNoValueTF{#2}{% TODO: phase this out
 			{#1}\textsuperscript{†}%
 		}{% Proper noun
-			{#1}\textsuperscript{#2}%
+			\hyperref[#2:#3]{#1\textsuperscript{#2}}%
 		}%
 	}
 
-	\NewDocumentCommand{\inxitem}{m o}{%
-		\item[#1]%
+	\NewDocumentCommand{\inxitem}{m o}{% Index label (word, type)
+		\item[#1]\label{#2:#1}%
 	}
 
 % Sigla
@@ -243,6 +244,9 @@
 	\newcommand{\Harbardsljod}{% Leed of Hoarbeard
 		\emph{Hoar}%
 	}
+	\newcommand{\Havamal}{% Speeches of the High One
+		\emph{High}%
+	}
 	\newcommand{\Hervarar}{% Saw of Harware
 		\emph{HarS}%
 	}
@@ -251,6 +255,9 @@
 	}
 	\newcommand{\Hymiskvida}{% Lay of Hymer
 		\emph{Hym}%
+	}
+	\newcommand{\Hyndluljod}{% Leed of Hindle
+		\emph{Hindle}%
 	}
 	\newcommand{\Rigsthula}{% Thule of Righ
 		\emph{Righ}%
@@ -283,7 +290,6 @@
 % Books
 
 % Introduction, bibliography and abbreviations
-
 	\include{intro.tex}
 
 % Theology, mythology, generally independent order
@@ -292,7 +298,7 @@
 	\include{books/Speeches of the High One.tex}% Weden
 	\include{books/From the Sons of king Reeding.tex}% Weden
 	\include{books/Speeches of Grimner.tex}% Weden
-%	\include{books/The Thule of Righ.tex}% Weden
+	\include{books/Thule of Righ.tex}% Weden
 	\include{books/Leed of Hoarbeard.tex}% Weden, Thunder
 	\include{books/Lay of Thrim.tex}% Thunder
 	\include{books/Lay of Hymer.tex}% Thunder, Tue
@@ -322,8 +328,8 @@
 %	\include{books/Weeping of Oddrun.tex}%
 	\include{books/Lay of Attle.tex}%
 %	\include{books/Greenlendish Speeches of Attle.tex}%
-%	\include{books/The Instigation of Guthrun.tex}%
-%	\include{books/The Speeches of Hamthew.tex}%
+%	\include{books/Instigation of Guthrun.tex}%
+%	\include{books/Speeches of Hamthew.tex}%
 
 % Additional heroic poems
 	\include{books/Lay of Hildbrand.tex}%
