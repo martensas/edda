@@ -1,6 +1,6 @@
 # edda
 
-Creative commons poetic edda translation.
+New poetic edda edition and translation, with a few additional poems and spells collected from other sources, including Old High German and Old English poetry. The original poetry is first edited from the surviving manuscript witnesses, then translated in a word-for-word style, with close attention paid to internal consistency and the specialized meanings of words. All proper nouns and cultural terms are rendered in their Anglish equivalents.
 
 ## Download
 
