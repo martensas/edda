@@ -10,7 +10,7 @@
 	ItalicFont=*-Italic,
 	BoldItalicFont=*-BoldItalic]
 
-% Underline that does not skip descender
+% TODO: Underline that does not skip descender
 % Should be called \nsunderline
 
 % Packages
@@ -226,7 +226,10 @@
 	\newcommand{\Beowulf}{% Beewolf
 		\emph{Bee}%
 	}
-	\newcommand{\Fostrbroedhra}{% Saw of the Foster-brothers
+	\newcommand{\Deor}{% Dear
+		\emph{Dear}%
+	}
+	\newcommand{\FostrbroedhraSaga}{% Saw of the Foster-brothers
 		\emph{FbrS}%
 	}
 	\newcommand{\FraLoka}{% From Lock
@@ -247,7 +250,7 @@
 	\newcommand{\Havamal}{% Speeches of the High One
 		\emph{High}%
 	}
-	\newcommand{\Hervarar}{% Saw of Harware
+	\newcommand{\HervararSaga}{% Saw of Harware
 		\emph{HarS}%
 	}
 	\newcommand{\Hildebrandslied}{% Speeches of Hildbrand
@@ -271,10 +274,13 @@
 	\newcommand{\Skirnismal}{% Speeches of Shirner
 		\emph{Shirn}%
 	}
+	\newcommand{\ThidreksSaga}{% Saw of Thedrich
+		\emph{ThedS}%
+	}
 	\newcommand{\Vafthrudnismal}{% Speeches of Webthrithner
 		\emph{Web}%
 	}
-	\newcommand{\Volsungasaga}{% Saw of the Walsings
+	\newcommand{\VolsungaSaga}{% Saw of the Walsings
 		\emph{WalsS}%
 	}
 	\newcommand{\Volundarkvida}{% Lay of Wayland
@@ -282,6 +288,9 @@
 	}
 	\newcommand{\Voluspa}{% Spae of the Wallow
 		\emph{Spae}%
+	}
+	\newcommand{\Waldere}{% Walder
+		\emph{Walder}%
 	}
 	\newcommand{\Ynglingatal}{% Tally of the Inglings
 		\emph{Ing}%
@@ -311,7 +320,7 @@
 	\include{books/Lay of Wayland.tex}%
 %	\include{books/Speeches of Allwise.tex}%
 	\include{books/First Lay of Hallow Hundingsbane.tex}%
-%	\include{books/Lay of Hallow Harwardson.tex}
+	\include{books/Lay of Hallow Harwardson.tex}
 	\include{books/Second Lay of Hallow Hundingsbane.tex}%
 %	\include{books/Spae of Griper.tex}
 %	\include{books/Speeches of Reyn.tex}
