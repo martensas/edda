@@ -136,11 +136,20 @@
 	}
 
 	% Mark kennings.
-	\NewDocumentCommand{\ken}{m o}{%
-		\IfNoValueTF{#2}{% Not proper noun
-			\textsc{[{#1}]}% [STONE]
-		}{% Proper noun
-			{[= {#1}]}% [= Thunder]
+	\NewDocumentCommand{\ken}{sm}{%
+		% No small caps; text inside the brackets.
+			\IfBooleanTF{#1}{% No small caps
+				{[{#2}]}% EXAMPLE: [= Wooden]
+			}{%
+				\textsc{[{#2}]}% EXAMPLE: [ETTIN]
+			}%
+		}%
+	}
+
+	% Mark names with angular brackets.
+	\NewDocumentCommand{\name}{m}{%
+		% Text inside the brackets.
+			\textsc{<{#1}>}% EXAMPLE: <ettin>
 		}%
 	}
 
@@ -162,26 +171,29 @@
 	\newcommand{\Fornyrdislag}{% Law of ancient speeches
 		\emph{Law of Ancient Utterings}%
 	}
-	% Authors
-	\newcommand{\Finnur}{%
-		Finnur%
-	}
-	\newcommand{\Snorri}{%
+
+	\newcommand{\Snorri}{% Should probably not be used
 		Snorri%
-	}
-	\newcommand{\CV}{%
-		Cleasby-Vigfússon%
-	}
-	\newcommand{\Skp}{% Skaldic Poetry of the Scandinavian Middle Ages
-		\emph{Skp}%
 	}
 
 	%Modern books
-	\newcommand{\FaulkesEdda}{%
-		\emph{SnE} 2005%
+	\newcommand{\CV}{% Cleasby-Vigfússon dictionary of Old Norse
+		Cleasby-Vigfússon%
 	}
-	\newcommand{\GudniEdda}{%
-		Guðni Jónsson 1954%
+	\newcommand{\FaulkesEdda}{% Faulkes translation of the Prose Edda
+		\emph{SnE} (2005)%
+	}
+	\newcommand{\Finnur}{% Finnur Jónsson’s edition of the Poetic Edda
+		Finnur (1932)%
+	}
+	\newcommand{\GudniEdda}{% Guðni Jónsson’s edition of the Poetic Edda
+		Guðni Jónsson (1954)%
+	}
+	\newcommand{\LaFarge}{% Glossary to the Poetic Edda
+		La Farge and Tucker%
+	}
+	\newcommand{\Skp}{% Skaldic Poetry of the Scandinavian Middle Ages
+		\emph{Skp}%
 	}
 
 	% Manuscripts
@@ -220,7 +232,7 @@
 	\newcommand{\Allvismal}{% Speeches of Allwise
 		\emph{Allw}%
 	}
-	\newcommand{\Baldrsdraumar}{% The Dreams of Bolder
+	\newcommand{\Baldrsdraumar}{% The Dreams of Balder
 		\emph{Dreams}%
 	}
 	\newcommand{\Beowulf}{% Beewolf
@@ -311,10 +323,10 @@
 	\include{books/Leed of Hoarbeard.tex}% Weden, Thunder
 	\include{books/Lay of Thrim.tex}% Thunder
 	\include{books/Lay of Hymer.tex}% Thunder, Tue
-%	\include{books/Dreams of Bolder}%
+%	\include{books/Dreams of Balder}% Balder, Weden
 	\include{books/Leed of Hindle.tex}% Frow
 	\include{books/Book of Spells.tex}% Assorted spells
-	\include{books/Eddic fragments.tex}% Assorted spells
+	\include{books/Eddic fragments.tex}% Eddic fragments
 
 % Heroic poems, in order of the Codex Regius
 	\include{books/Lay of Wayland.tex}%
@@ -324,7 +336,7 @@
 	\include{books/Second Lay of Hallow Hundingsbane.tex}%
 %	\include{books/Spae of Griper.tex}
 %	\include{books/Speeches of Reyn.tex}
-%	\include{books/Speeches of Fathomer.tex}
+	\include{books/Speeches of Fathomer.tex}
 	\include{books/Speeches of Sighdrive.tex}%
 % Great lacuna
 %	\include{books/Fragmented Lay of Siward.tex}%
