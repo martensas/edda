@@ -138,20 +138,18 @@
 	% Mark kennings.
 	\NewDocumentCommand{\ken}{sm}{%
 		% No small caps; text inside the brackets.
-			\IfBooleanTF{#1}{% No small caps
-				{[{#2}]}% EXAMPLE: [= Wooden]
-			}{%
-				\textsc{[{#2}]}% EXAMPLE: [ETTIN]
-			}%
+		\IfBooleanTF{#1}{% No small caps
+			{[{#2}]}% EXAMPLE: [= Wooden]
+		}{%
+			\textsc{[{#2}]}% EXAMPLE: [ETTIN]
 		}%
-	}
+	}%
 
 	% Mark names with angular brackets.
 	\NewDocumentCommand{\name}{m}{%
-		% Text inside the brackets.
-			\textsc{<{#1}>}% EXAMPLE: <ettin>
-		}%
-	}
+	% Text inside the brackets.
+		\textsc{<{#1}>}% EXAMPLE: <ettin>
+	}%
 
 % Index commands
 	\NewDocumentCommand{\inx}{m o O{#1}}{% Index link (display, type, optional alt link)
