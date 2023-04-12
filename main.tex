@@ -18,7 +18,7 @@
 \usepackage{graphicx}% For rotating characters (used when citing runic inscriptions)
 \usepackage{hyperref}% For index links
 \usepackage{geometry}% For margins.
-\geometry{letterpaper, bottom=1.1in}% Example
+\geometry{b5paper}% Book size
 \usepackage{longtable}% Long tables.
 
 % Critical edition
@@ -30,7 +30,7 @@
 \fancyhead{}% Clear
 \fancyfoot{}% Clear
 \fancyhead[OR,EL]{\thepage}% Page numbering on both odd and even
-\fancyhead[EC]{The Poetic Edda}% Title of project (TODO: probably going to change!)
+\fancyhead[EC]{The Anglish Edda}% Title of project (TODO: probably going to change!)
 \fancyhead[OC]{\booktitle}% Title of current book
 
 % Define verse counters
@@ -70,6 +70,7 @@
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
 		\begin{ledgroup}%
 		\beginnumbering%
+		\setcounter{footnoteB}{0}%
 	}
 
 	\NewDocumentCommand{\bva}{o}{% Begin verse a
@@ -104,11 +105,14 @@
 	}
 
 % Note formatting
-	% Side note margin
+	% Sidenote margin
 	\setlength{\ledlsnotesep}{2 \ledlsnotesep}
 
-	% Make A foot notes paragraphs
+	% Make A footnotes paragraphs
 	\Xarrangement[A]{paragraph}
+
+	% Make B footnotes roman
+	\renewcommand*{\thefootnoteB}{\alph{footnoteB}}
 
 % Poem formatting
 	% First line number at 3
@@ -148,7 +152,7 @@
 	% Mark names with angular brackets.
 	\NewDocumentCommand{\name}{m}{%
 	% Text inside the brackets.
-		\textsc{<{#1}>}% EXAMPLE: <ettin>
+		<{#1}>% EXAMPLE: <ettin>
 	}%
 
 % Index commands
@@ -156,12 +160,13 @@
 		\IfNoValueTF{#2}{% TODO: phase this out
 			{#1}\textsuperscript{†}%
 		}{% Proper noun
-			\hyperref[#2:#3]{#1\textsuperscript{#2}}%
+			\hyperref[#2:#1]{{#3}\textsuperscript{#2}}%
 		}%
 	}
 
 	\NewDocumentCommand{\inxitem}{m o}{% Index label (word, type)
-		\item[#1]\label{#2:#1}%
+		\item[\textbf{#1}]%
+		\phantomsection\label{#2:#1}%
 	}
 
 % Sigla
@@ -174,21 +179,36 @@
 		Snorri%
 	}
 
-	%Modern books
+	%Modern books and editions
 	\newcommand{\CV}{% Cleasby-Vigfússon dictionary of Old Norse
-		Cleasby-Vigfússon%
+		\emph{C-V}%
 	}
 	\newcommand{\FaulkesEdda}{% Faulkes translation of the Prose Edda
 		\emph{SnE} (2005)%
 	}
-	\newcommand{\Finnur}{% Finnur Jónsson’s edition of the Poetic Edda
-		Finnur (1932)%
+	\newcommand{\FinnurEdda}{% Finnur Jónsson’s edition of the Poetic Edda
+		Finnur Jónsson (1932)%
+	}
+	\newcommand{\FGTHaugen}{% First Grammatical Treatise (Einar Haugen 1950)
+		\emph{1GT} (1950)%
 	}
 	\newcommand{\GudniEdda}{% Guðni Jónsson’s edition of the Poetic Edda
 		Guðni Jónsson (1954)%
 	}
 	\newcommand{\LaFarge}{% Glossary to the Poetic Edda
-		La Farge and Tucker%
+		La Farge and Tucker (1992)%
+	}
+	\newcommand{\Larrington}{% Carolyne Larrington translation of the Poetic Edda
+		\emph{Larrington} (2005)%
+	}
+	\newcommand{\LMNL}{% Lexicon of Medieval Nordic Law
+		\emph{LMNL} (2020)%
+	}
+	\newcommand{\ONP}{% Dictionary of Old Norse Prose
+		\emph{ONP}%
+	}
+	\newcommand{\PettitEdda}{% Edward Pettit Edda
+		\emph{Pettit} (2023)%
 	}
 	\newcommand{\Skp}{% Skaldic Poetry of the Scandinavian Middle Ages
 		\emph{Skp}%
@@ -226,7 +246,8 @@
 		\emph{Hickes}%
 	}
 
-	% Texts
+	% Old texts
+	% The command codes must be as close to the original language titles as possible.
 	\newcommand{\Allvismal}{% Speeches of Allwise
 		\emph{Allw}%
 	}
@@ -238,6 +259,12 @@
 	}
 	\newcommand{\Deor}{% Dear
 		\emph{Dear}%
+	}
+	\newcommand{\Gulatingslog}{% Law of the Gole-thing
+		\emph{GolL}%
+	}
+	\newcommand{\FGT}{% First Grammatical Treatise
+		\emph{1GT}%
 	}
 	\newcommand{\FostrbroedhraSaga}{% Saw of the Foster-brothers
 		\emph{FbrS}%
@@ -302,18 +329,24 @@
 	\newcommand{\Waldere}{% Walder
 		\emph{Walder}%
 	}
+	\newcommand{\YnglingaSaga}{% Saw of the Inglings
+		\emph{IngS}%
+	}
 	\newcommand{\Ynglingatal}{% Tally of the Inglings
-		\emph{Ing}%
+		\emph{IngT}%
 	}
 
 % Books
 
 % Introduction, bibliography and abbreviations
+	\frontmatter
 	\include{intro.tex}
 
 % Theology, mythology, generally independent order
+	\mainmatter
 	\include{books/Spae of the Wallow.tex}% Weden
 	\include{books/Speeches of Webthrithner.tex}% Weden
+%	\include{books/Speeches of Allwise.tex}% Wisdom poem
 	\include{books/Speeches of the High One.tex}% Weden
 	\include{books/From the Sons of king Reeding.tex}% Weden
 	\include{books/Speeches of Grimner.tex}% Weden
@@ -326,24 +359,25 @@
 	\include{books/Book of Spells.tex}% Assorted spells
 	\include{books/Eddic fragments.tex}% Eddic fragments
 
-% Heroic poems, in order of the Codex Regius
+% Heroic poems, in order of the Codex Regius'
 	\include{books/Lay of Wayland.tex}%
-%	\include{books/Speeches of Allwise.tex}%
 	\include{books/First Lay of Hallow Hundingsbane.tex}%
 	\include{books/Lay of Hallow Harwardson.tex}
 	\include{books/Second Lay of Hallow Hundingsbane.tex}%
-%	\include{books/Spae of Griper.tex}
-%	\include{books/Speeches of Reyn.tex}
-	\include{books/Speeches of Fathomer.tex}
+%	\include{books/Spae of Griper.tex}%
+%	\include{books/Speeches of Reyn.tex}%
+	\include{books/Speeches of Fathomer.tex}%
 	\include{books/Speeches of Sighdrive.tex}%
-% Great lacuna
+
+% TODO: Summarize contents of Great lacuna through selecetions from relevant Saws
+
 %	\include{books/Fragmented Lay of Siward.tex}%
 %	\include{books/From the Death of Siward.tex}%
-%	\include{books/First Lay of Guthrun.tex}
-%	\include{books/Short Lay of Siward.tex}
-%	\include{books/Hell-ride of Byrnhild.tex}
-%	\include{books/Slaying of the Niflings.tex}
-%	\include{books/Second Lay of Guthrun.tex}
+%	\include{books/First Lay of Guthrun.tex}%
+%	\include{books/Short Lay of Siward.tex}%
+%	\include{books/Hell-ride of Byrnhild.tex}%
+%	\include{books/Slaying of the Niflings.tex}%
+%	\include{books/Second Lay of Guthrun.tex}%
 	\include{books/Third Lay of Guthrun.tex}%
 %	\include{books/Weeping of Oddrun.tex}%
 	\include{books/Lay of Attle.tex}%
@@ -354,9 +388,9 @@
 % Additional heroic poems
 	\include{books/Lay of Hildbrand.tex}%
 %	\include{books/Fight at Finnsbury.tex}
-%	\include{books/Beewolf.tex} — Probably not happening.
+%	\include{books/Beewolf.tex}% Probably not happening.
 
 % Giga-index at the end
-	\include{index.tex}
+	\include{index.tex}%
 
 \end{document}
