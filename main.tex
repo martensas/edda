@@ -2,7 +2,9 @@
 
 \documentclass[]{memoir}
 
-% Font
+% Font and typesetting
+\usepackage[final]{microtype}
+
 \usepackage{fontspec}
 \setmainfont{Junicode}[
 	Extension=.ttf,
@@ -10,7 +12,7 @@
 	ItalicFont=*-Italic,
 	BoldItalicFont=*-BoldItalic]
 
-% TODO: Underline that does not skip descender
+% TODO: Underline that does not skip descender?
 % Should be called \nsunderline
 
 % Packages
@@ -156,16 +158,16 @@
 	}%
 
 % Index commands
-	\NewDocumentCommand{\inx}{m o O{#1}}{% Index link (display, type, optional alt link)
+	\NewDocumentCommand{\inx}{m o O{#1}}{% Index link (link, type, optional alt display)
 		\IfNoValueTF{#2}{% TODO: phase this out
-			{#1}\textsuperscript{†}%
+			{#3}\textsuperscript{†}%
 		}{% Proper noun
 			\hyperref[#2:#1]{{#3}\textsuperscript{#2}}%
 		}%
 	}
 
-	\NewDocumentCommand{\inxitem}{m o}{% Index label (word, type)
-		\item[\textbf{#1}]%
+	\NewDocumentCommand{\inxitem}{m o O{#1}}{% Index label (word, type, alt display)
+		\item[\textbf{#3}]%
 		\phantomsection\label{#2:#1}%
 	}
 
@@ -369,7 +371,7 @@
 	\include{books/Speeches of Fathomer.tex}%
 	\include{books/Speeches of Sighdrive.tex}%
 
-% TODO: Summarize contents of Great lacuna through selecetions from relevant Saws
+% TODO: Summarize contents of "Great Lacuna" with excerpts from relevant Saws
 
 %	\include{books/Fragmented Lay of Siward.tex}%
 %	\include{books/From the Death of Siward.tex}%
