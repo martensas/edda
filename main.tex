@@ -2,6 +2,10 @@
 
 \documentclass[]{memoir}
 
+% Bibliography
+\usepackage[style=apa]{biblatex}
+\addbibresource{bibliography.bib}
+
 % Font and typesetting
 \usepackage[final]{microtype}
 
@@ -29,8 +33,8 @@
 % Headers
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhead{}% Clear
-\fancyfoot{}% Clear
+\fancyhead{}% Clear header
+\fancyfoot{}% Clear footer
 \fancyhead[OR,EL]{\thepage}% Page numbering on both odd and even
 \fancyhead[EC]{The Anglish Edda}% Title of project (TODO: probably going to change!)
 \fancyhead[OC]{\booktitle}% Title of current book
@@ -160,7 +164,7 @@
 % Index commands
 	\NewDocumentCommand{\inx}{m o O{#1}}{% Index link (link, type, optional alt display)
 		\IfNoValueTF{#2}{% TODO: phase this out
-			{#3}\textsuperscript{†}%
+			\hyperref[†:#1]{{#3}\textsuperscript{†}}%
 		}{% Proper noun
 			\hyperref[#2:#1]{{#3}\textsuperscript{#2}}%
 		}%
@@ -174,22 +178,18 @@
 % Sigla
 	% Meters
 	\newcommand{\Fornyrdislag}{% Law of ancient speeches
-		\emph{Law of Ancient Utterings}%
+		\emph{Fornwordslaw}%
+	}
+	\newcommand{\Ljodahattr}{% Law of ancient speeches
+		\emph{Leed-meter}%
 	}
 
-	\newcommand{\Snorri}{% Should probably not be used
-		Snorri%
-	}
-
-	%Modern books and editions
+	%Modern books and editions (TODO: move these to bibliography)
 	\newcommand{\CV}{% Cleasby-Vigfússon dictionary of Old Norse
 		\emph{C-V}%
 	}
 	\newcommand{\FaulkesEdda}{% Faulkes translation of the Prose Edda
 		\emph{SnE} (2005)%
-	}
-	\newcommand{\FinnurEdda}{% Finnur Jónsson’s edition of the Poetic Edda
-		Finnur Jónsson (1932)%
 	}
 	\newcommand{\FGTHaugen}{% First Grammatical Treatise (Einar Haugen 1950)
 		\emph{1GT} (1950)%
@@ -254,13 +254,13 @@
 	% Old texts
 	% The command codes must be as close to the original language titles as possible.
 	\newcommand{\Allvismal}{% Speeches of Allwise
-		\emph{Allw}%
+		\emph{Allwise}%
 	}
 	\newcommand{\Baldrsdraumar}{% The Dreams of Balder
 		\emph{Dreams}%
 	}
 	\newcommand{\Beowulf}{% Beewolf
-		\emph{Bee}%
+		\emph{Beewolf}%
 	}
 	\newcommand{\Deor}{% Dear
 		\emph{Dear}%
@@ -278,28 +278,31 @@
 		\emph{FrL}%
 	}
 	\newcommand{\Grimnismal}{% Speeches oF Grimner
-		\emph{Grim}%
+		\emph{Grimner}%
 	}
 	\newcommand{\Gylfaginning}{% The Guiling of Yilfer; for referring to Gylfaginning as a text
-		\emph{Yilf}%
+		\emph{Yilfer}%
 	}
 	\newcommand{\Haleygjatal}{% Tally of the Hallowlendings
-		\emph{Hal}%
+		\emph{HalT}%
 	}
 	\newcommand{\Harbardsljod}{% Leed of Hoarbeard
-		\emph{Hoar}%
+		\emph{Hoarbeard}%
 	}
 	\newcommand{\Havamal}{% Speeches of the High One
 		\emph{High}%
+	}
+	\newcommand{\HelgakvidaTwo}{% Second Lay of Hallow Hundingsbane
+		\emph{HHund II}%
 	}
 	\newcommand{\HervararSaga}{% Saw of Harware
 		\emph{HarS}%
 	}
 	\newcommand{\Hildebrandslied}{% Speeches of Hildbrand
-		\emph{Hild}%
+		\emph{Hildbrand}%
 	}
 	\newcommand{\Hymiskvida}{% Lay of Hymer
-		\emph{Hym}%
+		\emph{Hymer}%
 	}
 	\newcommand{\Hyndluljod}{% Leed of Hindle
 		\emph{Hindle}%
@@ -308,25 +311,25 @@
 		\emph{Righ}%
 	}
 	\newcommand{\Sigrdrifumal}{% Speeches of Sighdrive
-		\emph{Sigh}%
+		\emph{Sighdrive}%
 	}
 	\newcommand{\Skaldskaparmal}{% The Matter of Scoldship
 		\emph{Scold}%
 	}
 	\newcommand{\Skirnismal}{% Speeches of Shirner
-		\emph{Shirn}%
+		\emph{Shirner}%
 	}
 	\newcommand{\ThidreksSaga}{% Saw of Thedrich
 		\emph{ThedS}%
 	}
 	\newcommand{\Vafthrudnismal}{% Speeches of Webthrithner
-		\emph{Web}%
+		\emph{Webthrithner}%
 	}
 	\newcommand{\VolsungaSaga}{% Saw of the Walsings
 		\emph{WalsS}%
 	}
 	\newcommand{\Volundarkvida}{% Lay of Wayland
-		\emph{Way}%
+		\emph{Wayland}%
 	}
 	\newcommand{\Voluspa}{% Spae of the Wallow
 		\emph{Spae}%
@@ -344,11 +347,11 @@
 % Books
 
 % Introduction, bibliography and abbreviations
-	\frontmatter
-	\include{intro.tex}
+	\frontmatter%
+	\include{intro.tex}%
 
 % Theology, mythology, generally independent order
-	\mainmatter
+	\mainmatter%
 	\include{books/Spae of the Wallow.tex}% Weden
 	\include{books/Speeches of Webthrithner.tex}% Weden
 	\include{books/Dreams of Balder}% Weden
