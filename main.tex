@@ -165,15 +165,15 @@
 % Index commands
 	\NewDocumentCommand{\inx}{o m O{#2}}{% Index link (type, link, optional alt display)
 		\IfNoValueTF{#1}{% TODO: phase this out
-			\hyperref[†:#2]{{#3}\textsuperscript{†}}%
+			ERRORERRORERROR%
 		}{% Proper noun
-			\hyperref[#1:#2]{{#3}\textsuperscript{#1}}%
+			\hyperref[#1:#2]{#3\textsuperscript{#1}}%
 		}%
 	}
 
-	\NewDocumentCommand{\inxitem}{m o O{#1}}{% Index label (word, type, alt display)
-		\item[\textbf{#3}]%
-		\phantomsection\label{#2:#1}%
+	\NewDocumentCommand{\inxitem}{o m}{% Index label (type, word)
+		\item[\textbf{#2}]%
+		\phantomsection\label{#1:#2}%
 	}
 
 % Sigla
@@ -181,7 +181,7 @@
 	\newcommand{\Fornyrdislag}{% Law of ancient speeches
 		\emph{Fornwordslaw}%
 	}
-	\newcommand{\Ljodahattr}{% Law of ancient speeches
+	\newcommand{\Ljodahattr}{% Leed-meter
 		\emph{Leed-meter}%
 	}
 
