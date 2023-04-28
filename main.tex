@@ -26,6 +26,7 @@
 \usepackage{geometry}% For margins.
 \geometry{b5paper}% Book size
 \usepackage{longtable}% Long tables.
+\usepackage{tipa}% IPA
 
 % Critical edition
 \usepackage{reledmac}
@@ -162,17 +163,17 @@
 	}%
 
 % Index commands
-	\NewDocumentCommand{\inx}{m o O{#1}}{% Index link (link, type, optional alt display)
-		\IfNoValueTF{#2}{% TODO: phase this out
-			\hyperref[†:#1]{{#3}\textsuperscript{†}}%
+	\NewDocumentCommand{\inx}{o m O{#2}}{% Index link (type, link, optional alt display)
+		\IfNoValueTF{#1}{% TODO: phase this out
+			ERRORERRORERROR%
 		}{% Proper noun
-			\hyperref[#2:#1]{{#3}\textsuperscript{#2}}%
+			\hyperref[#1:#2]{#3\textsuperscript{#1}}%
 		}%
 	}
 
-	\NewDocumentCommand{\inxitem}{m o O{#1}}{% Index label (word, type, alt display)
-		\item[\textbf{#3}]%
-		\phantomsection\label{#2:#1}%
+	\NewDocumentCommand{\inxitem}{o m}{% Index label (type, word)
+		\item[\textbf{#2}]%
+		\phantomsection\label{#1:#2}%
 	}
 
 % Sigla
@@ -180,7 +181,7 @@
 	\newcommand{\Fornyrdislag}{% Law of ancient speeches
 		\emph{Fornwordslaw}%
 	}
-	\newcommand{\Ljodahattr}{% Law of ancient speeches
+	\newcommand{\Ljodahattr}{% Leed-meter
 		\emph{Leed-meter}%
 	}
 
@@ -289,6 +290,9 @@
 	\newcommand{\Harbardsljod}{% Leed of Hoarbeard
 		\emph{Hoarbeard}%
 	}
+	\newcommand{\Haustlong}{% Harvest-long
+		\emph{Harvest-long}% TODO: add to bibliography
+	}
 	\newcommand{\Havamal}{% Speeches of the High One
 		\emph{High}%
 	}
@@ -307,6 +311,12 @@
 	\newcommand{\Hyndluljod}{% Leed of Hindle
 		\emph{Hindle}%
 	}
+	\newcommand{\Lokasenna}{% Flyting of Lock
+		\emph{Lock}%
+	}
+	\newcommand{\Oddrunargratr}{% Weeping of Ordrun
+		\emph{Ordrun}%
+	}
 	\newcommand{\Rigsthula}{% Thule of Righ
 		\emph{Righ}%
 	}
@@ -322,6 +332,9 @@
 	\newcommand{\ThidreksSaga}{% Saw of Thedrich
 		\emph{ThedS}%
 	}
+	\newcommand{\Thrymskvida}{% Lay of Thrim
+		\emph{Thrim}%
+	}
 	\newcommand{\Vafthrudnismal}{% Speeches of Webthrithner
 		\emph{Webthrithner}%
 	}
@@ -332,7 +345,7 @@
 		\emph{Wayland}%
 	}
 	\newcommand{\Voluspa}{% Spae of the Wallow
-		\emph{Spae}%
+		\emph{WSpae}%
 	}
 	\newcommand{\Waldere}{% Walder
 		\emph{Walder}%
@@ -352,17 +365,17 @@
 
 % Theology, mythology, generally independent order
 	\mainmatter%
-	\include{books/Spae of the Wallow.tex}% Weden
+	\include{books/Spae of the Wallow.tex}% Weden, all gods
 	\include{books/Speeches of Webthrithner.tex}% Weden
 	\include{books/Dreams of Balder}% Weden
 	\include{books/Speeches of the High One.tex}% Weden
 	\include{books/Speeches of Grimner.tex}% Weden
-	\include{books/Thule of Righ.tex}% Weden
 	\include{books/Leed of Hoarbeard.tex}% Weden, Thunder
-	\include{books/Lay of Hymer.tex}% Thunder, Tue
-	%	\include{books/Gibing of Lock.tex}% Lock
 	\include{books/Lay of Thrim.tex}% Thunder
-	%	\include{books/Speeches of Allwise.tex}% Thunder, Wisdom poem
+	\include{books/Lay of Hymer.tex}% Thunder, Tue
+	\include{books/Flyting of Lock.tex}% Lock, all gods
+%	\include{books/Speeches of Allwise.tex}% Thunder, Wisdom poem
+	\include{books/Thule of Righ.tex}% Righ
 	\include{books/Leed of Hindle.tex}% Frow
 	\include{books/Book of Spells.tex}% Assorted spells
 	\include{books/Eddic fragments.tex}% Eddic fragments
@@ -387,7 +400,7 @@
 %	\include{books/Slaying of the Niflings.tex}%
 %	\include{books/Second Lay of Guthrun.tex}%
 	\include{books/Third Lay of Guthrun.tex}%
-%	\include{books/Weeping of Oddrun.tex}%
+%	\include{books/Weeping of Ordrun.tex}%
 	\include{books/Lay of Attle.tex}%
 %	\include{books/Greenlendish Speeches of Attle.tex}%
 %	\include{books/Instigation of Guthrun.tex}%
