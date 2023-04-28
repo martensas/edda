@@ -8,3 +8,4 @@ output
 main.*
 !main.tex
 !main.pdf
+.DS_Store
