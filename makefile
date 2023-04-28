@@ -1,4 +1,8 @@
 .DEFAULT_GOAL := pdf
 
 pdf:
-	latexmk -xelatex main.tex && node clean
+	latexmk -xelatex main.tex
+	make clean
+
+clean:
+	node clean
