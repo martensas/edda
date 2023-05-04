@@ -100,7 +100,8 @@
 %			\textbf{\arabic{verseb} }%
 		}{\IfEq{#1}{0}{}{%
 %			\textbf{\textbf{#1}}
-		}}
+		}}%
+		\noindent%
 	}
 	\NewDocumentCommand{\evb}{o}{% End verse b
 		% Nothing (for now?)
@@ -295,6 +296,9 @@
 	}
 	\newcommand{\Havamal}{% Speeches of the High One
 		\emph{High}%
+	}
+	\newcommand{\HelgakvidaHjorvardssonar}{% Lay of Hallow Harwardson
+		\emph{HHarw}%
 	}
 	\newcommand{\HelgakvidaTwo}{% Second Lay of Hallow Hundingsbane
 		\emph{HHund II}%
