@@ -5,6 +5,10 @@
 % Bibliography
 \usepackage[style=apa]{biblatex}
 \addbibresource{bibliography.bib}
+\DefineBibliographyStrings{english}{%
+  sequens = {f\adddot},
+  sequentes = {ff\adddot},
+}
 
 % Font and typesetting
 \usepackage[final]{microtype}
@@ -190,29 +194,11 @@
 	\newcommand{\CV}{% Cleasby-Vigfússon dictionary of Old Norse
 		\emph{C-V}%
 	}
-	\newcommand{\FaulkesEdda}{% Faulkes translation of the Prose Edda
-		\emph{SnE} (2005)%
-	}
-	\newcommand{\FGTHaugen}{% First Grammatical Treatise (Einar Haugen 1950)
-		\emph{1GT} (1950)%
-	}
-	\newcommand{\GudniEdda}{% Guðni Jónsson’s edition of the Poetic Edda
-		Guðni Jónsson (1954)%
-	}
-	\newcommand{\LaFarge}{% Glossary to the Poetic Edda
-		La Farge and Tucker (1992)%
-	}
-	\newcommand{\Larrington}{% Carolyne Larrington translation of the Poetic Edda
-		\emph{Larrington} (2005)%
-	}
 	\newcommand{\LMNL}{% Lexicon of Medieval Nordic Law
 		\emph{LMNL} (2020)%
 	}
 	\newcommand{\ONP}{% Dictionary of Old Norse Prose
 		\emph{ONP}%
-	}
-	\newcommand{\PettitEdda}{% Edward Pettit Edda
-		\emph{Pettit} (2023)%
 	}
 	\newcommand{\Skp}{% Skaldic Poetry of the Scandinavian Middle Ages
 		\emph{Skp}%
