@@ -10,6 +10,27 @@
   sequentes = {ff\adddot},
 }
 
+\newbibmacro*{textciteshorttitle}{% Cite short titles. From Stack Exchange: https://tex.stackexchange.com/questions/489928/biblatex-apa-textcite-with-shorttitle
+  \ifbool{cbx:parens}
+    {\bibcloseparen\global\boolfalse{cbx:parens}}
+    {}%
+  \setunit{\compcitedelim}%
+  \printfield[bibhyperref]{shorttitle}%
+  \iffieldundef{postnote}
+    {}
+    {\ifnumequal{\value{citecount}}{\value{citetotal}}
+       {\printunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}}
+       {}}}
+
+\DeclareCiteCommand{\textciteshorttitle}
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{textciteshorttitle}}
+  {}
+  {\usebibmacro{textcite:postnote}%
+   \usebibmacro{cite:post}}
+
 % Font and typesetting
 \usepackage[final]{microtype}
 
@@ -192,10 +213,7 @@
 
 	%Modern books and editions (TODO: move these to bibliography)
 	\newcommand{\CV}{% Cleasby-Vigfússon dictionary of Old Norse
-		\emph{C-V}%
-	}
-	\newcommand{\LMNL}{% Lexicon of Medieval Nordic Law
-		\emph{LMNL} (2020)%
+		\textciteshorttitle{CleasbyVigfusson}%\emph{C-V}%
 	}
 	\newcommand{\ONP}{% Dictionary of Old Norse Prose
 		\emph{ONP}%
@@ -234,9 +252,6 @@
 	}
 	\newcommand{\HildMS}{% For referring to the Hildebrandslied manuscript.
 		\emph{Hild ms.}%
-	}
-	\newcommand{\Hickes}{% George Hickes
-		\emph{Hickes}%
 	}
 
 	% Old texts
@@ -365,6 +380,7 @@
 	\include{books/Lay of Hymer.tex}% Thunder, Tue
 	\include{books/Flyting of Lock.tex}% Lock, all gods
 %	\include{books/Speeches of Allwise.tex}% Thunder, Wisdom poem
+  \include{books/Speeches of Shirner.tex}% Free, Gird
 	\include{books/Thule of Righ.tex}% Righ
 	\include{books/Leed of Hindle.tex}% Frow
 	\include{books/Book of Spells.tex}% Assorted spells
