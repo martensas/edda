@@ -57,17 +57,15 @@
 \usepackage{reledmac}
 
 % Headers
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhead{}% Clear header
-\fancyfoot{}% Clear footer
-\fancyhead[OR,EL]{\thepage}% Page numbering on both odd and even
-\fancyhead[EC]{The Anglish Edda}% Title of project (TODO: probably going to change!)
-\fancyhead[OC]{\booktitle}% Title of current book
+\pagestyle{myheadings}
+\makeoddhead{myheadings}{\thepage}{\booktitle}{}
+\makeevenhead{myheadings}{}{The Anglish Edda}{\thepage}
 
 % Define verse counters
 \newcounter{versea}
 \newcounter{verseb}
+\newcounter{prosea}
+\newcounter{proseb}
 
 \begin{document}
 
@@ -133,6 +131,45 @@
 	}
 
 	\NewDocumentCommand{\evg}{o}{% End verse group
+		\endnumbering\end{ledgroup}% End numbering and ledgroup
+		\vspace{1cm}%
+	}
+
+% Prose format commands
+	\NewDocumentCommand{\bpg}{o}{% Begin verse group
+  	\begin{ledgroup}%
+  	\beginnumbering%
+  	\setcounter{footnoteB}{0}%
+  }
+
+  \NewDocumentCommand{\bpa}{o}{% Begin verse a
+		\begin{large}% Begin stanza
+		\IfNoValueTF{#1}{% Add verse number according to counter
+			\stepcounter{prosea}% Step verse counter
+			\flagstanza{\textbf{P\arabic{prosea}}}%
+		}{\IfEq{#1}{0}{}{% If optional verse number is NOT 0 we show it.
+			\flagstanza{\textbf{P#1}}%
+		}}%
+	}
+	\NewDocumentCommand{\epa}{o}{% End verse a
+		\& \end{large}% End large
+		\vspace{1.5mm}% Vertical space
+	}
+
+	\NewDocumentCommand{\bpb}{o}{% Begin verse b (see above)
+		\IfNoValueTF{#1}{%
+			\stepcounter{proseb}%
+%			\textbf{\arabic{verseb} }%
+		}{\IfEq{#1}{0}{}{%
+%			\textbf{\textbf{#1}}
+		}}%
+		\noindent%
+	}
+	\NewDocumentCommand{\epb}{o}{% End verse b
+		% Nothing (for now?)
+	}
+
+	\NewDocumentCommand{\epg}{o}{% End verse group
 		\endnumbering\end{ledgroup}% End numbering and ledgroup
 		\vspace{1cm}%
 	}
