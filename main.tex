@@ -58,8 +58,8 @@
 
 % Headers
 \pagestyle{myheadings}
-\makeoddhead{myheadings}{\thepage}{\booktitle}{}
-\makeevenhead{myheadings}{}{The Anglish Edda}{\thepage}
+\makeoddhead{myheadings}{\thepage}{book}{}
+\makeevenhead{myheadings}{}{The Ancient Germanic Poetry}{\thepage}
 
 % Define verse counters
 \newcounter{versea}
@@ -70,6 +70,9 @@
 \begin{document}
 
 % Book and chapter commands
+  \setsecnumdepth{none}% Disable numbering of sections
+  \maxsecnumdepth{none}% Disable numbering of sections
+
 	\NewDocumentCommand{\chapterStart}{o O{Chap}}{% Command at the start of chapter
 		\setcounter{versea}{0}%
 		\setcounter{verseb}{0}%
@@ -85,15 +88,15 @@
 		% arg 1 (mandatory): English title
 		% arg 2 (optional):  Original title
 	  \IfValueTF{#2}{%
-	  	\book*{#1 \emph{(#2)}}%
-			\def\booktitle{#1 \emph{(#2)}}%
-		}{%
-			\book*{#1}%
-			\def\booktitle{#1}%
-		}%
-		\addcontentsline{toc}{book}{\booktitle}
-		\setcounter{chapter}{0}% Set chapter count to zero.
-		\chapterStart{}%
+      \book*{#1 \emph{(#2)}}%
+      \def\booktitle{#1 \emph{(#2)}}%
+    }{%
+      \book*{#1}%
+      \def\booktitle{#1}%
+    }%
+    \addcontentsline{toc}{book}{\booktitle}
+    \setcounter{chapter}{0}% Set chapter count to zero.
+    \chapterStart{}%
 	}
 
 % Verse format commands
@@ -240,221 +243,9 @@
 	}
 
 % Sigla
-	% Meters
-	\newcommand{\Fornyrdislag}{% Law of ancient speeches
-		\emph{Fornwordslaw}%
-	}
-	\newcommand{\Ljodahattr}{% Leed-meter
-		\emph{Leed-meter}%
-	}
+  \input{sigla.tex}%
 
-	%Modern books and editions (TODO: move these to bibliography)
-	\newcommand{\CV}{% Cleasby-Vigfússon dictionary of Old Norse
-		\textciteshorttitle{CleasbyVigfusson}%\emph{C-V}%
-	}
-	\newcommand{\ONP}{% Dictionary of Old Norse Prose
-		\emph{ONP}%
-	}
-	\newcommand{\Skp}{% Skaldic Poetry of the Scandinavian Middle Ages
-		\emph{Skp}%
-	}
-
-	% Manuscripts
-	\newcommand{\Regius}{% Codex Regius (of the poetic edda)
-		\textbf{R}%
-	}
-	\newcommand{\AM}{% AM 748 I a 4to
-		\textbf{A}%
-	}
-	\newcommand{\FlatMS}{% Flateyjarbok
-		\textbf{F}%
-	}
-	\newcommand{\Hauksbok}{% Hauksbok
-		\textbf{H}%
-	}
-	\newcommand{\GylfMS}{% For referring to Gylfaginning manuscripts when verses are attested there.
-		\textbf{G}%
-	}
-	\newcommand{\RegiusProse}{% Codex Regius of the Prose Edda
-		\textbf{S}%
-	}
-	\newcommand{\Trajectinus}{% Codex Trajectinus
-		\textbf{T}%
-	}
-	\newcommand{\Wormianus}{% Codex Wormianus
-		\textbf{W}%
-	}
-	\newcommand{\Upsaliensis}{% Codex Upsaliensis
-		\textbf{U}%
-	}
-	\newcommand{\HildMS}{% For referring to the Hildebrandslied manuscript.
-		\emph{Hild ms.}%
-	}
-
-	% Old texts
-	% The command codes must be as close to the original language titles as possible.
-	\newcommand{\Allvismal}{% Speeches of Allwise
-		\emph{Allwise}%
-	}
-	\newcommand{\Baldrsdraumar}{% The Dreams of Balder
-		\emph{Dreams}%
-	}
-	\newcommand{\Beowulf}{% Beewolf
-		\emph{Beewolf}%
-	}
-	\newcommand{\Deor}{% Dear
-		\emph{Dear}%
-	}
-	\newcommand{\Gulatingslog}{% Law of the Gole-thing
-		\emph{GolL}%
-	}
-	\newcommand{\FGT}{% First Grammatical Treatise
-		\emph{1GT}%
-	}
-	\newcommand{\FostrbroedhraSaga}{% Saw of the Foster-brothers
-		\emph{FbrS}%
-	}
-	\newcommand{\FraLoka}{% From Lock
-		\emph{FrL}%
-	}
-	\newcommand{\Grimnismal}{% Speeches oF Grimner
-		\emph{Grimner}%
-	}
-	\newcommand{\Gylfaginning}{% The Guiling of Yilfer; for referring to Gylfaginning as a text
-		\emph{Yilfer}%
-	}
-	\newcommand{\Haleygjatal}{% Tally of the Hallowlendings
-		\emph{HalT}%
-	}
-	\newcommand{\Harbardsljod}{% Leed of Hoarbeard
-		\emph{Hoarbeard}%
-	}
-	\newcommand{\Haustlong}{% Harvest-long
-		\emph{Harvest-long}% TODO: add to bibliography
-	}
-	\newcommand{\Havamal}{% Speeches of the High One
-		\emph{High}%
-	}
-	\newcommand{\HelgakvidaHjorvardssonar}{% Lay of Hallow Harwardson
-		\emph{HHarw}%
-	}
-	\newcommand{\HelgakvidaTwo}{% Second Lay of Hallow Hundingsbane
-		\emph{HHund II}%
-	}
-	\newcommand{\HervararSaga}{% Saw of Harware
-		\emph{HarS}%
-	}
-	\newcommand{\Hildebrandslied}{% Speeches of Hildbrand
-		\emph{Hildbrand}%
-	}
-	\newcommand{\Hymiskvida}{% Lay of Hymer
-		\emph{Hymer}%
-	}
-	\newcommand{\Hyndluljod}{% Leed of Hindle
-		\emph{Hindle}%
-	}
-	\newcommand{\Lokasenna}{% Flyting of Lock
-		\emph{Lock}%
-	}
-	\newcommand{\Oddrunargratr}{% Weeping of Ordrun
-		\emph{Ordrun}%
-	}
-	\newcommand{\Rigsthula}{% Thule of Righ
-		\emph{Righ}%
-	}
-	\newcommand{\Sigrdrifumal}{% Speeches of Sighdrive
-		\emph{Sighdrive}%
-	}
-	\newcommand{\Skaldskaparmal}{% The Matter of Scoldship
-		\emph{Scold}%
-	}
-	\newcommand{\Skirnismal}{% Speeches of Shirner
-		\emph{Shirner}%
-	}
-	\newcommand{\ThidreksSaga}{% Saw of Thedrich
-		\emph{ThedS}%
-	}
-	\newcommand{\Thrymskvida}{% Lay of Thrim
-		\emph{Thrim}%
-	}
-	\newcommand{\Vafthrudnismal}{% Speeches of Webthrithner
-		\emph{Webthrithner}%
-	}
-	\newcommand{\VolsungaSaga}{% Saw of the Walsings
-		\emph{WalsS}%
-	}
-	\newcommand{\Volundarkvida}{% Lay of Wayland
-		\emph{Wayland}%
-	}
-	\newcommand{\Voluspa}{% Spae of the Wallow
-		\emph{WSpae}%
-	}
-	\newcommand{\Waldere}{% Walder
-		\emph{Walder}%
-	}
-	\newcommand{\YnglingaSaga}{% Saw of the Inglings
-		\emph{IngS}%
-	}
-	\newcommand{\Ynglingatal}{% Tally of the Inglings
-		\emph{IngT}%
-	}
-
-% Books
-
-% Introduction, bibliography and abbreviations
-	\frontmatter%
-	\include{intro.tex}%
-
-% Theology, mythology, generally independent order
-	\mainmatter%
-	\include{books/Spae of the Wallow.tex}% Weden, all gods
-	\include{books/Speeches of Webthrithner.tex}% Weden
-	\include{books/Dreams of Balder}% Weden
-	\include{books/Speeches of the High One.tex}% Weden
-	\include{books/Speeches of Grimner.tex}% Weden
-	\include{books/Leed of Hoarbeard.tex}% Weden, Thunder
-	\include{books/Lay of Thrim.tex}% Thunder
-	\include{books/Lay of Hymer.tex}% Thunder, Tue
-	\include{books/Flyting of Lock.tex}% Lock, all gods
-%	\include{books/Speeches of Allwise.tex}% Thunder, Wisdom poem
-  \include{books/Speeches of Shirner.tex}% Free, Gird
-	\include{books/Thule of Righ.tex}% Righ
-	\include{books/Leed of Hindle.tex}% Frow
-	\include{books/Book of Spells.tex}% Assorted spells
-	\include{books/Eddic fragments.tex}% Eddic fragments
-
-% Heroic poems, in order of the Codex Regius'
-	\include{books/Lay of Wayland.tex}%
-	\include{books/First Lay of Hallow Hundingsbane.tex}%
-	\include{books/Lay of Hallow Harwardson.tex}
-	\include{books/Second Lay of Hallow Hundingsbane.tex}%
-%	\include{books/Spae of Griper.tex}%
-%	\include{books/Speeches of Reyn.tex}%
-	\include{books/Speeches of Fathomer.tex}%
-	\include{books/Speeches of Sighdrive.tex}%
-
-% TODO: Summarize contents of "Great Lacuna" with excerpts from relevant Saws
-
-%	\include{books/Fragmented Lay of Siward.tex}%
-%	\include{books/From the Death of Siward.tex}%
-%	\include{books/First Lay of Guthrun.tex}%
-%	\include{books/Short Lay of Siward.tex}%
-%	\include{books/Hell-ride of Byrnhild.tex}%
-%	\include{books/Slaying of the Niflings.tex}%
-%	\include{books/Second Lay of Guthrun.tex}%
-	\include{books/Third Lay of Guthrun.tex}%
-%	\include{books/Weeping of Ordrun.tex}%
-	\include{books/Lay of Attle.tex}%
-%	\include{books/Greenlendish Speeches of Attle.tex}%
-%	\include{books/Instigation of Guthrun.tex}%
-%	\include{books/Speeches of Hamthew.tex}%
-
-% Additional heroic poems
-	\include{books/Lay of Hildbrand.tex}%
-%	\include{books/Fight at Finnsbury.tex}
-%	\include{books/Beewolf.tex}% Probably not happening.
-
-% Giga-index at the end
-	\include{index.tex}%
+% Render books
+  \input{books.tex}%
 
 \end{document}
