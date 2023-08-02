@@ -58,8 +58,8 @@
 
 % Headers
 \pagestyle{myheadings}
-\makeoddhead{myheadings}{\thepage}{\booktitle}{}
-\makeevenhead{myheadings}{}{The Anglish Edda}{\thepage}
+\makeoddhead{myheadings}{\thepage}{book}{}
+\makeevenhead{myheadings}{}{The Ancient Germanic Poetry}{\thepage}
 
 % Define verse counters
 \newcounter{versea}
@@ -70,6 +70,9 @@
 \begin{document}
 
 % Book and chapter commands
+  \setsecnumdepth{none}% Disable numbering of sections
+  \maxsecnumdepth{none}% Disable numbering of sections
+
 	\NewDocumentCommand{\chapterStart}{o O{Chap}}{% Command at the start of chapter
 		\setcounter{versea}{0}%
 		\setcounter{verseb}{0}%
@@ -85,15 +88,15 @@
 		% arg 1 (mandatory): English title
 		% arg 2 (optional):  Original title
 	  \IfValueTF{#2}{%
-	  	\book*{#1 \emph{(#2)}}%
-			\def\booktitle{#1 \emph{(#2)}}%
-		}{%
-			\book*{#1}%
-			\def\booktitle{#1}%
-		}%
-		\addcontentsline{toc}{book}{\booktitle}
-		\setcounter{chapter}{0}% Set chapter count to zero.
-		\chapterStart{}%
+      \book*{#1 \emph{(#2)}}%
+      \def\booktitle{#1 \emph{(#2)}}%
+    }{%
+      \book*{#1}%
+      \def\booktitle{#1}%
+    }%
+    \addcontentsline{toc}{book}{\booktitle}
+    \setcounter{chapter}{0}% Set chapter count to zero.
+    \chapterStart{}%
 	}
 
 % Verse format commands
