@@ -1,6 +1,22 @@
 % This file should be compiled with XeLaTeX.
 
-\documentclass[]{memoir}
+\documentclass[b5paper]{memoir}
+
+% Font and typesetting
+\usepackage[final]{microtype}
+
+\usepackage{fontspec}
+\setmainfont{Junicode}[
+	Extension=.ttf,
+	BoldFont=*-Bold,
+	ItalicFont=*-Italic,
+	BoldItalicFont=*-BoldItalic]
+\newfontfamily{\greekfont}{Times New Roman}
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+
+% TODO: Underline that does not skip descender?
+% Should be called \nsunderline
 
 % Bibliography
 \usepackage[style=apa]{biblatex}
@@ -31,25 +47,10 @@
   {\usebibmacro{textcite:postnote}%
    \usebibmacro{cite:post}}
 
-% Font and typesetting
-\usepackage[final]{microtype}
-
-\usepackage{fontspec}
-\setmainfont{Junicode}[
-	Extension=.ttf,
-	BoldFont=*-Bold,
-	ItalicFont=*-Italic,
-	BoldItalicFont=*-BoldItalic]
-
-% TODO: Underline that does not skip descender?
-% Should be called \nsunderline
-
 % Packages
 \usepackage{xparse}% For better document commands
 \usepackage{graphicx}% For rotating characters (used when citing runic inscriptions)
 \usepackage{hyperref}% For index links
-\usepackage{geometry}% For margins.
-\geometry{b5paper}% Book size
 \usepackage{longtable}% Long tables.
 \usepackage{tipa}% IPA
 
