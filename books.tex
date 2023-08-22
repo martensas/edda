@@ -1,12 +1,13 @@
 % This file only contains the various books included. This is done so that it can be edited separately from main.tex, which contains the formatting code.
 
 % Introduction, bibliography and abbreviations
-	\frontmatter%
-	\include{intro.tex}%
+\frontmatter%
 
-	\mainmatter%
+\include{intro.tex}%
 
-	\part{Mythic poetry}% Theology, mythology, generally independent order
+\mainmatter%
+
+\part{Mythic poetry}% Theology, mythology, generally independent order
 	\include{books/Spae of the Wallow.tex}% Weden, all gods
 	\include{books/Speeches of Webthrithner.tex}% Weden
 	\include{books/Dreams of Balder}% Weden
@@ -17,14 +18,13 @@
 	\include{books/Lay of Hymer.tex}% Thunder, Tue
 	\include{books/Flyting of Lock.tex}% Lock, all gods
 %	\include{books/Speeches of Allwise.tex}% Thunder, Wisdom poem
-  \include{books/Speeches of Shirner.tex}% Free, Gird
+	\include{books/Speeches of Shirner.tex}% Free, Gird
 	\include{books/Thule of Righ.tex}% Righ
 	\include{books/Leed of Hindle.tex}% Frow
 	\include{books/Lay of Wayland.tex}%
-	\include{books/Book of Spells.tex}% Assorted spells
 	\include{books/Eddic fragments.tex}% Eddic fragments
 
-	\part{Heroic poetry of the Codex Regius}% How to handle... Ideally we'd want a parallel edition with the Saw of the Walsings, since it and the heroic section of the CR clearly derive from the same source.
+\part{Heroic poetry of the Codex Regius}% How to handle... Ideally we'd want a parallel edition with the Saw of the Walsings, since it and the heroic section of the CR clearly derive from the same source.
 	\include{books/First Lay of Hallow Hundingsbane.tex}%
 	\include{books/Lay of Hallow Harwardson.tex}
 	\include{books/Second Lay of Hallow Hundingsbane.tex}%
@@ -49,10 +49,12 @@
 %	\include{books/Instigation of Guthrun.tex}%
 %	\include{books/Speeches of Hamthew.tex}%
 
-	\part{Additional heroic poetry}
+\part{West Germanic heroic poetry}
 	\include{books/Lay of Hildbrand.tex}%
-%	\include{books/Fight at Finnsbury.tex}
+%	\include{books/Fight at Finnsbury.tex}%
 %	\include{books/Beewolf.tex}% Probably not happening.
 
-% Giga-index at the end
+\include{books/Book of Spells.tex}% Assorted spells
+
+%	Giga-index at the end
 	\include{index.tex}%
