@@ -2,6 +2,7 @@
 
 \documentclass[b5paper]{memoir}
 
+
 % Font and typesetting
 \usepackage[final]{microtype}
 
@@ -14,11 +15,20 @@
 \newfontfamily{\greekfont}{Times New Roman}
 \usepackage{polyglossia}
 \setdefaultlanguage{english}
+\setotherlanguages{greek}
 
 % TODO: Underline that does not skip descender?
 % Should be called \nsunderline
 
-% Bibliography
+
+% Headers.
+\pagestyle{myheadings}
+\aliaspagestyle{plain}{empty}% Remove footers from title pages
+\makeoddhead{myheadings}{}{\thechapter}{\thepage}
+\makeevenhead{myheadings}{\thepage}{The Ancient Germanic Poetry}{}
+
+
+% Bibliography and citations
 \usepackage[style=apa]{biblatex}
 \addbibresource{bibliography.bib}
 \DefineBibliographyStrings{english}{%
@@ -28,15 +38,16 @@
 
 \newbibmacro*{textciteshorttitle}{% Cite short titles. From Stack Exchange: https://tex.stackexchange.com/questions/489928/biblatex-apa-textcite-with-shorttitle
   \ifbool{cbx:parens}
-    {\bibcloseparen\global\boolfalse{cbx:parens}}
+    {\bibcloseparen\global\boolfalse{cbx:parens}}%
     {}%
   \setunit{\compcitedelim}%
   \printfield[bibhyperref]{shorttitle}%
-  \iffieldundef{postnote}
-    {}
-    {\ifnumequal{\value{citecount}}{\value{citetotal}}
-       {\printunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}}
-       {}}}
+  \iffieldundef{postnote}{}{%
+		\ifnumequal{\value{citecount}}{\value{citetotal}}{%
+			\printunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}
+		}{}%
+	}%
+}%
 
 \DeclareCiteCommand{\textciteshorttitle}
   {\usebibmacro{cite:init}%
@@ -47,26 +58,24 @@
   {\usebibmacro{textcite:postnote}%
    \usebibmacro{cite:post}}
 
-% Packages
+
+% Critical edition
+\usepackage[parapparatus, series={A,B}]{reledmac}
+
+% Define verse and prose counters
+\newcounter{versea}
+\newcounter{verseb}
+\newcounter{prosea}
+\newcounter{proseb}
+
+
+% Various packages
 \usepackage{xparse}% For better document commands
 \usepackage{graphicx}% For rotating characters (used when citing runic inscriptions)
 \usepackage{hyperref}% For index links
 \usepackage{longtable}% Long tables.
 \usepackage{tipa}% IPA
 
-% Critical edition
-\usepackage{reledmac}
-
-% Headers
-\pagestyle{myheadings}
-\makeoddhead{myheadings}{\thepage}{book}{}
-\makeevenhead{myheadings}{}{The Ancient Germanic Poetry}{\thepage}
-
-% Define verse counters
-\newcounter{versea}
-\newcounter{verseb}
-\newcounter{prosea}
-\newcounter{proseb}
 
 \begin{document}
 
@@ -75,7 +84,7 @@
   \maxsecnumdepth{none}% Disable numbering of sections
 
 	\NewDocumentCommand{\chapterStart}{o O{Chap}}{% Command at the start of chapter
-		\setcounter{versea}{0}%
+		\setcounter{stanza}{0}%
 		\setcounter{verseb}{0}%
 		\stepcounter{section}%
 		\IfNoValueF{#1}{%
@@ -100,21 +109,31 @@
     \chapterStart{}%
 	}
 
+
 % Verse format commands
+	\numberstanzatrue% Use reledmac stanza numbering
+
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
 		\begin{ledgroup}%
 		\beginnumbering%
 		\setcounter{footnoteB}{0}%
 	}
 
-	\NewDocumentCommand{\bva}{o}{% Begin verse a
-		\begin{large}\begin{stanza}% Begin stanza
-		\IfNoValueTF{#1}{% Add verse number according to counter
-			\stepcounter{versea}% Step verse counter
-			\flagstanza{\textbf{\arabic{versea}}}%
-		}{\IfEq{#1}{0}{}{% If optional verse number is NOT 0 we show it.
-			\flagstanza{\textbf{#1}}%
-		}}%
+	\NewDocumentCommand{\bva}{o o}{% Begin verse a
+		\IfValueT{#2}{% Optional line number
+			\setlinenum{#2}%
+		}%
+		\IfValueTF{#1}{%
+			\numberstanzafalse% If optional verse number exists or is 0 we disable numbering
+		}{%
+			\numberstanzatrue%
+		}%
+		\begin{large}\begin{stanza}%
+		\IfValueT{#1}{%
+			\IfEq{#1}{0}{}{% If optional verse number is NOT 0 we show it with flag.
+				\flagstanza{\textbf{#1}}%
+			}%
+		}%
 	}
 	\NewDocumentCommand{\eva}{o}{% End verse a
 		\& \end{stanza}\end{large}% End reledmac stanza
@@ -139,38 +158,38 @@
 		\vspace{1cm}%
 	}
 
+
 % Prose format commands
 	\NewDocumentCommand{\bpg}{o}{% Begin verse group
-  	\begin{ledgroup}%
-  	\beginnumbering%
+  	\begin{ledgroup}\beginnumbering%
   	\setcounter{footnoteB}{0}%
   }
 
   \NewDocumentCommand{\bpa}{o}{% Begin verse a
-		\begin{large}% Begin stanza
+		\setlength{\leftskip}{1cm}% Indent hack
+		\pstart%
+		\noindent% No indent (is this bad)
+		\begin{large}% Begin large text
 		\IfNoValueTF{#1}{% Add verse number according to counter
 			\stepcounter{prosea}% Step verse counter
-			\flagstanza{\textbf{P\arabic{prosea}}}%
+			\flagstanza{\textbf{P\arabic{prosea}}} %
 		}{\IfEq{#1}{0}{}{% If optional verse number is NOT 0 we show it.
 			\flagstanza{\textbf{P#1}}%
-		}}%
+		}}%%
 	}
 	\NewDocumentCommand{\epa}{o}{% End verse a
-		\& \end{large}% End large
+		\end{large}% End large
+		\pend
+		\setlength{\leftskip}{0cm}%
 		\vspace{1.5mm}% Vertical space
 	}
 
 	\NewDocumentCommand{\bpb}{o}{% Begin verse b (see above)
-		\IfNoValueTF{#1}{%
-			\stepcounter{proseb}%
-%			\textbf{\arabic{verseb} }%
-		}{\IfEq{#1}{0}{}{%
-%			\textbf{\textbf{#1}}
-		}}%
+		\stepcounter{proseb}%
 		\noindent%
 	}
 	\NewDocumentCommand{\epb}{o}{% End verse b
-		% Nothing (for now?)
+		% nothing (for now?)
 	}
 
 	\NewDocumentCommand{\epg}{o}{% End verse group
@@ -178,18 +197,40 @@
 		\vspace{1cm}%
 	}
 
-% Note formatting
+
+% Formatting of footnotes and critical apparatus
+	% Edtext with automatic translation
+	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn ‘borinn’ \Hauksbok}}
+	\NewDocumentCommand{\edtrans}{m m m}{%
+		\edtext{#1}{\lemma{\textnormal{#1} ‘#2’}#3}%
+	}
+
+	% Manuscript note
+	\NewDocumentCommand{\mssnote}{m}{%
+		\ledouternote{[{#1}]}%
+	}
+
 	% Sidenote margin
 	\setlength{\ledlsnotesep}{2 \ledlsnotesep}
 
 	% Make A footnotes paragraphs
 	\Xarrangement[A]{paragraph}
+	% Make A footnotes italicized
+%	\Xwrapcontent[A]{\emph}
 
-	% Make B footnotes roman
+	% Make numbering of B footnotes roman
 	\renewcommand*{\thefootnoteB}{\alph{footnoteB}}
 
+	\fnpos{% Footnote order
+		{B}{familiar},%
+		{A}{familiar},% No such notes should exist but the entry is needed.
+		{A}{critical},%
+		{B}{critical},%
+	}
+
+
 % Poem formatting
-	% First line number at 3
+	% First line number at 2
 	\firstlinenum{2}
 	\linenumincrement{2}
 
@@ -213,6 +254,13 @@
 		\underline{#1}%
 	}
 
+% Translation formatting
+
+	%Line
+	\newcommand{\sectionline}{%
+		\begin{center}\line(1,0){5em}\end{center}%
+	}
+
 	% Mark kennings.
 	\NewDocumentCommand{\ken}{sm}{%
 		% No small caps; text inside the brackets.
@@ -229,8 +277,8 @@
 		<{#1}>% EXAMPLE: <ettin>
 	}%
 
-% Index commands
-	\NewDocumentCommand{\inx}{o m O{#2}}{% Index link (type, link, optional alt display)
+% Encyclopedia commands
+	\NewDocumentCommand{\inx}{o m O{#2}}{% Encyclopedia link (type, link, optional alt display)
 		\IfNoValueTF{#1}{% TODO: phase this out
 			ERRORERRORERROR%
 		}{% Proper noun
@@ -238,7 +286,7 @@
 		}%
 	}
 
-	\NewDocumentCommand{\inxitem}{o m}{% Index label (type, word)
+	\NewDocumentCommand{\inxitem}{o m}{% Encyclopedia label (type, word)
 		\item[\textbf{#2}]%
 		\phantomsection\label{#1:#2}%
 	}
