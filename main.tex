@@ -1,7 +1,6 @@
 % This file should be compiled with XeLaTeX.
 
-\documentclass[b5paper]{memoir}
-
+\documentclass{memoir}
 
 % Font and typesetting
 \usepackage[final]{microtype}
@@ -66,7 +65,6 @@
 \newcounter{versea}
 \newcounter{verseb}
 \newcounter{prosea}
-\newcounter{proseb}
 
 
 % Various packages
@@ -74,6 +72,7 @@
 \usepackage{graphicx}% For rotating characters (used when citing runic inscriptions)
 \usepackage{hyperref}% For index links
 \usepackage{longtable}% Long tables.
+\usepackage{tabu}% Table management
 \usepackage{tipa}% IPA
 
 
@@ -86,6 +85,7 @@
 	\NewDocumentCommand{\chapterStart}{o O{Chap}}{% Command at the start of chapter
 		\setcounter{stanza}{0}%
 		\setcounter{verseb}{0}%
+		\setcounter{prosea}{0}%
 		\stepcounter{section}%
 		\IfNoValueF{#1}{%
 			\begin{center}%
@@ -160,35 +160,34 @@
 
 
 % Prose format commands
-	\NewDocumentCommand{\bpg}{o}{% Begin verse group
+	\NewDocumentCommand{\bpg}{o}{% Begin prose group
   	\begin{ledgroup}\beginnumbering%
   	\setcounter{footnoteB}{0}%
   }
 
-  \NewDocumentCommand{\bpa}{o}{% Begin verse a
+  \NewDocumentCommand{\bpa}{o}{% Begin prose a
 		\setlength{\leftskip}{1cm}% Indent hack
 		\pstart%
 		\noindent% No indent (is this bad)
 		\begin{large}% Begin large text
-		\IfNoValueTF{#1}{% Add verse number according to counter
-			\stepcounter{prosea}% Step verse counter
+		\IfNoValueTF{#1}{% Add prose number according to counter
+			\stepcounter{prosea}% Step prose counter
 			\flagstanza{\textbf{P\arabic{prosea}}} %
-		}{\IfEq{#1}{0}{}{% If optional verse number is NOT 0 we show it.
+		}{\IfEq{#1}{0}{}{% If optional prose number is NOT 0 we show it.
 			\flagstanza{\textbf{P#1}}%
 		}}%%
 	}
-	\NewDocumentCommand{\epa}{o}{% End verse a
+	\NewDocumentCommand{\epa}{o}{% End prose a
 		\end{large}% End large
 		\pend
 		\setlength{\leftskip}{0cm}%
 		\vspace{1.5mm}% Vertical space
 	}
 
-	\NewDocumentCommand{\bpb}{o}{% Begin verse b (see above)
-		\stepcounter{proseb}%
+	\NewDocumentCommand{\bpb}{o}{% Begin prose b (see above)
 		\noindent%
 	}
-	\NewDocumentCommand{\epb}{o}{% End verse b
+	\NewDocumentCommand{\epb}{o}{% End prose b
 		% nothing (for now?)
 	}
 
@@ -206,6 +205,7 @@
 	}
 
 	% Manuscript note
+	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
 	\NewDocumentCommand{\mssnote}{m}{%
 		\ledouternote{[{#1}]}%
 	}
@@ -274,7 +274,7 @@
 	% Mark names with angular brackets.
 	\NewDocumentCommand{\name}{m}{%
 	% Text inside the brackets.
-		<{#1}>% EXAMPLE: <ettin>
+		⟨{#1}⟩% EXAMPLE: ⟨ettin⟩
 	}%
 
 % Encyclopedia commands
