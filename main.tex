@@ -5,16 +5,19 @@
 % Font and typesetting
 \usepackage[final]{microtype}
 
+% Multiple languages
 \usepackage{fontspec}
+\usepackage{polyglossia}
+
+\setdefaultlanguage{english}
+\setotherlanguages{greek}
+
 \setmainfont{Junicode}[
 	Extension=.ttf,
 	BoldFont=*-Bold,
 	ItalicFont=*-Italic,
 	BoldItalicFont=*-BoldItalic]
-\newfontfamily{\greekfont}{Times New Roman}
-\usepackage{polyglossia}
-\setdefaultlanguage{english}
-\setotherlanguages{greek}
+\newfontfamily\greekfont{Times New Roman}
 
 % TODO: Underline that does not skip descender?
 % Should be called \nsunderline
@@ -282,7 +285,7 @@
 		\IfNoValueTF{#1}{% TODO: phase this out
 			ERRORERRORERROR%
 		}{% Proper noun
-			\hyperref[#1:#2]{˻#3\textsuperscript{#1}}%
+			\hyperref[#1:#2]{#3\textsuperscript{#1}}%
 		}%
 	}
 
