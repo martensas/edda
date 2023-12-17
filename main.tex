@@ -19,9 +19,11 @@
 	BoldItalicFont=*-BoldItalic]
 \newfontfamily\greekfont{Times New Roman}
 
+\usepackage{xcolor}
+
 % TODO: Underline that does not skip descender?
 % Should be called \nsunderline
-
+% ^ The point of this would have been to make the alliteration marking nicer. But it'd be bad since certain consonants (p, g, j, q) would simply not be marked.
 
 % Headers.
 \pagestyle{myheadings}
@@ -255,6 +257,8 @@
 	% Mark alliteration. This might not be present in the final version.
 	\NewDocumentCommand{\alst}{m}{%
 		\underline{#1}%
+%		\textbf{#1}%
+%  		\textcolor{Red}{#1}% Red font.
 	}
 
 % Translation formatting
