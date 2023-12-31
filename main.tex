@@ -5,20 +5,25 @@
 % Font and typesetting
 \usepackage[final]{microtype}
 
+% Multiple languages
 \usepackage{fontspec}
+\usepackage{polyglossia}
+
+\setdefaultlanguage{english}
+\setotherlanguages{greek}
+
 \setmainfont{Junicode}[
 	Extension=.ttf,
 	BoldFont=*-Bold,
 	ItalicFont=*-Italic,
 	BoldItalicFont=*-BoldItalic]
-\newfontfamily{\greekfont}{Times New Roman}
-\usepackage{polyglossia}
-\setdefaultlanguage{english}
-\setotherlanguages{greek}
+\newfontfamily\greekfont{Times New Roman}
+
+\usepackage[usenames,dvipsnames]{xcolor}
 
 % TODO: Underline that does not skip descender?
 % Should be called \nsunderline
-
+% ^ The point of this would have been to make the alliteration marking nicer. But it'd be bad since certain consonants (p, g, j, q) would simply not be marked.
 
 % Headers.
 \pagestyle{myheadings}
@@ -201,7 +206,7 @@
 	% Edtext with automatic translation
 	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn ‘borinn’ \Hauksbok}}
 	\NewDocumentCommand{\edtrans}{m m m}{%
-		\edtext{#1}{\lemma{#1 ‘#2’}#3}%
+		\edtext{#1}{\lemma{\textcolor{black}{#1} ‘#2’}#3}%
 	}
 
 	% Manuscript note
@@ -250,8 +255,11 @@
 	}
 
 	% Mark alliteration. This might not be present in the final version.
+	% Update: It's very useful and definitely will.
 	\NewDocumentCommand{\alst}{m}{%
-		\underline{#1}%
+%		\underline{#1}% Underline.
+%		\textbf{#1}% Bold font.
+  	\textcolor{BrickRed}{#1}% Red font. Uses xcolor package.
 	}
 
 % Translation formatting
@@ -282,7 +290,7 @@
 		\IfNoValueTF{#1}{% TODO: phase this out
 			ERRORERRORERROR%
 		}{% Proper noun
-			\hyperref[#1:#2]{˻#3\textsuperscript{#1}}%
+			\hyperref[#1:#2]{#3\textsuperscript{#1}}%
 		}%
 	}
 
