@@ -19,7 +19,7 @@
 	BoldItalicFont=*-BoldItalic]
 \newfontfamily\greekfont{Times New Roman}
 
-\usepackage{xcolor}
+\usepackage[usenames,dvipsnames]{xcolor}
 
 % TODO: Underline that does not skip descender?
 % Should be called \nsunderline
@@ -206,7 +206,7 @@
 	% Edtext with automatic translation
 	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn ‘borinn’ \Hauksbok}}
 	\NewDocumentCommand{\edtrans}{m m m}{%
-		\edtext{#1}{\lemma{#1 ‘#2’}#3}%
+		\edtext{#1}{\lemma{\textcolor{black}{#1} ‘#2’}#3}%
 	}
 
 	% Manuscript note
@@ -255,10 +255,11 @@
 	}
 
 	% Mark alliteration. This might not be present in the final version.
+	% Update: It's very useful and definitely will.
 	\NewDocumentCommand{\alst}{m}{%
-		\underline{#1}%
-%		\textbf{#1}%
-%  		\textcolor{Red}{#1}% Red font.
+%		\underline{#1}% Underline.
+%		\textbf{#1}% Bold font.
+  	\textcolor{BrickRed}{#1}% Red font. Uses xcolor package.
 	}
 
 % Translation formatting
