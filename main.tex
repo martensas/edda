@@ -119,6 +119,7 @@
 	\numberstanzatrue% Use reledmac stanza numbering
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
+		\vspace{1cm}%
 		\begin{ledgroup}%
 		\beginnumbering%
 		\setcounter{footnoteB}{0}%
@@ -160,12 +161,12 @@
 
 	\NewDocumentCommand{\evg}{o}{% End verse group
 		\endnumbering\end{ledgroup}% End numbering and ledgroup
-		\vspace{1cm}%
 	}
 
 
 % Prose format commands
 	\NewDocumentCommand{\bpg}{o}{% Begin prose group
+		\vspace{1cm}%
   	\begin{ledgroup}\beginnumbering%
   	\setcounter{footnoteB}{0}%
   }
@@ -198,7 +199,6 @@
 
 	\NewDocumentCommand{\epg}{o}{% End verse group
 		\endnumbering\end{ledgroup}% End numbering and ledgroup
-		\vspace{1cm}%
 	}
 
 
