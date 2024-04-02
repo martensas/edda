@@ -212,7 +212,11 @@
 	% Manuscript note
 	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
 	\NewDocumentCommand{\mssnote}{m}{%
-		\ledouternote{[{#1}]}%
+		\ledrightnote{[{#1}]}%
+	}
+
+	\NewDocumentCommand{\speakernote}{m}{%
+		\ledleftnote{\small{#1}}%
 	}
 
 	% Sidenote margin
