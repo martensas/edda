@@ -29,7 +29,7 @@
 \pagestyle{myheadings}
 \aliaspagestyle{plain}{empty}% Remove footers from title pages
 \makeoddhead{myheadings}{}{\thechapter}{\thepage}
-\makeevenhead{myheadings}{\thepage}{The Ancient Germanic Poetry}{}
+\makeevenhead{myheadings}{\thepage}{The Old Germanic Scoldship}{}
 
 
 % Bibliography and citations
@@ -119,6 +119,7 @@
 	\numberstanzatrue% Use reledmac stanza numbering
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
+		\vspace{1cm}%
 		\begin{ledgroup}%
 		\beginnumbering%
 		\setcounter{footnoteB}{0}%
@@ -160,12 +161,12 @@
 
 	\NewDocumentCommand{\evg}{o}{% End verse group
 		\endnumbering\end{ledgroup}% End numbering and ledgroup
-		\vspace{1cm}%
 	}
 
 
 % Prose format commands
 	\NewDocumentCommand{\bpg}{o}{% Begin prose group
+		\vspace{1cm}%
   	\begin{ledgroup}\beginnumbering%
   	\setcounter{footnoteB}{0}%
   }
@@ -198,7 +199,6 @@
 
 	\NewDocumentCommand{\epg}{o}{% End verse group
 		\endnumbering\end{ledgroup}% End numbering and ledgroup
-		\vspace{1cm}%
 	}
 
 
@@ -212,7 +212,11 @@
 	% Manuscript note
 	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
 	\NewDocumentCommand{\mssnote}{m}{%
-		\ledouternote{[{#1}]}%
+		\ledinnernote{[{#1}]}%
+	}
+
+	\NewDocumentCommand{\speakernote}{m}{%
+		\ledouternote{\small{#1}}%
 	}
 
 	% Sidenote margin
@@ -246,8 +250,8 @@
 	% Line numbers directly under verse number (kind of a hack)
 	\setlength{\linenumsep}{-1.62pc}
 
-	% Mark cæsura.
-	\newcommand{\hld}{ · }%
+	% Mark cæsuræ. Bullet point ( • ), interpunct: ( · )
+	\newcommand{\hld}{ \textbf{·} }%
 
 	% Indent lines (in Ljóðaháttr or Galdralag).
 	\newcommand{\ind}{%
