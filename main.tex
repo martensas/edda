@@ -5,6 +5,9 @@
 % Font and typesetting
 \usepackage[final]{microtype}
 
+% Margin notes
+\usepackage{marginnote}
+
 % Multiple languages
 \usepackage{fontspec}
 \usepackage{polyglossia}
@@ -215,11 +218,15 @@
 	% Manuscript note
 	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
 	\NewDocumentCommand{\mssnote}{m}{%
-		\ledinnernote{[{#1}]}%
+		\ledrightnote{[{#1}]}%
 	}
 
 	\NewDocumentCommand{\speakernote}{m}{%
-		\ledouternote{\small{#1}}%
+		\ledleftnote{\small{#1}}%
+	}
+
+	\NewDocumentCommand{\speakernoteb}{m}{%
+		\reversemarginpar\marginnote{\small{#1}}%
 	}
 
 	% Sidenote margin
@@ -305,9 +312,6 @@
 		\item[\textbf{#2}]%
 		\phantomsection\label{#1:#2}%
 	}
-
-% Sigla
-  \input{sigla.tex}%
 
 % Render books
   \input{books.tex}%
