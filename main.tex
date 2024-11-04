@@ -5,6 +5,9 @@
 % Font and typesetting
 \usepackage[final]{microtype}
 
+% Margin notes
+\usepackage{marginnote}
+
 % Multiple languages
 \usepackage{fontspec}
 \usepackage{polyglossia}
@@ -20,6 +23,9 @@
 \newfontfamily\greekfont{Times New Roman}
 
 \usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{myRed}{RGB}{189, 0, 0}
+\definecolor{myBlack}{RGB}{33, 37, 41}
+\color{myBlack}
 
 % TODO: Underline that does not skip descender?
 % Should be called \nsunderline
@@ -29,7 +35,7 @@
 \pagestyle{myheadings}
 \aliaspagestyle{plain}{empty}% Remove footers from title pages
 \makeoddhead{myheadings}{}{\thechapter}{\thepage}
-\makeevenhead{myheadings}{\thepage}{The Old Germanic Scoldship}{}
+\makeevenhead{myheadings}{\thepage}{The Old Germanic Monuments}{}
 
 
 % Bibliography and citations
@@ -122,7 +128,7 @@
 		\vspace{1cm}%
 		\begin{ledgroup}%
 		\beginnumbering%
-		\setcounter{footnoteB}{0}%
+%		\setcounter{footnoteB}{0}% Not currently using these.
 	}
 
 	\NewDocumentCommand{\bva}{o o}{% Begin verse a
@@ -142,17 +148,17 @@
 		}%
 	}
 	\NewDocumentCommand{\eva}{o}{% End verse a
-		\& \end{stanza}\end{large}% End reledmac stanza
+		\& \end{stanza}\end{large}% End large and stanza
 		\vspace{1.5mm}% Vertical space
 	}
 
 	\NewDocumentCommand{\bvb}{o}{% Begin verse b (see above)
-		\IfNoValueTF{#1}{%
-			\stepcounter{verseb}%
+%		\IfNoValueTF{#1}{% NOTE: Not currenly numbering these.
+%			\stepcounter{verseb}%
 %			\textbf{\arabic{verseb} }%
-		}{\IfEq{#1}{0}{}{%
+%		}{\IfEq{#1}{0}{}{%
 %			\textbf{\textbf{#1}}
-		}}%
+%		}}%
 		\noindent%
 	}
 	\NewDocumentCommand{\evb}{o}{% End verse b
@@ -167,15 +173,16 @@
 % Prose format commands
 	\NewDocumentCommand{\bpg}{o}{% Begin prose group
 		\vspace{1cm}%
-  	\begin{ledgroup}\beginnumbering%
-  	\setcounter{footnoteB}{0}%
+  	\begin{ledgroup}%
+		\beginnumbering%
+%  	\setcounter{footnoteB}{0}% Not currently using these.
   }
 
   \NewDocumentCommand{\bpa}{o}{% Begin prose a
 		\setlength{\leftskip}{1cm}% Indent hack
-		\pstart%
-		\noindent% No indent (is this bad)
 		\begin{large}% Begin large text
+		\pstart% Start prose
+		\noindent% No indent (is this bad)
 		\IfNoValueTF{#1}{% Add prose number according to counter
 			\stepcounter{prosea}% Step prose counter
 			\flagstanza{\textbf{P\arabic{prosea}}} %
@@ -184,8 +191,7 @@
 		}}%%
 	}
 	\NewDocumentCommand{\epa}{o}{% End prose a
-		\end{large}% End large
-		\pend
+		\pend\end{large}% End large and prose
 		\setlength{\leftskip}{0cm}%
 		\vspace{1.5mm}% Vertical space
 	}
@@ -212,11 +218,15 @@
 	% Manuscript note
 	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
 	\NewDocumentCommand{\mssnote}{m}{%
-		\ledinnernote{[{#1}]}%
+		\ledrightnote{[{#1}]}%
 	}
 
 	\NewDocumentCommand{\speakernote}{m}{%
-		\ledouternote{\small{#1}}%
+		\ledleftnote{\small{#1}}%
+	}
+
+	\NewDocumentCommand{\speakernoteb}{m}{%
+		\reversemarginpar\marginnote{\small{#1}}%
 	}
 
 	% Sidenote margin
@@ -227,8 +237,8 @@
 	% Make A footnotes italicized
 %	\Xwrapcontent[A]{\emph}
 
-	% Make numbering of B footnotes roman
-	\renewcommand*{\thefootnoteB}{\alph{footnoteB}}
+	% Make numbering of B footnotes roman. Disabled since value cannot be higher than "z".
+%	\renewcommand*{\thefootnoteB}{\alph{footnoteB}}
 
 	\fnpos{% Footnote order
 		{B}{familiar},%
@@ -263,7 +273,7 @@
 	\NewDocumentCommand{\alst}{m}{%
 %		\underline{#1}% Underline.
 %		\textbf{#1}% Bold font.
-  	\textcolor{Red}{#1}% Red font. Uses xcolor package.
+  	\textcolor{myRed}{#1}% Red font. Uses xcolor package.
 	}
 
 % Translation formatting
@@ -302,9 +312,6 @@
 		\item[\textbf{#2}]%
 		\phantomsection\label{#1:#2}%
 	}
-
-% Sigla
-  \input{sigla.tex}%
 
 % Render books
   \input{books.tex}%
