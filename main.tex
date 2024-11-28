@@ -32,9 +32,10 @@
 % ^ The point of this would have been to make the alliteration marking nicer. But it'd be bad since certain consonants (p, g, j, q) would simply not be marked.
 
 % Headers.
+\def\booktitle{}
 \pagestyle{myheadings}
 \aliaspagestyle{plain}{empty}% Remove footers from title pages
-\makeoddhead{myheadings}{}{\thechapter}{\thepage}
+\makeoddhead{myheadings}{}{\booktitle}{\thepage}
 \makeevenhead{myheadings}{\thepage}{The Old Germanic Monuments}{}
 
 
@@ -109,7 +110,7 @@
 		% arg 1 (mandatory): English title
 		% arg 2 (optional):  Original title
 	  \IfValueTF{#2}{%
-      \chapter*{#1 \emph{(#2)}}%
+      \chapter*{#1 \\ \emph{(#2)}}%
       \def\booktitle{#1 \emph{(#2)}}%
     }{%
       \chapter*{#1}%
@@ -123,6 +124,7 @@
 
 % Verse format commands
 	\numberstanzatrue% Use reledmac stanza numbering
+	\Xlemmaseparator{~|}% Use vertical bar instead of right bracket ] to break lemmas
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
 		\vspace{1cm}%
@@ -132,13 +134,14 @@
 	}
 
 	\NewDocumentCommand{\bva}{o o}{% Begin verse a
-		\IfValueT{#2}{% Optional line number
+		\IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
 			\setlinenum{#2}%
 		}%
 		\IfValueTF{#1}{%
-			\numberstanzafalse% If optional verse number exists or is 0 we disable numbering
+			\numberstanzafalse% If optional verse/stanza number exists or = 0 we disable the automatic numbering
 		}{%
 			\numberstanzatrue%
+			\Xstanzaonlyfirst% For printing the stanza number in the apparatus
 		}%
 		\begin{large}\begin{stanza}%
 		\IfValueT{#1}{%
