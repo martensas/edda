@@ -32,9 +32,10 @@
 % ^ The point of this would have been to make the alliteration marking nicer. But it'd be bad since certain consonants (p, g, j, q) would simply not be marked.
 
 % Headers.
+\def\booktitle{}
 \pagestyle{myheadings}
 \aliaspagestyle{plain}{empty}% Remove footers from title pages
-\makeoddhead{myheadings}{}{\thechapter}{\thepage}
+\makeoddhead{myheadings}{}{\booktitle}{\thepage}
 \makeevenhead{myheadings}{\thepage}{The Old Germanic Monuments}{}
 
 
@@ -81,7 +82,7 @@
 % Various packages
 \usepackage{xparse}% For better document commands
 \usepackage{graphicx}% For rotating characters (used when citing runic inscriptions)
-\usepackage{hyperref}% For index links
+\usepackage[colorlinks=true]{hyperref}% For linking within the pdf
 \usepackage{longtable}% Long tables.
 \usepackage{tabu}% Table management
 \usepackage{tipa}% IPA
@@ -109,7 +110,7 @@
 		% arg 1 (mandatory): English title
 		% arg 2 (optional):  Original title
 	  \IfValueTF{#2}{%
-      \chapter*{#1 \emph{(#2)}}%
+      \chapter*{#1 \\ \emph{(#2)}}%
       \def\booktitle{#1 \emph{(#2)}}%
     }{%
       \chapter*{#1}%
@@ -123,22 +124,24 @@
 
 % Verse format commands
 	\numberstanzatrue% Use reledmac stanza numbering
+	\Xlemmaseparator{~|}% Use vertical bar instead of right bracket ] to break lemmas
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
-		\vspace{1cm}%
+%		\vspace{1cm}%
 		\begin{ledgroup}%
 		\beginnumbering%
 %		\setcounter{footnoteB}{0}% Not currently using these.
 	}
 
 	\NewDocumentCommand{\bva}{o o}{% Begin verse a
-		\IfValueT{#2}{% Optional line number
+		\IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
 			\setlinenum{#2}%
 		}%
 		\IfValueTF{#1}{%
-			\numberstanzafalse% If optional verse number exists or is 0 we disable numbering
+			\numberstanzafalse% If optional verse/stanza number exists or = 0 we disable the automatic numbering
 		}{%
 			\numberstanzatrue%
+			\Xstanzaonlyfirst% For printing the stanza number in the apparatus
 		}%
 		\begin{large}\begin{stanza}%
 		\IfValueT{#1}{%
@@ -167,12 +170,12 @@
 
 	\NewDocumentCommand{\evg}{o}{% End verse group
 		\endnumbering\end{ledgroup}% End numbering and ledgroup
+		\vspace{1cm}%
 	}
 
 
 % Prose format commands
 	\NewDocumentCommand{\bpg}{o}{% Begin prose group
-		\vspace{1cm}%
   	\begin{ledgroup}%
 		\beginnumbering%
 %  	\setcounter{footnoteB}{0}% Not currently using these.
@@ -205,6 +208,7 @@
 
 	\NewDocumentCommand{\epg}{o}{% End verse group
 		\endnumbering\end{ledgroup}% End numbering and ledgroup
+		\vspace{1cm}%
 	}
 
 
@@ -212,7 +216,7 @@
 	% Edtext with automatic translation
 	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn ‘borinn’ \Hauksbok}}
 	\NewDocumentCommand{\edtrans}{m m m}{%
-		\edtext{#1}{\lemma{\textnormal{#1} ‘#2’}#3}%
+		\edtext{#1}{\lemma{\textnormal{#1} ‘#2’}#3}%TODO: textnormal doesn't work
 	}
 
 	% Manuscript note
@@ -258,7 +262,7 @@
 	\setcounter{stanzaindentsrepetition}{2}
 
 	% Line numbers directly under verse number (kind of a hack)
-	\setlength{\linenumsep}{-1.62pc}
+%	\setlength{\linenumsep}{-1.62pc}
 
 	% Mark cæsuræ. Bullet point ( • ), interpunct: ( · )
 	\newcommand{\hld}{ \textbf{·} }%
@@ -304,7 +308,7 @@
 		\IfNoValueTF{#1}{% TODO: phase this out
 			ERRORERRORERROR%
 		}{% Proper noun
-			\hyperref[#1:#2]{#3\textsuperscript{#1}}%
+			\hyperref[#1:#2]{#3}%\hyperref[#1:#2]{#3\textsuperscript{#1}
 		}%
 	}
 
