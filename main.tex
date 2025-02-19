@@ -3,7 +3,7 @@
 \documentclass{memoir}
 
 % Font and typesetting
-\usepackage[final]{microtype}
+%\usepackage[final]{microtype}
 
 % Margin notes
 \usepackage{marginnote}
@@ -124,6 +124,8 @@
 
 % Verse format commands
 	\numberstanzatrue% Use reledmac stanza numbering
+%	\Xstanzaseparator{/}
+%	\Xstanza% Print stanza number
 	\Xlemmaseparator{~|}% Use vertical bar instead of right bracket ] to break lemmas
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
@@ -169,7 +171,8 @@
 	}
 
 	\NewDocumentCommand{\evg}{o}{% End verse group
-		\endnumbering\end{ledgroup}% End numbering and ledgroup
+		\endnumbering%
+		\end{ledgroup}%
 		\vspace{1cm}%
 	}
 
@@ -207,7 +210,8 @@
 	}
 
 	\NewDocumentCommand{\epg}{o}{% End verse group
-		\endnumbering\end{ledgroup}% End numbering and ledgroup
+		\endnumbering%
+		\end{ledgroup}%
 		\vspace{1cm}%
 	}
 
@@ -229,8 +233,9 @@
 		\ledleftnote{\small{#1}}%
 	}
 
+	\reversemarginpar%Use left margin instead.
 	\NewDocumentCommand{\speakernoteb}{m}{%
-		\reversemarginpar\marginnote{\small{#1}}%
+		\marginnote{\small{#1}}%
 	}
 
 	% Sidenote margin
