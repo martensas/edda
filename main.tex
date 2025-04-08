@@ -3,7 +3,9 @@
 \documentclass{memoir}
 
 % Font and typesetting
-%\usepackage[final]{microtype}
+\usepackage[final]{microtype}
+
+\usepackage{layout}
 
 % Margin notes
 \usepackage{marginnote}
@@ -36,7 +38,7 @@
 \pagestyle{myheadings}
 \aliaspagestyle{plain}{empty}% Remove footers from title pages
 \makeoddhead{myheadings}{}{\booktitle}{\thepage}
-\makeevenhead{myheadings}{\thepage}{The Old Germanic Monuments}{}
+\makeevenhead{myheadings}{\thepage}{The Northern Epics}{}
 
 
 % Bibliography and citations
@@ -82,7 +84,7 @@
 % Various packages
 \usepackage{xparse}% For better document commands
 \usepackage{graphicx}% For rotating characters (used when citing runic inscriptions)
-\usepackage[colorlinks=true]{hyperref}% For linking within the pdf
+\usepackage[hidelinks=true]{hyperref}% For linking within the pdf
 \usepackage{longtable}% Long tables.
 \usepackage{tabu}% Table management
 \usepackage{tipa}% IPA
@@ -220,7 +222,7 @@
 	% Edtext with automatic translation
 	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn ‘borinn’ \Hauksbok}}
 	\NewDocumentCommand{\edtrans}{m m m}{%
-		\edtext{#1}{\lemma{\textnormal{#1} ‘#2’}#3}%TODO: textnormal doesn't work
+		\edtext{#1}{\lemma{\let\alst\relax #1 ‘#2’}#3}
 	}
 
 	% Manuscript note
@@ -313,7 +315,7 @@
 		\IfNoValueTF{#1}{% TODO: phase this out
 			ERRORERRORERROR%
 		}{% Proper noun
-			\hyperref[#1:#2]{#3}%\hyperref[#1:#2]{#3\textsuperscript{#1}
+			\hyperref[#1:#2]{#3\textsuperscript{†}}%\hyperref[#1:#2]{#3\textsuperscript{#1}
 		}%
 	}
 
@@ -323,6 +325,7 @@
 	}
 
 % Render books
+
   \input{books.tex}%
 
 \end{document}
