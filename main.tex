@@ -222,7 +222,7 @@
 	% Edtext with automatic translation
 	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn ‘borinn’ \Hauksbok}}
 	\NewDocumentCommand{\edtrans}{m m m}{%
-		\edtext{#1}{\lemma{\let\alst\relax #1 ‘#2’}#3}
+		\edtext{#1}{\lemma{\let\alst\relax #1 ‘#2’}#3}%
 	}
 
 	% Manuscript note
@@ -276,7 +276,7 @@
 
 	% Indent lines (in Ljóðaháttr or Galdralag).
 	\newcommand{\ind}{%
-		\hspace{1.5em}%
+		\hspace*{1.5em}%
 	}
 
 	% Mark alliteration. This might not be present in the final version.
