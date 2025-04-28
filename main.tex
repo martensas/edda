@@ -130,7 +130,7 @@
 	\Xlemmaseparator{~|}% Use vertical bar instead of right bracket ] to break lemmas
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
-%		\vspace{1cm}%
+		\vspace{0.5cm}%
 		\begin{ledgroup}%
 		\beginnumbering%
 %		\setcounter{footnoteB}{0}% Not currently using these.
@@ -174,7 +174,7 @@
 	\NewDocumentCommand{\evg}{o}{% End verse group
 		\endnumbering%
 		\end{ledgroup}%
-		\vspace{1cm}%
+		\vspace{0.5cm}%
 	}
 
 
@@ -236,7 +236,7 @@
 
 	\reversemarginpar%Use left margin instead.
 	\NewDocumentCommand{\speakernoteb}{m}{%
-		\marginnote{\small{#1}}%
+	%	\marginnote{\small{#1}}%
 	}
 
 	% Sidenote margin
