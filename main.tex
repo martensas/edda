@@ -1,6 +1,6 @@
 % This file should be compiled with XeLaTeX.
 
-\documentclass{memoir}
+\documentclass[11pt]{memoir}
 
 % Font and typesetting
 \usepackage[final]{microtype}
@@ -75,8 +75,7 @@
 \usepackage[parapparatus, series={A,B}]{reledmac}
 
 % Define verse and prose counters
-\newcounter{versea}
-\newcounter{verseb}
+%\newcounter{verseb}
 \newcounter{prosea}
 
 
@@ -97,7 +96,7 @@
 
 	\NewDocumentCommand{\chapterStart}{o O{Chap}}{% Command at the start of chapter
 		\setcounter{stanza}{0}%
-		\setcounter{verseb}{0}%
+%		\setcounter{verseb}{0}%
 		\setcounter{prosea}{0}%
 		\stepcounter{section}%
 		\IfNoValueF{#1}{%
@@ -130,7 +129,7 @@
 	\Xlemmaseparator{~|}% Use vertical bar instead of right bracket ] to break lemmas
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
-%		\vspace{1cm}%
+		\vspace{0.5cm}%
 		\begin{ledgroup}%
 		\beginnumbering%
 %		\setcounter{footnoteB}{0}% Not currently using these.
@@ -174,12 +173,13 @@
 	\NewDocumentCommand{\evg}{o}{% End verse group
 		\endnumbering%
 		\end{ledgroup}%
-		\vspace{1cm}%
+		\vspace{0.5cm}%
 	}
 
 
 % Prose format commands
 	\NewDocumentCommand{\bpg}{o}{% Begin prose group
+		\vspace{0.5cm}%
   	\begin{ledgroup}%
 		\beginnumbering%
 %  	\setcounter{footnoteB}{0}% Not currently using these.
@@ -213,7 +213,7 @@
 	\NewDocumentCommand{\epg}{o}{% End verse group
 		\endnumbering%
 		\end{ledgroup}%
-		\vspace{1cm}%
+		\vspace{0.5cm}%
 	}
 
 
@@ -231,12 +231,12 @@
 	}
 
 	\NewDocumentCommand{\speakernote}{m}{%
-		\ledleftnote{\small{#1}}%
+		\ledleftnote{{#1}}%
 	}
 
 	\reversemarginpar%Use left margin instead.
 	\NewDocumentCommand{\speakernoteb}{m}{%
-		\marginnote{\small{#1}}%
+%		\marginnote{\small{#1}}%
 	}
 
 	% Sidenote margin
@@ -271,7 +271,7 @@
 %	\setlength{\linenumsep}{-1.62pc}
 
 	% Mark cæsuræ. Bullet point ( • ), interpunct: ( · )
-	\newcommand{\hld}{ \textbf{·} }%
+	\newcommand{\hld}{ · }%
 
 	% Indent lines (in Ljóðaháttr or Galdralag).
 	\newcommand{\ind}{%
