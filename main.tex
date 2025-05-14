@@ -14,7 +14,7 @@
 \usepackage{polyglossia}
 
 \setdefaultlanguage{english}
-\setotherlanguages{greek}
+\setotherlanguages{greek, russian}
 
 \setmainfont{Junicode}[
 	Extension=.ttf,
@@ -22,6 +22,7 @@
 	ItalicFont=*-Italic,
 	BoldItalicFont=*-BoldItalic]
 \newfontfamily\greekfont{Times New Roman}
+\newfontfamily\cyrillicfont{Times New Roman}
 
 \usepackage[usenames,dvipsnames]{xcolor}
 \definecolor{myRed}{RGB}{178, 0, 0}
@@ -111,7 +112,7 @@
 		% arg 2 (optional):  Original title
 	  \IfValueTF{#2}{%
       \chapter*{#1 \\ \emph{(#2)}}%
-      \def\booktitle{#1 \emph{(#2)}}%
+      \def\booktitle{#2}%
     }{%
       \chapter*{#1}%
       \def\booktitle{#1}%
@@ -220,7 +221,7 @@
 % Formatting of footnotes and critical apparatus
 	% Edtext with automatic translation
 	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn ‘borinn’ \Hauksbok}}
-	\NewDocumentCommand{\edtrans}{m m m}{%
+	\NewDocumentCommand{\edtrans}{m m +m}{%
 		\edtext{#1}{\lemma{\let\alst\relax #1 ‘#2’}#3}%
 	}
 
