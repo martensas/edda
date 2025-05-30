@@ -310,8 +310,8 @@
 		⟨{#1}⟩% EXAMPLE: ⟨ettin⟩
 	}%
 
-% Encyclopedia commands
-	\NewDocumentCommand{\inx}{o m O{#2}}{% Encyclopedia link (type, link, optional alt display)
+% Index commands
+	\NewDocumentCommand{\inx}{o m O{#2}}{% Index link (type, link, optional alt display)
 		\IfNoValueTF{#1}{% TODO: phase this out
 			ERRORERRORERROR%
 		}{% Proper noun
@@ -319,7 +319,7 @@
 		}%
 	}
 
-	\NewDocumentCommand{\inxitem}{o m}{% Encyclopedia label (type, word)
+	\NewDocumentCommand{\inxitem}{o m}{% Index label (type, word)
 		\item[\textbf{#2}]%
 		\phantomsection\label{#1:#2}%
 	}
