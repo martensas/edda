@@ -3,7 +3,7 @@
 \documentclass[11pt]{memoir}
 
 % Font and typesetting
-\usepackage[final]{microtype}
+\usepackage{microtype}
 
 
 % Margin notes
@@ -18,9 +18,9 @@
 
 \setmainfont{Junicode}[
 	Extension=.ttf,
+	BoldItalicFont=*-BoldItalic,
 	BoldFont=*-Bold,
-	ItalicFont=*-Italic,
-	BoldItalicFont=*-BoldItalic]
+	ItalicFont=*-Italic]
 \newfontfamily\greekfont{Times New Roman}
 \newfontfamily\cyrillicfont{Times New Roman}
 
@@ -310,16 +310,16 @@
 		⟨{#1}⟩% EXAMPLE: ⟨ettin⟩
 	}%
 
-% Encyclopedia commands
-	\NewDocumentCommand{\inx}{o m O{#2}}{% Encyclopedia link (type, link, optional alt display)
+% Index commands
+	\NewDocumentCommand{\inx}{o m O{#2}}{% Index link (type, link, optional alt display)
 		\IfNoValueTF{#1}{% TODO: phase this out
 			ERRORERRORERROR%
 		}{% Proper noun
-			\hyperref[#1:#2]{#3\textsuperscript{†}}%\hyperref[#1:#2]{#3\textsuperscript{#1}
+			\hyperref[#1:#2]{#3}%NOTE \hyperref[#1:#2]{#3\textsuperscript{†}}% NOTE \hyperref[#1:#2]{#3\textsuperscript{#1}
 		}%
 	}
 
-	\NewDocumentCommand{\inxitem}{o m}{% Encyclopedia label (type, word)
+	\NewDocumentCommand{\inxitem}{o m}{% Index label (type, word)
 		\item[\textbf{#2}]%
 		\phantomsection\label{#1:#2}%
 	}
