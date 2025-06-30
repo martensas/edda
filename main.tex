@@ -4,23 +4,18 @@
 
 % Font and typesetting
 \usepackage{microtype}
-
+%\usepackage{junicode}
 
 % Margin notes
 \usepackage{marginnote}
 
 % Multiple languages
 \usepackage{fontspec}
+\setmainfont{Junicode}
 \usepackage{polyglossia}
 
 \setdefaultlanguage{english}
 \setotherlanguages{greek, russian}
-
-\setmainfont{Junicode}[
-	Extension=.ttf,
-	BoldItalicFont=*-BoldItalic,
-	BoldFont=*-Bold,
-	ItalicFont=*-Italic]
 \newfontfamily\greekfont{Times New Roman}
 \newfontfamily\cyrillicfont{Times New Roman}
 
