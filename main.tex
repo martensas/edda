@@ -181,7 +181,10 @@
 %  	\setcounter{footnoteB}{0}% Not currently using these.
   }
 
-  \NewDocumentCommand{\bpa}{o}{% Begin prose a
+  \NewDocumentCommand{\bpa}{o o}{% Begin prose a
+    \IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
+      \setlinenum{#2}%
+    }%
 		\setlength{\leftskip}{1.4cm}% Get some indentation
 		\begin{large}% Begin large text
 		\pstart% Start prose
