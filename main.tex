@@ -1,6 +1,6 @@
 % This file should be compiled with XeLaTeX.
 
-\documentclass[11pt]{memoir}
+\documentclass[9pt]{memoir}
 
 % Font and typesetting
 \usepackage{microtype}
@@ -83,6 +83,13 @@
 \usepackage{tabu}% Table management
 \usepackage{tipa}% IPA
 
+\usepackage[a5paper, %Geometry
+  bindingoffset=0.2in,
+  left=1in,
+  right=1in,
+  top=0.9in,
+  bottom=0.8in,
+  footskip=.25in]{geometry}
 
 \begin{document}
 
@@ -125,7 +132,7 @@
 	\Xlemmaseparator{~|}% Use vertical bar instead of right bracket ] to break lemmas
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
-		\vspace{0.5cm}%
+		\vspace{0.3cm}%
 		\begin{ledgroup}%
 		\beginnumbering%
 %		\setcounter{footnoteB}{0}% Not currently using these.
@@ -141,7 +148,7 @@
 			\numberstanzatrue%
 			\Xstanzaonlyfirst% For printing the stanza number in the apparatus
 		}%
-		\begin{large}\begin{stanza}%
+		\begin{normalsize}\begin{stanza}%
 		\IfValueT{#1}{%
 			\IfEq{#1}{0}{}{% If optional verse number is NOT 0 we show it with flag.
 				\flagstanza{\textbf{#1}}%
@@ -149,7 +156,7 @@
 		}%
 	}
 	\NewDocumentCommand{\eva}{o}{% End verse a
-		\& \end{stanza}\end{large}% End large and stanza
+		\& \end{stanza}\end{normalsize}% End large and stanza
 		\vspace{1.5mm}% Vertical space
 	}
 
@@ -169,13 +176,13 @@
 	\NewDocumentCommand{\evg}{o}{% End verse group
 		\endnumbering%
 		\end{ledgroup}%
-		\vspace{0.5cm}%
+		\vspace{0.3cm}%
 	}
 
 
 % Prose format commands
 	\NewDocumentCommand{\bpg}{o}{% Begin prose group
-		\vspace{0.5cm}%
+		\vspace{0.3cm}%
   	\begin{ledgroup}%
 		\beginnumbering%
 %  	\setcounter{footnoteB}{0}% Not currently using these.
@@ -185,8 +192,8 @@
     \IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
       \setlinenum{#2}%
     }%
-		\setlength{\leftskip}{1.4cm}% Get some indentation
-		\begin{large}% Begin large text
+		\setlength{\leftskip}{0.7cm}% Get some indentation to agree with stanza indent
+		\begin{normalsize}% Begin large text
 		\pstart% Start prose
 		\noindent% No indent (is this bad)
 		\IfNoValueTF{#1}{% Add prose number according to counter
@@ -197,7 +204,7 @@
 		}}%%
 	}
 	\NewDocumentCommand{\epa}{o}{% End prose a
-		\pend\end{large}% End large and prose
+		\pend\end{normalsize}% End large and prose
 		\setlength{\leftskip}{0cm}%
 		\vspace{1.5mm}% Vertical space
 	}
@@ -212,7 +219,7 @@
 	\NewDocumentCommand{\epg}{o}{% End verse group
 		\endnumbering%
 		\end{ledgroup}%
-		\vspace{0.5cm}%
+		\vspace{0.3cm}%
 	}
 
 
@@ -239,7 +246,7 @@
 	}
 
 	% Sidenote margin
-	\setlength{\ledlsnotesep}{2 \ledlsnotesep}
+	\setlength{\ledlsnotesep}{1.5 \ledlsnotesep}
 
 	% Make A footnotes paragraphs
 	\Xarrangement[A]{paragraph}
@@ -263,8 +270,8 @@
 	\linenumincrement{2}
 
 	% Stanza indentation (required by reledmac)
-	\setstanzaindents{5, 2, 2}
-	\setcounter{stanzaindentsrepetition}{2}
+	\setstanzaindents{5, 1}
+	\setcounter{stanzaindentsrepetition}{1}
 
 	% Line numbers directly under verse number (kind of a hack)
 %	\setlength{\linenumsep}{-1.62pc}
