@@ -71,9 +71,7 @@
 \usepackage[parapparatus, series={A,B}]{reledmac}
 
 % Define verse and prose counters
-%\newcounter{verseb}
 \newcounter{prosea}
-
 
 % Various packages
 \usepackage{xparse}% For better document commands
@@ -99,7 +97,6 @@
 
 	\NewDocumentCommand{\chapterStart}{o O{Chap}}{% Command at the start of chapter
 		\setcounter{stanza}{0}%
-%		\setcounter{verseb}{0}%
 		\setcounter{prosea}{0}%
 		\stepcounter{section}%
 		\IfNoValueF{#1}{%
@@ -143,14 +140,14 @@
 			\setlinenum{#2}%
 		}%
 		\IfValueTF{#1}{%
-			\numberstanzafalse% If optional verse/stanza number exists or = 0 we disable the automatic numbering
+			\numberstanzafalse% If optional stanza number exists or = 0 we disable the automatic numbering
 		}{%
 			\numberstanzatrue%
 			\Xstanzaonlyfirst% For printing the stanza number in the apparatus
 		}%
 		\begin{normalsize}\begin{stanza}%
-		\IfValueT{#1}{%
-			\IfEq{#1}{0}{}{% If optional verse number is NOT 0 we show it with flag.
+		\IfValueT{#1}{% Optional stanza number
+			\IfEq{#1}{0}{}{% If optional stanza number is NOT 0 we show it with flag.
 				\flagstanza{\textbf{#1}}%
 			}%
 		}%
