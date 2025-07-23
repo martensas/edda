@@ -121,40 +121,33 @@
     \chapterStart{}%
 	}
 
+\Xlemmaseparator{~|}% Use vertical bar instead of right bracket ] to break lemmas
 
 % Verse format commands
 	\numberstanzatrue% Use reledmac stanza numbering
-%	\Xstanzaseparator{/}
-%	\Xstanza% Print stanza number
-	\Xlemmaseparator{~|}% Use vertical bar instead of right bracket ] to break lemmas
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
 		\vspace{0.3cm}%
 		\begin{ledgroup}%
 		\beginnumbering%
-%		\setcounter{footnoteB}{0}% Not currently using these.
 	}
 
 	\NewDocumentCommand{\bva}{o o}{% Begin verse a
-		\IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
-			\setlinenum{#2}%
-		}%
-		\IfValueTF{#1}{%
-			\numberstanzafalse% If optional stanza number exists or = 0 we disable the automatic numbering
-		}{%
-			\numberstanzatrue%
-			\Xstanzaonlyfirst% For printing the stanza number in the apparatus
-		}%
-		\begin{normalsize}\begin{stanza}%
 		\IfValueT{#1}{% Optional stanza number
-			\IfEq{#1}{0}{}{% If optional stanza number is NOT 0 we show it with flag.
-				\flagstanza{\textbf{#1}}%
+			\IfEq{#1}{0}{}{% If optional stanza number is NOT 0 we show it instead of expected number
+        \renewcommand{\thestanza}{\textbf{#1}}%
 			}%
 		}%
+    \begin{large}\begin{stanza}%
+    \IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
+  		\setline{#2}%
+  	}%
 	}
 	\NewDocumentCommand{\eva}{o}{% End verse a
-		\& \end{stanza}\end{normalsize}% End large and stanza
-		\vspace{1.5mm}% Vertical space
+		\&%
+    \end{stanza}\end{large}% End large and stanza
+    \vspace{1.5mm}% Vertical space
+    \renewcommand{\thestanza}{\textbf{\arabic{stanza}}}%
 	}
 
 	\NewDocumentCommand{\bvb}{o}{% Begin verse b (see above)
@@ -176,23 +169,21 @@
 		\vspace{0.3cm}%
 	}
 
-
 % Prose format commands
+
 	\NewDocumentCommand{\bpg}{o}{% Begin prose group
 		\vspace{0.3cm}%
   	\begin{ledgroup}%
 		\beginnumbering%
-%  	\setcounter{footnoteB}{0}% Not currently using these.
   }
 
   \NewDocumentCommand{\bpa}{o o}{% Begin prose a
-    \IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
-      \setlinenum{#2}%
-    }%
 		\setlength{\leftskip}{0.7cm}% Get some indentation to agree with stanza indent
-		\begin{normalsize}% Begin large text
-		\pstart% Start prose
+		\begin{large}\pstart% Start large and prose
 		\noindent% No indent (is this bad)
+    \IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
+      \setline{#2}%
+    }%
 		\IfNoValueTF{#1}{% Add prose number according to counter
 			\stepcounter{prosea}% Step prose counter
 			\flagstanza{\textbf{P\arabic{prosea}}} %
@@ -201,7 +192,8 @@
 		}}%%
 	}
 	\NewDocumentCommand{\epa}{o}{% End prose a
-		\pend\end{normalsize}% End large and prose
+		\pend\end{large}% End large and prose
+    \numberpstartfalse%
 		\setlength{\leftskip}{0cm}%
 		\vspace{1.5mm}% Vertical space
 	}
