@@ -186,7 +186,7 @@
     }%
 		\IfNoValueTF{#1}{% Add prose number according to counter
 			\stepcounter{prosea}% Step prose counter
-			\flagstanza{\textbf{P\arabic{prosea}}} %
+			\flagstanza{\textbf{P\arabic{prosea}}}%
 		}{\IfEq{#1}{0}{}{% If optional prose number is NOT 0 we show it.
 			\flagstanza{\textbf{P#1}}%
 		}}%%
