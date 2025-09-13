@@ -32,7 +32,7 @@
 \def\booktitle{}
 \pagestyle{myheadings}
 \aliaspagestyle{plain}{empty}% Remove footers from title pages
-\makeoddhead{myheadings}{}{\booktitle}{\thepage}
+\makeoddhead{myheadings}{}{\emph{\booktitle}}{\thepage}
 \makeevenhead{myheadings}{\thepage}{The Northern Epics}{}
 
 
@@ -186,7 +186,7 @@
     }%
 		\IfNoValueTF{#1}{% Add prose number according to counter
 			\stepcounter{prosea}% Step prose counter
-			\flagstanza{\textbf{P\arabic{prosea}}} %
+			\flagstanza{\textbf{P\arabic{prosea}}}%
 		}{\IfEq{#1}{0}{}{% If optional prose number is NOT 0 we show it.
 			\flagstanza{\textbf{P#1}}%
 		}}%%
