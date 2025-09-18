@@ -77,6 +77,7 @@
 \usepackage{xparse}% For better document commands
 \usepackage{graphicx}% For rotating characters (used when citing runic inscriptions)
 \usepackage[hidelinks=true]{hyperref}% For linking within the pdf
+%\usepackage[inline]{showlabels}% For debugging labels
 \usepackage{longtable}% Long tables.
 \usepackage{tabu}% Table management
 \usepackage{tipa}% IPA
@@ -126,6 +127,8 @@
 % Verse format commands
 	\numberstanzatrue% Use reledmac stanza numbering
 
+  \def\thisBookCode{INTERNALERROR}% If it shows up it's an error
+
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
 		\vspace{0.3cm}%
 		\begin{ledgroup}%
@@ -137,17 +140,25 @@
 			\IfEq{#1}{0}{}{% If optional stanza number is NOT 0 we show it instead of expected number
         \renewcommand{\thestanza}{\textbf{#1}}%
 			}%
-		}%
+    }%
     \begin{large}\begin{stanza}%
     \IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
   		\setline{#2}%
   	}%
+    \IfValueTF{#1}{% Make labels
+      \IfEq{#1}{0}{}{%
+        \phantomsection\edef\temp{\noexpand\label{\thisBookCode:#1}}\temp%
+      }
+    }{%
+      \phantomsection\edef\temp{\noexpand\label{\thisBookCode:\arabic{stanza}}}\temp%
+    }%
 	}
+
 	\NewDocumentCommand{\eva}{o}{% End verse a
 		\&%
     \end{stanza}\end{large}% End large and stanza
     \vspace{1.5mm}% Vertical space
-    \renewcommand{\thestanza}{\textbf{\arabic{stanza}}}%
+    %
 	}
 
 	\NewDocumentCommand{\bvb}{o}{% Begin verse b (see above)
