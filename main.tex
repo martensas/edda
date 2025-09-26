@@ -148,7 +148,7 @@
     \IfValueTF{#1}{% Make labels
       \IfEq{#1}{0}{}{%
         \phantomsection\edef\temp{\noexpand\label{\thisBookCode:#1}}\temp%
-      }
+      }%
     }{%
       \phantomsection\edef\temp{\noexpand\label{\thisBookCode:\arabic{stanza}}}\temp%
     }%
