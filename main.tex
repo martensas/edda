@@ -189,7 +189,7 @@
   }
 
   \NewDocumentCommand{\bpa}{o o}{% Begin prose a
-		\setlength{\leftskip}{0.7cm}% Get some indentation to agree with stanza indent
+		\setlength{\leftskip}{\stanzaindentbase}% Get some indentation to agree with stanza indent
 		\begin{large}\pstart% Start large and prose
 		\noindent% No indent (is this bad)
     \IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
@@ -270,11 +270,16 @@
 	\linenumincrement{2}
 
 	% Stanza indentation (required by reledmac)
+%  \setlength{\stanzaindentbase}{20pt}
 	\setstanzaindents{5, 1}
 	\setcounter{stanzaindentsrepetition}{1}
 
+%  \renewcommand{\stanzanumwrapper}[1]{%
+%    \flagstanza[35pt]{#1}%
+%  }%
+
 	% Line numbers directly under verse number (kind of a hack)
-%	\setlength{\linenumsep}{-1.62pc}
+%  \setlength{\linenumsep}{-0.5pc}
 
 	% Mark cæsuræ. Bullet point ( • ), interpunct: ( · )
 	\newcommand{\hld}{ · }%
