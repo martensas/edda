@@ -1,14 +1,14 @@
 # edda
 
-New Poetic Edda edition and translation, along with a few additional poems and spells collected from other sources, including texts in Old High German and Old English. The original poetry is first edited from the surviving manuscript witnesses, then translated in a word-for-word style, with close attention paid to internal consistency and the specialized meanings of words. All proper nouns and cultural terms are rendered in their Anglish equivalents.
+New Poetic Edda edition and translation, along with a few additional poems and spells collected from other sources, including texts in Old Saxon, Old High German and Old English. The original poetry is edited from the surviving manuscript witnesses, then translated in a word-for-word style, with close attention paid to internal consistency and the specialized senses of words. Proper nouns and cultural terms are rendered in their Anglish equivalents.
 
 ## Download
 
-There is a .pdf available with a few poems already in it (for details, see main.tex).
-
-Want to have a smaller file containing only the poems you're interested in? Download the source code (ie. the root folder "edda"), uncomment the ones you want by removing the hashtags before them, and then compile main.tex in XeLaTeX with your favourite TeX program. Note that many poems currently commented out do not yet exist as files, and so will throw an error if you try to include them.
+The file `main.pdf` is up to date. Download it [here](https://github.com/martensas/edda/blob/main/main.pdf).
 
 ## Developing
+
+Want to have a smaller file containing only the poems you're interested in? Download the source code, uncomment the poems you want by removing the hashtags before them in `books.tex`.
 
 Begin by installing both XeLaTeX and [Node.js](https://nodejs.org/en).
 
