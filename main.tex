@@ -282,7 +282,11 @@
 %  \setlength{\linenumsep}{-0.5pc}
 
 	% Mark cæsuræ. Bullet point ( • ), interpunct: ( · )
-	\newcommand{\hld}{ · }%
+	\NewDocumentCommand{\hld}{o}{%
+    \IfNoValueTF{#1}{ · }{%
+      {\small ({#1})}%
+    }%
+  }%
 
 	% Indent lines (in Ljóðaháttr or Galdralag).
 	\newcommand{\ind}{%
