@@ -231,6 +231,11 @@
 		\edtext{#1}{\lemma{\let\alst\relax #1 ‘#2’}#3}%
 	}
 
+  % All note
+	\NewDocumentCommand{\allnote}{m}{%
+		\edtext{}{\lemma{ALL}\Bfootnote[nonum]{{#1}}}%
+	}
+
 	% Manuscript note
 	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
 	\NewDocumentCommand{\mssnote}{m}{%
