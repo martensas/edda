@@ -75,7 +75,9 @@
 
 % Various packages
 \usepackage{xparse}% For better document commands
-\usepackage{graphicx}% For rotating characters (used when citing runic inscriptions)
+\usepackage{graphicx}% For rotating characters (used when citing runic inscriptions) and images
+\graphicspath{ {./img/} }
+%NOTE: Continuous figure numbering is after mainmatter
 \usepackage[hidelinks=true]{hyperref}% For linking within the pdf
 %\usepackage[inline]{showlabels}% For debugging labels
 \usepackage{longtable}% Long tables.
@@ -129,6 +131,16 @@
 	\numberstanzatrue% Use reledmac stanza numbering
 
   \def\thisBookCode{INTERNALERROR}% If it shows up it's an error
+
+  \NewDocumentCommand{\textlink}{m o}{%
+%  NOTE: Link to any poem using the bookcode and stanza number, e.g.
+%        \textlink{Vafthrudnismal}[11]
+      \IfNoValueTF{#2}{%
+       \hyperref[#1]{\csname #1\endcsname}%
+      }{%
+       \hyperref[#1:#2]{\csname #1\endcsname\ #2}%
+      }%
+  }
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
 		\vspace{0.3cm}%
@@ -240,6 +252,10 @@
 	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
 	\NewDocumentCommand{\mssnote}{m}{%
 		\ledrightnote{[{#1}]}%
+  %  \begingroup%
+  %  \renewcommand{\thefootnoteA}{}%
+  %  \footnoteA{\emph{Mss.: } #1}%
+  %  \endgroup%
 	}
 
 	\NewDocumentCommand{\speakernote}{m}{%
@@ -257,14 +273,14 @@
 	% Make A footnotes paragraphs
 	\Xarrangement[A]{paragraph}
 	% Make A footnotes italicized
-%	\Xwrapcontent[A]{\emph}
+	\Xwrapcontent[A]{\emph}
 
 	% Make numbering of B footnotes roman. Disabled since value cannot be higher than "z".
 %	\renewcommand*{\thefootnoteB}{\alph{footnoteB}}
 
-	\fnpos{% Footnote order
+	\mpfnpos{% Footnote order
 		{B}{familiar},%
-		{A}{familiar},% No such notes should exist but the entry is needed.
+		{A}{familiar},%
 		{A}{critical},%
 		{B}{critical},%
 	}
