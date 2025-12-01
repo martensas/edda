@@ -244,9 +244,12 @@
 	}
 
   % All note
-	\NewDocumentCommand{\allnote}{m}{%
+	\NewDocumentCommand{\Ballnote}{m}{%
 		\edtext{}{\lemma{ALL}\Bfootnote[nonum]{{#1}}}%
 	}
+  \NewDocumentCommand{\Aallnote}{m}{%
+    \edtext{}{\lemma{ALL}\Afootnote[nonum]{{#1}}}%
+  }
 
 	% Manuscript note
 	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
