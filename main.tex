@@ -1,28 +1,17 @@
-% This file should be compiled with XeLaTeX.
+% NOTE: This file should be compiled with XeLaTeX.
 
 \documentclass[9pt]{memoir}
 
-% Font and typesetting
-\usepackage{microtype}
-%\usepackage{junicode}
-
-% Margin notes
+% Various packages
+\usepackage{xparse}% For better document commands
+\usepackage{graphicx}% For rotating characters (used when citing runic inscriptions) and images
+\graphicspath{ {./img/} }
+%NOTE: Continuous figure numbering is after mainmatter
+%\usepackage[inline]{showlabels}% For debugging labels
+\usepackage{longtable}% Long tables.
+\usepackage{tabu}% Table management
+\usepackage{tipa}% IPA
 \usepackage{marginnote}
-
-% Multiple languages
-\usepackage{fontspec}
-\setmainfont{Junicode}
-\usepackage{polyglossia}
-
-\setdefaultlanguage{english}
-\setotherlanguages{greek, russian}
-\newfontfamily\greekfont{Times New Roman}
-\newfontfamily\cyrillicfont{Times New Roman}
-
-\usepackage[usenames,dvipsnames]{xcolor}
-\definecolor{myRed}{RGB}{178, 0, 0}
-\definecolor{myBlack}{RGB}{33, 37, 41}
-\color{myBlack}
 
 % TODO: Underline that does not skip descender?
 % Should be called \nsunderline
@@ -34,6 +23,41 @@
 \aliaspagestyle{plain}{empty}% Remove footers from title pages
 \makeoddhead{myheadings}{}{\emph{\booktitle}}{\thepage}
 \makeevenhead{myheadings}{\thepage}{The Northern Epics}{}
+
+
+\usepackage[hidelinks=true]{hyperref}% For linking within the pdf
+
+
+% Critical edition
+\usepackage[parapparatus, series={A,B}]{reledmac}
+\newcounter{prosea}
+
+% Font and typesetting
+\usepackage[a5paper, %Geometry
+  bindingoffset=0.2in,
+  left=1in,
+  right=1in,
+  top=0.9in,
+  bottom=0.8in,
+  footskip=.25in]{geometry}
+
+\usepackage{microtype}
+\usepackage{fontspec}
+\setmainfont{Junicode}
+
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{myRed}{RGB}{178, 0, 0}
+\definecolor{myBlack}{RGB}{33, 37, 41}
+\color{myBlack}
+
+\usepackage{tikz}% For drawing figures
+
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+\setotherlanguages{greek, russian, hebrew}
+\newfontfamily\greekfont{Times New Roman}
+\newfontfamily\cyrillicfont{Times New Roman}
+\newfontfamily\hebrewfont{Times New Roman}
 
 
 % Bibliography and citations
@@ -66,32 +90,6 @@
   {\usebibmacro{textcite:postnote}%
    \usebibmacro{cite:post}}
 
-
-% Critical edition
-\usepackage[parapparatus, series={A,B}]{reledmac}
-
-% Define verse and prose counters
-\newcounter{prosea}
-
-% Various packages
-\usepackage{xparse}% For better document commands
-\usepackage{graphicx}% For rotating characters (used when citing runic inscriptions) and images
-\graphicspath{ {./img/} }
-%NOTE: Continuous figure numbering is after mainmatter
-\usepackage{tikz}% For drawing figures
-\usepackage[hidelinks=true]{hyperref}% For linking within the pdf
-%\usepackage[inline]{showlabels}% For debugging labels
-\usepackage{longtable}% Long tables.
-\usepackage{tabu}% Table management
-\usepackage{tipa}% IPA
-
-\usepackage[a5paper, %Geometry
-  bindingoffset=0.2in,
-  left=1in,
-  right=1in,
-  top=0.9in,
-  bottom=0.8in,
-  footskip=.25in]{geometry}
 
 \begin{document}
 
