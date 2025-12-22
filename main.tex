@@ -108,6 +108,13 @@
 		}%
 	}
 
+  \def\thisBookCode{INTERNALERROR}%
+
+  \NewDocumentCommand{\setBookCode}{m}{
+    \def\thisBookCode{#1}%
+    \phantomsection\label{#1}%
+  }
+
 	\NewDocumentCommand{\bookStart}{m o}{% Command at the start of book
 		% arg 1 (mandatory): English title
 		% arg 2 (optional):  Original title
@@ -128,8 +135,6 @@
 
 % Verse format commands
 	\numberstanzatrue% Use reledmac stanza numbering
-
-  \def\thisBookCode{INTERNALERROR}% If it shows up it's an error
 
   \NewDocumentCommand{\textlink}{m o}{%
 %  NOTE: Link to any poem using the bookcode and stanza number, e.g.
