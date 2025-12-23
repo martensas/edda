@@ -140,9 +140,9 @@
 %  NOTE: Link to any poem using the bookcode and stanza number, e.g.
 %        \textlink{Vafthrudnismal}[11]
       \IfNoValueTF{#2}{%
-       \hyperref[#1]{\csname #1\endcsname}%
+       \hyperref[#1]{\csname#1\endcsname}%
       }{%
-       \hyperref[#1:#2]{\csname #1\endcsname\ #2}%
+       \hyperref[#1:#2]{\csname#1\endcsname\ #2}%
       }%
   }
 
@@ -332,9 +332,9 @@
 
 % Translation formatting
 
-	%Line
+	%Line. NOTE: Commented out for now
 	\newcommand{\sectionline}{%
-		\begin{center}\line(1,0){5em}\end{center}%
+	%	\begin{center}\line(1,0){5em}\end{center}%
 	}
 
 	% Mark kennings.
