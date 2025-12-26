@@ -215,8 +215,12 @@
 		\IfNoValueTF{#1}{% Add prose number according to counter
 			\stepcounter{prosea}% Step prose counter
 			\flagstanza{\textbf{P\arabic{prosea}}}%
+      \phantomsection\edef\temp{\noexpand\label{\thisBookCode:P\arabic{prosea}}}\temp%
 		}{\IfEq{#1}{0}{}{% If optional prose number is NOT 0 we show it.
 			\flagstanza{\textbf{P#1}}%
+      \IfEq{#1}{0}{}{%
+        \phantomsection\edef\temp{\noexpand\label{\thisBookCode:P#1}}\temp%
+      }%
 		}}%%
 	}
 	\NewDocumentCommand{\epa}{o}{% End prose a
