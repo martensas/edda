@@ -136,13 +136,18 @@
 % Verse format commands
 	\numberstanzatrue% Use reledmac stanza numbering
 
-  \NewDocumentCommand{\textlink}{m o}{%
+  \NewDocumentCommand{\textlink}{m o o}{%
 %  NOTE: Link to any poem using the bookcode and stanza number, e.g.
-%        \textlink{Vafthrudnismal}[11]
+%        \textlink{Vafthrudnismal}[11].
+%        #3 is an optional display number
       \IfNoValueTF{#2}{%
        \hyperref[#1]{\csname#1\endcsname}%
       }{%
-       \hyperref[#1:#2]{\csname#1\endcsname\ #2}%
+       \IfNoValueTF{#3}{
+        \hyperref[#1:#2]{\csname#1\endcsname\ #2}%
+       }{
+        \hyperref[#1:#2]{\csname#1\endcsname\ #3}%
+       }
       }%
   }
 
