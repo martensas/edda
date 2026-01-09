@@ -31,6 +31,7 @@
 % Critical edition
 \usepackage[parapparatus, series={A,B}]{reledmac}
 \newcounter{prosea}
+%\def\critfootnotes{}%NOTE: experimental, if we want critical notes in footnotes
 
 % Font and typesetting
 \usepackage[a5paper, %Geometry
@@ -133,6 +134,13 @@
 \Xlemmaseparator{~|}% Use vertical bar instead of right bracket ] to break lemmas
 \Xinplaceofnumber{0pt}% for ALL-notes to work properly
 
+\ifdefined\critfootnotes% Print stanza number
+  \Xstanza
+  \Xstanzaonlyfirst
+  \Xnolinenumberifannotation
+  \Xstanzaseparator{/}
+\fi
+
 % Verse format commands
 	\numberstanzatrue% Use reledmac stanza numbering
 
@@ -153,7 +161,7 @@
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
 		\vspace{0.3cm}%
-		\begin{ledgroup}%
+		\ifx\critfootnotes\undefined \begin{ledgroup}\fi%
 		\beginnumbering%
 	}
 
@@ -198,7 +206,7 @@
 
 	\NewDocumentCommand{\evg}{o}{% End verse group
 		\endnumbering%
-		\end{ledgroup}%
+		\ifx\critfootnotes\undefined \end{ledgroup}\fi%
 		\vspace{0.3cm}%
 	}
 
@@ -206,7 +214,7 @@
 
 	\NewDocumentCommand{\bpg}{o}{% Begin prose group
 		\vspace{0.3cm}%
-  	\begin{ledgroup}%
+    \ifx\critfootnotes\undefined \begin{ledgroup}\fi%
 		\beginnumbering%
   }
 
@@ -244,12 +252,13 @@
 
 	\NewDocumentCommand{\epg}{o}{% End verse group
 		\endnumbering%
-		\end{ledgroup}%
+    \ifx\critfootnotes\undefined \end{ledgroup}\fi%
 		\vspace{0.3cm}%
 	}
 
 
 % Formatting of footnotes and critical apparatus
+
 	% Edtext with automatic translation
 	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn ‘borinn’ \Hauksbok}}
 	\NewDocumentCommand{\edtrans}{m m +m}{%
@@ -258,17 +267,26 @@
 
   % All note
 	\NewDocumentCommand{\Ballnote}{+m}{%
-		\edtext{}{\lemma{ALL}\Bfootnote[nonum]{{#1}}}%
+    \ifdefined\critfootnotes%
+		  \edtext{}{\linenumannotation{ALL}\Bfootnote{{#1}}}%
+    \else%
+      \edtext{}{\lemma{ALL}\Bfootnote[nonum]{{#1}}}%
+    \fi
 	}
   \NewDocumentCommand{\Aallnote}{m}{%
-    \edtext{}{\lemma{ALL}\Afootnote[nonum]{{#1}}}%
+    \ifdefined\critfootnotes%
+      \edtext{}{\linenumannotation{ALL}\Afootnote{{#1}}}%
+    \else%
+      \edtext{}{\lemma{ALL}\Afootnote[nonum]{{#1}}}%
+    \fi
   }
 
 	% Manuscript note
 	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
 	\NewDocumentCommand{\mssnote}{m}{%
 		\ledrightnote{[{#1}]}%
-  %  \begingroup%
+  %  NOTE: Alternative display: print an A-footnote with a list of the manuscripts immediately below the stanza.
+  %  \begingroup
   %  \renewcommand{\thefootnoteA}{}%
   %  \footnoteA{\emph{Mss.: } #1}%
   %  \endgroup%
@@ -331,11 +349,10 @@
 		\hspace*{1.5em}%
 	}
 
-	% Mark alliteration. This might not be present in the final version.
-	% Update: It's very useful and definitely will.
+	% Mark alliteration.
 	\NewDocumentCommand{\alst}{m}{%
 %		\underline{#1}% Underline.
-%		\textbf{#1}% Bold font.
+%		\textbf{#1}% Bold font. To be used if printing in black and white.
   	\textcolor{myRed}{#1}% Red font. Uses xcolor package.
 	}
 
