@@ -285,11 +285,13 @@
 	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
 	\NewDocumentCommand{\mssnote}{m}{%
 		\ledrightnote{[{#1}]}%
-  %  NOTE: Alternative display: print an A-footnote with a list of the manuscripts immediately below the stanza.
-  %  \begingroup
-  %  \renewcommand{\thefootnoteA}{}%
-  %  \footnoteA{\emph{Mss.: } #1}%
-  %  \endgroup%
+
+%    \begingroup
+%    \renewcommand{\thefootnoteA}{}%
+%    \footnoteA{\emph{Mss.: } #1}%
+%    \endgroup%
+
+%   \edtext{}{\lemma{Mss.:}\Afootnote[nonum]{#1}}%
 	}
 
 	\NewDocumentCommand{\speakernote}{m}{%
