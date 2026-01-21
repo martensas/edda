@@ -227,13 +227,13 @@
     }%
 		\IfNoValueTF{#1}{% Add prose number according to counter
 			\stepcounter{prosea}% Step prose counter
-			\flagstanza{\textbf{P\arabic{prosea}}}%
       \phantomsection\edef\temp{\noexpand\label{\thisBookCode:P\arabic{prosea}}}\temp%
+      \flagstanza{\textbf{P\arabic{prosea}}}%
 		}{\IfEq{#1}{0}{}{% If optional prose number is NOT 0 we show it.
-			\flagstanza{\textbf{P#1}}%
       \IfEq{#1}{0}{}{%
         \phantomsection\edef\temp{\noexpand\label{\thisBookCode:P#1}}\temp%
       }%
+      \flagstanza{\textbf{P#1}}%
 		}}%%
 	}
 	\NewDocumentCommand{\epa}{o}{% End prose a
@@ -285,12 +285,10 @@
 	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
 	\NewDocumentCommand{\mssnote}{m}{%
 		\ledrightnote{[{#1}]}%
-
 %    \begingroup
 %    \renewcommand{\thefootnoteA}{}%
 %    \footnoteA{\emph{Mss.: } #1}%
 %    \endgroup%
-
 %   \edtext{}{\lemma{Mss.:}\Afootnote[nonum]{#1}}%
 	}
 
