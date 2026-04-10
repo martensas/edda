@@ -59,7 +59,7 @@
 
 \usepackage{polyglossia}
 \setdefaultlanguage{english}
-\setotherlanguages{greek, russian, hebrew}
+\setotherlanguages{greek, russian, hebrew, latin}
 \newfontfamily\greekfont{Junicode}
 \newfontfamily\cyrillicfont{Times New Roman}
 \newfontfamily\hebrewfont{Ezra SIL}[Script=Hebrew]
@@ -103,6 +103,9 @@
 \NewDocumentCommand{\textoi}{m}{%
   \emph{#1}%
 }
+
+\let\oldtextlatin\textlatin% NOTE: Wrap textlatin in \emph{}
+\renewcommand{\textlatin}[1]{\emph{\oldtextlatin{#1}}}
 
 % Book and chapter commands
   \setsecnumdepth{none}% Disable numbering of sections
