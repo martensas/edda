@@ -59,13 +59,14 @@
 
 \usepackage{polyglossia}
 \setdefaultlanguage{english}
-\setotherlanguages{greek, russian, hebrew}
+\setotherlanguages{greek, russian, hebrew, latin}
 \newfontfamily\greekfont{Junicode}
 \newfontfamily\cyrillicfont{Times New Roman}
 \newfontfamily\hebrewfont{Ezra SIL}[Script=Hebrew]
 
 
 % Bibliography and citations
+\usepackage{csquotes}
 \usepackage[style=apa]{biblatex}
 \addbibresource{bibliography.bib}
 \DefineBibliographyStrings{english}{%
@@ -73,12 +74,35 @@
   sequentes = {ff\adddot},
 }
 
-\newbibmacro*{textciteshorttitle}{% Cite short titles. From Stack Exchange: https://tex.stackexchange.com/questions/489928/biblatex-apa-textcite-with-shorttitle
+\DeclareFieldFormat{plain}{#1}
+
+\renewbibmacro*{begentry}{%
+  \iffieldundef{shorthand}
+    {} % Do nothing if there is no shorthand
+    {\printfield[plain]{shorthand}%
+     \printunit*{\addspace=\space}}%
+}
+
+\DeclareSortingTemplate{includeshorthands}{
+  \sort{
+    \field{shorthand}
+    \field{shorttitle}
+    \name{author}
+    \name{editor}
+    \field{title}
+  }
+  \sort{
+    \field{year}
+  }
+}
+\ExecuteBibliographyOptions{sorting=includeshorthands}
+
+\newbibmacro*{textciteshorthand}{% Cite short hands. From Stack Exchange: https://tex.stackexchange.com/questions/489928/biblatex-apa-textcite-with-shorttitle
   \ifbool{cbx:parens}
     {\bibcloseparen\global\boolfalse{cbx:parens}}%
     {}%
   \setunit{\compcitedelim}%
-  \printfield[bibhyperref]{shorttitle}%
+  \printfield[bibhyperref]{shorthand}%
   \iffieldundef{postnote}{}{%
 		\ifnumequal{\value{citecount}}{\value{citetotal}}{%
 			\printunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}
@@ -86,13 +110,27 @@
 	}%
 }%
 
-\DeclareCiteCommand{\textciteshorttitle}
+\DeclareCiteCommand{\textciteshorthand}
   {\usebibmacro{cite:init}%
    \usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{textciteshorttitle}}
+   \usebibmacro{textciteshorthand}}
   {}
   {\usebibmacro{textcite:postnote}%
+   \usebibmacro{cite:post}%
+}
+
+\newbibmacro*{parenciteshorthand}{%
+  \printfield[bibhyperref]{shorthand}%
+}
+
+\DeclareCiteCommand{\parenciteshorthand}[\mkbibparens]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{parenciteshorthand}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}%
    \usebibmacro{cite:post}}
 
 
@@ -103,6 +141,9 @@
 \NewDocumentCommand{\textoi}{m}{%
   \emph{#1}%
 }
+
+\let\oldtextlatin\textlatin% NOTE: Wrap textlatin in \emph{}
+\renewcommand{\textlatin}[1]{\emph{\oldtextlatin{#1}}}
 
 % Book and chapter commands
   \setsecnumdepth{none}% Disable numbering of sections
