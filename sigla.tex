@@ -79,7 +79,7 @@
 	\item > = whence
 \end{itemize}
 
-%Modern books and editions (TODO: move these to bibliography)
+%Modern books and editions
 \newcommand{\CV}{% Cleasby-Vigfússon dictionary of Old Norse
 	\textciteshorthand{CleasbyVigfusson}% \emph{C-V}%
 }
@@ -87,7 +87,7 @@
 	\textciteshorthand{FGTHaugen}%
 }
 \newcommand{\ONP}{% Dictionary of Old Norse Prose
-	\emph{ONP}%
+	\textciteshorthand{ONP}%
 }
 \newcommand{\Skp}{% Skaldic Poetry of the Scandinavian Middle Ages
 	\textciteshorthand{SkP}%
@@ -243,11 +243,15 @@
 	\emph{Hdl}%
 }
 
+\newcommand{\Iliad}{% Iliad
+	\emph{I}%
+}%TODO: add this
+
 \newcommand{\Lacuna}{% Flyting of Lock
 	\emph{Vǫlsbr}%
 }
 \newcommand{\Lacnunga}{% Leekning
-	\emph{Lacn}%
+	\emph{Lacnunga}%
 }%TODO: add this
 
 \newcommand{\Lokasenna}{% Flyting of Lock
@@ -256,7 +260,7 @@
 
 \newcommand{\Malshattakvadi}{
 	\emph{Mhkv}
-}%TODO: add this
+}
 
 \newcommand{\Mahabharata}{
 	\emph{MBʰ}
@@ -282,8 +286,13 @@
 }
 
 \newcommand{\Oddrunargratr}{% Weeping of Ordrun
-	\emph{Odd}%
+	\emph{Oddr}%
 }
+
+\newcommand{\Oddyssey}{% Iliad
+	\emph{O}%
+}%TODO: add this
+
 
 \newcommand{\ProNessia}{% For Nesse
 	\emph{ProNessia}%
@@ -320,24 +329,24 @@
 
 \newcommand{\Sogubrot}{
 	\emph{Fornk}
-}%TODO: add
+}
 \newcommand{\Solarljod}{
 	\emph{Sól}
-}%TODO: add
+}%
 \newcommand{\Sonatorrek}{
 	\emph{Sont}
 }
 \newcommand{\Sorlathattr}{% Strand of Sarle
 	\emph{Sǫrla}%
-}%TODO: add
+}
 
 \newcommand{\StyrbjarnarThattr}{
 	\emph{Styrb}%
 }
 
-\newcommand{\ThidreksSaga}{% Saw of Thedrich
+\newcommand{\ThidreksSaga}{% Saw of Thedric
 	\emph{Þiðr}%
-}%TODO: add
+}
 
 \newcommand{\Thorsdrapa}{% Drape of Thunder
 	\emph{Þdr}%
@@ -362,8 +371,8 @@
 }
 
 \newcommand{\Waldere}{% Walder
-	\emph{Walder}%
-}%TODO: add
+	\emph{Wald}%
+}
 \newcommand{\Wessobrunn}{% Wessobrunn
 	\emph{Wessobrunn}%
 }
@@ -381,7 +390,7 @@
 }
 \newcommand{\YnglingaSaga}{% Saw of the Inglings
 	\emph{Yng}%
-}%TODO: add
+}
 \newcommand{\Ynglingatal}{% Tally of the Inglings
 	\emph{Yt}%
 }
@@ -406,6 +415,7 @@ For ease of reference, those texts which are included in the present edition are
 	\item \textbf{\textlink{Fafnismal}} = \emph{Fáfnis mǫ́l} (‘Speeches of Fathomer’)
 	\item \FostrbroedhraSaga\ = \emph{Fóstr-brǿðra saga} (‘Saw of the Fosterbrothers’)
 	\item \textbf{\textlink{Finnsburg}} = The Fight at Finnsbury
+	\item \Sogubrot\ = \emph{Sǫgu-brot af nǫkkurum forn-konungum í Dana- ok Svía-veldi} (‘Fragment of a Saw from Some Ancient Kings in the Danish and Swedish Realms’)
 	\item \textbf{\textlink{WidFerstice}} = \emph{Wið Fǽr-stice} (‘Against a Sudden Stitch’)
 	\item \GautreksSaga\ = \emph{Gaut·reks saga} (‘Saw of Geatric’)
 	\item \Glymdrapa\ = \emph{Glym-drápa} (‘Glim-Drape’), Þhorn \emph{Gldr} in \Skp\ 1
@@ -443,6 +453,7 @@ For ease of reference, those texts which are included in the present edition are
 	\item \textbf{\textlink{Merseburg}} = The Merseburg galders
 	\item \textbf{\textlink{MerseburgOne}} = Merseburg galder 1
 	\item \textbf{\textlink{MerseburgTwo}} = Merseburg galder 2
+	\item \Malshattakvadi\ = \emph{Máls-hátta kvę́ði} (‘Poem of Sayings’), Anon \emph{Mhkv} in \Skp\ 3
 	\item \Nornagest\ = \emph{Norna-Gests þáttr} (‘Strand of Norn-Guest’)
 	\item \textbf{\textlink{NineHerbs}} = \emph{Nigon wyrta galdor} (‘Galder of Nine Worts’)
 	\item \textbf{\textlink{Oddrunargratr}} = \emph{Odd·rúnar grátr} (‘Weeping of Ordrun’)
@@ -456,7 +467,9 @@ For ease of reference, those texts which are included in the present edition are
 	\item \textbf{\textlink{Sigrdrifumal}} = \emph{Sigr·drífu mǫ́l} (‘Speeches of Syedrive’)
 	\item \textbf{\textlink{Skirnismal}} = \emph{Skírnis mǫ́l} (‘Speeches of Shirner’)
 	\item \Skaldskaparmal\ = \emph{Skald-skapar mǫ́l} (‘Matter of Scoldship’)
+	\item \Solarljod\ = \emph{Sólar-ljóð} (‘Leeds of the Sun’), Anon \emph{Sól} in \Skp\ 7
 	\item \Sonatorrek\ = \emph{Sona-tor·rek} (‘Grievous Loss of Sons’), Egill \emph{Sont} in \Skp\ 5
+	\item \Sorlathattr\ = \emph{Sǫrla þáttr} (‘Strand of Sarle’)
 	\item \StyrbjarnarThattr\ = \emph{Styr·bjarnar þáttr Svía-kappa} (‘Strand of Stirbern Champion of the Swedes’)
 	\item \textbf{\textlink{Vafthrudnismal}} = \emph{Vaf·þrúðnis mǫ́l} (‘Speeches of Webthrithner’)
 	\item \textbf{\textlink{Volundarkvida}} = \emph{Vǫlundar kviða} (‘Lay of Wayland’)
@@ -464,10 +477,13 @@ For ease of reference, those texts which are included in the present edition are
 	\item \Volsathattr\ = \emph{Vǫlsa þáttr} (‘Strand of Walse’)
 	\item \textbf{\textlink{Lacuna}} = \emph{Brot ór \VolsungaSaga} (‘Fragments from \VolsungaSaga’)
 	\item \textbf{\textlink{Voluspa}} = \emph{Vǫlu spǫ́} (‘Spae of the Wallow’)
+	\item \textbf{\textlink{Waldere}} = \emph{Wald·hęre} (‘Walder’)
 	\item \textbf{\textlink{Wessobrunn}} = The Wessobrunn Hymn
 	\item \textbf{\textlink{Widsith}} = \emph{Wíd·sïþ} (‘Widsith’)
 	\item \textbf{\textlink{WidYmbe}} = \emph{Wið Ymbe} (‘Against a Swarm’)
+	\item \YnglingaSaga\ = \emph{Ynglinga saga} (‘Saw of the Inglings’)
 	\item \Ynglingatal\ = \emph{Ynglinga tal} (‘Tally of the Inglings’), Þjóð \emph{Yt} in \Skp\ 1
+	\item \ThidreksSaga\ = \emph{Þið·reks saga} (‘Saw of Thedric’)
 	\item \Thorsdrapa\ = \emph{Þórs drápa} (‘Drape of Thunder’)
 	\item \textbf{\textlink{Thrymskvida}} = \emph{Þryms kviða} (‘Lay of Thrim’)
 \end{itemize}%
