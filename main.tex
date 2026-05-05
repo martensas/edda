@@ -74,29 +74,6 @@
   sequentes = {ff\adddot},
 }
 
-\DeclareFieldFormat{plain}{#1}
-
-\renewbibmacro*{begentry}{%
-  \iffieldundef{shorthand}
-    {} % Do nothing if there is no shorthand
-    {\printfield[plain]{shorthand}%
-     \printunit*{\addspace=\space}}%
-}
-
-\DeclareSortingTemplate{includeshorthands}{
-  \sort{
-    \field{shorthand}
-    \field{shorttitle}
-    \name{author}
-    \name{editor}
-    \field{title}
-  }
-  \sort{
-    \field{year}
-  }
-}
-\ExecuteBibliographyOptions{sorting=includeshorthands}
-
 \newbibmacro*{textciteshorthand}{% Cite short hands. From Stack Exchange: https://tex.stackexchange.com/questions/489928/biblatex-apa-textcite-with-shorttitle
   \ifbool{cbx:parens}
     {\bibcloseparen\global\boolfalse{cbx:parens}}%
