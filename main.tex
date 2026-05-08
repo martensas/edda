@@ -32,6 +32,7 @@
 % Critical edition
 \usepackage[parapparatus, series={A,B}]{reledmac}
 \newcounter{prosea}
+\newcounter{versenum}
 
 %\def\critfootnotes{}%NOTE: experimental, if we want critical notes in footnotes
 
@@ -247,6 +248,7 @@
   }
 
   \NewDocumentCommand{\bpa}{o o}{% Begin prose a
+    \setcounter{versenum}{0}% Reset the counter for the verse
 		\setlength{\leftskip}{\stanzaindentbase}% Get some indentation to agree with stanza indent
 		\begin{large}\pstart% Start large and prose
 		\noindent% No indent (is this bad)
@@ -264,6 +266,19 @@
       \flagstanza{\textbf{P#1}}%
 		}}%%
 	}
+
+  \NewDocumentCommand{\pva}{o}{% Begin prose verse
+    \IfNoValueTF{#1}{%
+      \stepcounter{versenum}}%
+      {\setcounter{versenum}{#1}}%
+    \textbf{\arabic{versenum}}~}
+
+  \NewDocumentCommand{\pverseb}{o}{% Begin prose verse
+    \IfNoValueTF{#1}{%
+      \stepcounter{versenum}}%
+      {\setcounter{versenum}{#1}}%
+    \textbf{\arabic{versenum}}~}
+
 	\NewDocumentCommand{\epa}{o}{% End prose a
 		\pend\end{large}% End large and prose
     \numberpstartfalse%
@@ -272,7 +287,8 @@
 	}
 
 	\NewDocumentCommand{\bpb}{o}{% Begin prose b (see above)
-		\noindent%
+    \setcounter{versenum}{0}% Reset the counter for the verse
+    \noindent%
 	}
 	\NewDocumentCommand{\epb}{o}{% End prose b
 		% nothing (for now?)
