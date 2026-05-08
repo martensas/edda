@@ -126,7 +126,7 @@
   \setsecnumdepth{none}% Disable numbering of sections
   \maxsecnumdepth{none}% Disable numbering of sections
 
-	\NewDocumentCommand{\chapterStart}{o O{Chap}}{% Command at the start of chapter
+	\NewDocumentCommand{\chapterStart}{o O{Chap}}{% Command at the start of chapter, actually just resets internal counters
 		\setcounter{stanza}{0}%
 		\setcounter{prosea}{0}%
 		\stepcounter{section}%
