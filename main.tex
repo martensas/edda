@@ -267,13 +267,7 @@
 		}}%%
 	}
 
-  \NewDocumentCommand{\pva}{o}{% Begin prose verse
-    \IfNoValueTF{#1}{%
-      \stepcounter{versenum}}%
-      {\setcounter{versenum}{#1}}%
-    \textbf{\arabic{versenum}}~}
-
-  \NewDocumentCommand{\pverseb}{o}{% Begin prose verse
+  \NewDocumentCommand{\pva}{o}{% Begin prose verse a
     \IfNoValueTF{#1}{%
       \stepcounter{versenum}}%
       {\setcounter{versenum}{#1}}%
@@ -290,6 +284,11 @@
     \setcounter{versenum}{0}% Reset the counter for the verse
     \noindent%
 	}
+  \NewDocumentCommand{\pvb}{o}{% Begin prose verse b
+    \IfNoValueTF{#1}{%
+      \stepcounter{versenum}}%
+      {\setcounter{versenum}{#1}}%
+    \textbf{\arabic{versenum}}~}
 	\NewDocumentCommand{\epb}{o}{% End prose b
 		% nothing (for now?)
 	}
