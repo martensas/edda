@@ -271,7 +271,7 @@
     \IfNoValueTF{#1}{%
       \stepcounter{versenum}}%
       {\setcounter{versenum}{#1}}%
-    \textbf{\arabic{versenum}}~}
+    \textsuperscript{\textbf{\arabic{versenum}}~}}
 
 	\NewDocumentCommand{\epa}{o}{% End prose a
 		\pend\end{large}% End large and prose
@@ -288,7 +288,7 @@
     \IfNoValueTF{#1}{%
       \stepcounter{versenum}}%
       {\setcounter{versenum}{#1}}%
-    \textbf{\arabic{versenum}}~}
+    \textsuperscript{\textbf{\arabic{versenum}}~}}
 	\NewDocumentCommand{\epb}{o}{% End prose b
 		% nothing (for now?)
 	}
