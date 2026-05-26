@@ -12,11 +12,6 @@
 \usepackage{tabu}% Table management
 \usepackage{rotating}
 \usepackage{tipa}% IPA
-\usepackage{marginnote}
-
-% TODO: Underline that does not skip descender?
-% Should be called \nsunderline
-% ^ The point of this would have been to make the alliteration marking nicer. But it'd be bad since certain consonants (p, g, j, q) would simply not be marked.
 
 % Headers.
 \def\booktitle{}
@@ -339,10 +334,13 @@
 		\ledleftnote{{#1}}%
 	}
 
-	\reversemarginpar%Use left margin instead.
-	\NewDocumentCommand{\speakernoteb}{m}{%
-%		\marginnote{\small{#1}}%
-	}
+  \NewDocumentCommand{\speakernoteb}{m}{%
+  %  {\footnotesize #1} \\%
+    \leavevmode\llap{%
+      \parbox[t]{1.5in}{\raggedleft\footnotesize #1}%
+      \hspace{0.1in}%
+      }%
+  }
 
 	% Sidenote margin
 	\setlength{\ledlsnotesep}{1.5 \ledlsnotesep}
