@@ -63,48 +63,29 @@
 
 % Bibliography and citations
 \usepackage{csquotes}
-\usepackage[style=apa]{biblatex}
+\usepackage[style=authoryear, backend=biber]{biblatex}
 \addbibresource{bibliography.bib}
 \DefineBibliographyStrings{english}{%
   sequens = {f\adddot},
   sequentes = {ff\adddot},
 }
 
-\newbibmacro*{textciteshorthand}{% Cite short hands. From Stack Exchange: https://tex.stackexchange.com/questions/489928/biblatex-apa-textcite-with-shorttitle
-  \ifbool{cbx:parens}
-    {\bibcloseparen\global\boolfalse{cbx:parens}}%
-    {}%
-  \setunit{\compcitedelim}%
-  \printfield[bibhyperref]{shorthand}%
-  \iffieldundef{postnote}{}{%
-		\ifnumequal{\value{citecount}}{\value{citetotal}}{%
-			\printunit{\global\booltrue{cbx:parens}\addspace\bibopenparen}
-		}{}%
-	}%
-}%
-
-\DeclareCiteCommand{\textciteshorthand}
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
+\DeclareCiteCommand{\parenciteshorthand}[\mkbibparens]%
+  {\usebibmacro{prenote}}%
   {\usebibmacro{citeindex}%
-   \usebibmacro{textciteshorthand}}
-  {}
-  {\usebibmacro{textcite:postnote}%
-   \usebibmacro{cite:post}%
-}
-
-\newbibmacro*{parenciteshorthand}{%
-  \printfield[bibhyperref]{shorthand}%
-}
-
-\DeclareCiteCommand{\parenciteshorthand}[\mkbibparens]
-  {\usebibmacro{cite:init}%
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{parenciteshorthand}}
-  {\multicitedelim}
+   \printfield[bibhyperref]{shorthand}}%
+  {\multicitedelim}%
   {\usebibmacro{postnote}%
-   \usebibmacro{cite:post}}
+}
+
+\DeclareCiteCommand{\textciteshorthand}%
+  {\usebibmacro{prenote}}%
+  {\usebibmacro{citeindex}%
+   \printfield[bibhyperref]{shorthand}}%
+  {\multicitedelim}%
+  {\iffieldundef{postnote}{}%
+    {\addspace\mkbibparens{\printfield{postnote}}}
+  }%
 
 
 \begin{document}
