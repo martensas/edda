@@ -7,12 +7,12 @@ const clean = (dir) => {
   const files = fs.readdirSync(dir)
 
   files.forEach(fileName => {
-    // .tex and .pdf files are not junk
-    if (fileName === `${entryName}.tex` || fileName === `${entryName}.pdf`) {
+    // .tex, .epub, and .pdf files are not junk
+    if (fileName === `${entryName}.tex` || fileName === `${entryName}.pdf` || fileName === `${entryName}.epub`) {
       return
     }
 
-    const pathToFile = path.resolve(dir, fileName) 
+    const pathToFile = path.resolve(dir, fileName)
     const isDirectory = fs.lstatSync(pathToFile).isDirectory()
 
     // Recurse over directories
@@ -24,14 +24,14 @@ const clean = (dir) => {
     const [head, ...rest] = fileName.split('.')
     const ext = rest[rest.length - 1]
 
-    // Any remaining files are junk if they end in the .aux extension
+    // Any remaining files are junk if they end in the .aux or .xhtml extensions
     // or if they match the pattern main.*
-    const fileIsJunk = ext === 'aux' || head === entryName
+    const fileIsJunk = ext === 'aux' || ext === 'xhtml' || head === entryName
 
     if (fileIsJunk) {
       fs.unlinkSync(pathToFile)
     }
-    
+
   })
 }
 

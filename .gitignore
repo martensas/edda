@@ -5,7 +5,9 @@ output
 *.pdf
 *.fdb_latexmk
 *.fls
+*.xhtml
 main.*
 !main.tex
 !main.pdf
+!main.epub
 .DS_Store

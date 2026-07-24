@@ -8,21 +8,40 @@
 \graphicspath{ {./img/} }
 %NOTE: Continuous figure numbering is after mainmatter
 %\usepackage[inline]{showlabels}% For debugging labels
+
 \usepackage{longtable}% Long tables.
-\usepackage{tabu}% Table management
+\usepackage{tabularx}% Table management
+
+% NOTE: Fixes for the epub version only
+\makeatletter
+\ifdefined\HCode
+  % longtables are very annoying, but since epubs don't have pages we don't need them.
+
+  \renewenvironment{longtable}[2][]{%
+    \begin{tabular}{#2}%
+  }{%
+    \end{tabular}%
+  }
+  % Neutralize longtable-specific header/footer commands
+  \def\endhead{}
+  \def\endfirsthead{}
+  \def\endfoot{}
+  \def\endlastfoot{}
+
+  % Fix PDF-specific link annotation commands
+  \def\Hy@pstringdef#1#2{\gdef#1{#2}}
+  \def\@pdfm@mark#1{}
+
+  \@ifundefined{c@Hy@AnnotLevel}{\newcounter{Hy@AnnotLevel}}{}
+  \def\Hy@BeginAnnot{}
+  \def\Hy@EndAnnot{}
+\fi
+\makeatother
+
 \usepackage{rotating}
 \usepackage{tipa}% IPA
 
-% Headers.
-\def\booktitle{}
-\pagestyle{myheadings}
-\aliaspagestyle{plain}{empty}% Remove footers from title pages
-\makeoddhead{myheadings}{}{\emph{\booktitle}}{\thepage}
-\makeevenhead{myheadings}{\thepage}{The Northern Epics}{}
-
-
 \PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks=true]{hyperref}% For linking within the pdf
-
 
 % Critical edition
 \usepackage[parapparatus, series={A,B}]{reledmac}
@@ -39,6 +58,13 @@
   top=0.9in,
   bottom=0.8in,
   footskip=.25in]{geometry}
+
+% Headers.
+\def\booktitle{}
+\pagestyle{myheadings}
+\aliaspagestyle{plain}{empty}% Remove footers from title pages
+\makeoddhead{myheadings}{}{\emph{\booktitle}}{\thepage}
+\makeevenhead{myheadings}{\thepage}{The Northern Epics}{}
 
 \usepackage{microtype}
 \usepackage{fontspec}
@@ -279,9 +305,9 @@
 % Formatting of footnotes and critical apparatus
 
 	% Edtext with automatic translation
-	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn ‘borinn’ \Hauksbok}}
+	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn `borinn' \Hauksbok}}
 	\NewDocumentCommand{\edtrans}{m m +m}{%
-		\edtext{#1}{\lemma{\let\alst\relax #1 ‘#2’}#3}%
+		\edtext{#1}{\lemma{\let\alst\relax #1 `#2'}#3}%
 	}
 
   % All note
