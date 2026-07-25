@@ -66,15 +66,20 @@
 \makeoddhead{myheadings}{}{\emph{\booktitle}}{\thepage}
 \makeevenhead{myheadings}{\thepage}{The Northern Epics}{}
 
-\usepackage{microtype}
-\usepackage{fontspec}
-\usepackage{wasysym}
-\setmainfont{Junicode}[Numbers=Lining]
+% Font and colour.
 
 \usepackage[usenames,dvipsnames]{xcolor}
 \definecolor{myRed}{RGB}{178, 0, 0}
 \definecolor{myBlack}{RGB}{33, 37, 41}
+
+\ifdefined\HCode \else
+\usepackage{microtype}
 \color{myBlack}
+\fi
+
+\usepackage{fontspec}
+\usepackage{wasysym}
+\setmainfont{Junicode}[Numbers=Lining]
 
 \usepackage{tikz}% For drawing figures
 \usetikzlibrary{positioning, calc}
