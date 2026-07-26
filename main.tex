@@ -35,6 +35,24 @@
   \@ifundefined{c@Hy@AnnotLevel}{\newcounter{Hy@AnnotLevel}}{}
   \def\Hy@BeginAnnot{}
   \def\Hy@EndAnnot{}
+
+  % vibe-coded nonsense
+  \usepackage{luacode}
+    \begin{luacode*}
+      -- 1. Define the line-break function, but do NOT activate it yet
+      function reledmac_stanza_br(line)
+        if string.match(line, " &%s*$") or string.match(line, " &%s*%%") then
+          line = string.gsub(line, " &(%s*)$", "\\HCode{<br />} &%1")
+          line = string.gsub(line, " &(%s*%%)", "\\HCode{<br />} &%1")
+        end
+        return line
+      end
+    \end{luacode*}
+
+    % 2. Wait until the preamble is completely finished, then attach the listener
+    \AtBeginDocument{
+      \directlua{luatexbase.add_to_callback('process_input_buffer', reledmac_stanza_br, 'reledmac_stanza_br')}
+    }
 \fi
 \makeatother
 
@@ -196,7 +214,11 @@
   }
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
-		\vspace{0.3cm}%
+    \ifdefined\HCode
+        \leavevmode\HCode{<div style="height: 0.3cm;"></div>}%
+    \else
+        \vspace{0.3cm}%
+    \fi
 		\ifx\critfootnotes\undefined \begin{ledgroup}\fi%
 		\beginnumbering%
 	}
@@ -394,9 +416,15 @@
 
 	% Mark cæsuræ. Bullet point ( • ), interpunct: ( · )
 	\NewDocumentCommand{\hld}{o}{%
-    \IfNoValueTF{#1}{ · }{%
-      {\small ({#1})}%
-    }%
+    \ifdefined\HCode
+      \IfNoValueTF{#1}{ ·}{%
+        {\small ({#1})}%
+      }%
+    \else
+      \IfNoValueTF{#1}{ · }{%
+        {\small ({#1})}%
+      }%
+    \fi
   }%
 
 	% Indent lines (in Ljóðaháttr or Galdralag).
