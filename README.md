@@ -6,6 +6,9 @@ New edition and translation of the Poetic Edda along with a few additional poems
 
 The file `main.pdf` is up to date. Download it [here](https://github.com/martensas/edda/blob/main/main.pdf).
 
+The book is also available as an .epub, although this version is experimental.  Download it [here](https://github.com/martensas/edda/blob/main/main.epub).
+
+
 ## Developing
 
 Want to have a smaller file containing only the poems you're interested in? Download the source code, uncomment the poems you want by removing the hashtags before them in `books.tex`.

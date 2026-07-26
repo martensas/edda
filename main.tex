@@ -8,21 +8,58 @@
 \graphicspath{ {./img/} }
 %NOTE: Continuous figure numbering is after mainmatter
 %\usepackage[inline]{showlabels}% For debugging labels
+
 \usepackage{longtable}% Long tables.
-\usepackage{tabu}% Table management
+\usepackage{tabularx}% Table management
+
+% NOTE: Fixes for the epub version only
+\makeatletter
+\ifdefined\HCode
+  % longtables are very annoying, but since epubs don't have pages we don't need them.
+
+  \renewenvironment{longtable}[2][]{%
+    \begin{tabular}{#2}%
+  }{%
+    \end{tabular}%
+  }
+  % Neutralize longtable-specific header/footer commands
+  \def\endhead{}
+  \def\endfirsthead{}
+  \def\endfoot{}
+  \def\endlastfoot{}
+
+  % Fix PDF-specific link annotation commands
+  \def\Hy@pstringdef#1#2{\gdef#1{#2}}
+  \def\@pdfm@mark#1{}
+
+  \@ifundefined{c@Hy@AnnotLevel}{\newcounter{Hy@AnnotLevel}}{}
+  \def\Hy@BeginAnnot{}
+  \def\Hy@EndAnnot{}
+
+  % vibe-coded nonsense
+  \usepackage{luacode}
+    \begin{luacode*}
+      -- 1. Define the line-break function, but do NOT activate it yet
+      function reledmac_stanza_br(line)
+        if string.match(line, " &%s*$") or string.match(line, " &%s*%%") then
+          line = string.gsub(line, " &(%s*)$", "\\HCode{<br />} &%1")
+          line = string.gsub(line, " &(%s*%%)", "\\HCode{<br />} &%1")
+        end
+        return line
+      end
+    \end{luacode*}
+
+    % 2. Wait until the preamble is completely finished, then attach the listener
+    \AtBeginDocument{
+      \directlua{luatexbase.add_to_callback('process_input_buffer', reledmac_stanza_br, 'reledmac_stanza_br')}
+    }
+\fi
+\makeatother
+
 \usepackage{rotating}
 \usepackage{tipa}% IPA
 
-% Headers.
-\def\booktitle{}
-\pagestyle{myheadings}
-\aliaspagestyle{plain}{empty}% Remove footers from title pages
-\makeoddhead{myheadings}{}{\emph{\booktitle}}{\thepage}
-\makeevenhead{myheadings}{\thepage}{The Northern Epics}{}
-
-
 \PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks=true]{hyperref}% For linking within the pdf
-
 
 % Critical edition
 \usepackage[parapparatus, series={A,B}]{reledmac}
@@ -40,15 +77,27 @@
   bottom=0.8in,
   footskip=.25in]{geometry}
 
-\usepackage{microtype}
-\usepackage{fontspec}
-\usepackage{wasysym}
-\setmainfont{Junicode}[Numbers=Lining]
+% Headers.
+\def\booktitle{}
+\pagestyle{myheadings}
+\aliaspagestyle{plain}{empty}% Remove footers from title pages
+\makeoddhead{myheadings}{}{\emph{\booktitle}}{\thepage}
+\makeevenhead{myheadings}{\thepage}{The Northern Epics}{}
+
+% Font and colour.
 
 \usepackage[usenames,dvipsnames]{xcolor}
 \definecolor{myRed}{RGB}{178, 0, 0}
 \definecolor{myBlack}{RGB}{33, 37, 41}
+
+\ifdefined\HCode \else
+\usepackage{microtype}
 \color{myBlack}
+\fi
+
+\usepackage{fontspec}
+\usepackage{wasysym}
+\setmainfont{Junicode}[Numbers=Lining]
 
 \usepackage{tikz}% For drawing figures
 \usetikzlibrary{positioning, calc}
@@ -165,7 +214,11 @@
   }
 
 	\NewDocumentCommand{\bvg}{o}{% Begin verse group
-		\vspace{0.3cm}%
+    \ifdefined\HCode
+        \leavevmode\HCode{<div style="height: 0.3cm;"></div>}%
+    \else
+        \vspace{0.3cm}%
+    \fi
 		\ifx\critfootnotes\undefined \begin{ledgroup}\fi%
 		\beginnumbering%
 	}
@@ -279,9 +332,9 @@
 % Formatting of footnotes and critical apparatus
 
 	% Edtext with automatic translation
-	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn ‘borinn’ \Hauksbok}}
+	% EXAMPLE: \edtrans{orðinn}{become}{\Afootnote{borinn `borinn' \Hauksbok}}
 	\NewDocumentCommand{\edtrans}{m m +m}{%
-		\edtext{#1}{\lemma{\let\alst\relax #1 ‘#2’}#3}%
+		\edtext{#1}{\lemma{\let\alst\relax #1 `#2'}#3}%
 	}
 
   % All note
@@ -363,9 +416,15 @@
 
 	% Mark cæsuræ. Bullet point ( • ), interpunct: ( · )
 	\NewDocumentCommand{\hld}{o}{%
-    \IfNoValueTF{#1}{ · }{%
-      {\small ({#1})}%
-    }%
+    \ifdefined\HCode
+      \IfNoValueTF{#1}{ ·}{%
+        {\small ({#1})}%
+      }%
+    \else
+      \IfNoValueTF{#1}{ · }{%
+        {\small ({#1})}%
+      }%
+    \fi
   }%
 
 	% Indent lines (in Ljóðaháttr or Galdralag).
