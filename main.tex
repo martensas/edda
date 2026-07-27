@@ -356,12 +356,17 @@
 	% Manuscript note
 	\leftnoteupfalse\rightnoteupfalse% Make the notes flow downwards
 	\NewDocumentCommand{\mssnote}{m}{%
-		\ledrightnote{[{#1}]}%
-%    \begingroup
-%    \renewcommand{\thefootnoteA}{}%
-%    \footnoteA{\emph{Mss.: } #1}%
-%    \endgroup%
-%   \edtext{}{\lemma{Mss.:}\Afootnote[nonum]{#1}}%
+    \ifdefined\HCode
+      \HCode{<div style="text-align: right; font-size: 0.85em; margin-bottom: 0.5em;">}%
+      [\textit{Manuscripts:} #1]%
+      \HCode{</div>}%
+    \else
+      \ledrightnote{[{#1}]}%
+    \fi
+%   \begingroup
+%   \renewcommand{\thefootnoteA}{}%
+%   \footnoteA{\emph{Mss.: } #1}%
+%   \endgroup%
 	}
 
 	\NewDocumentCommand{\speakernote}{m}{%
