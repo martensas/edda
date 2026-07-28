@@ -477,11 +477,11 @@
 
 % Index commands
 	\NewDocumentCommand{\inx}{o m O{#2}}{% Index link (type, link, optional alt display)
-		\IfNoValueTF{#1}{% TODO: phase this out
-			ERRORERRORERROR%
-		}{% Proper noun
-			\hyperref[#1:#2]{#3}%NOTE \hyperref[#1:#2]{#3\textsuperscript{†}}% NOTE \hyperref[#1:#2]{#3\textsuperscript{#1}
-		}%
+    \ifdefined\HCode% TODO: Temporary fix for the epub
+      {#3}
+    \else
+		  \hyperref[#1:#2]{#3}%NOTE \hyperref[#1:#2]{#3\textsuperscript{†}}% NOTE \hyperref[#1:#2]{#3\textsuperscript{#1}
+    \fi
 	}
 
 	\NewDocumentCommand{\inxitem}{o m}{% Index label (type, word)
