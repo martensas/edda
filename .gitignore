@@ -1,5 +1,6 @@
 .DS_Store
 output
+main-epub3
 *.aux
 *.log
 *.pdf
@@ -10,4 +11,3 @@ main.*
 !main.tex
 !main.pdf
 !main.epub
-.DS_Store
