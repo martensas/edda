@@ -478,7 +478,7 @@
 % Index commands
 	\NewDocumentCommand{\inx}{o m O{#2}}{% Index link (type, link, optional alt display)
     \ifdefined\HCode% TODO: Temporary fix for the epub
-      {#3}
+      {#3}%
     \else
 		  \hyperref[#1:#2]{#3}%NOTE \hyperref[#1:#2]{#3\textsuperscript{†}}% NOTE \hyperref[#1:#2]{#3\textsuperscript{#1}
     \fi
