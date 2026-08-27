@@ -7,6 +7,8 @@ main-epub3
 *.fdb_latexmk
 *.fls
 *.xhtml
+*.opf
+*.svg
 main.*
 !main.tex
 !main.pdf
