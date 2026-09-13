@@ -16,7 +16,7 @@ Want to have a smaller file containing only the poems you're interested in? Down
 Begin by installing both XeLaTeX and [Node.js](https://nodejs.org/en).
 
 - To compile a pdf, run `make pdf`
-- To manually clean up auto-generated files, run `make clean`
+- To clean up auto-generated files manually, run `make clean`
 
 ## License
 
