@@ -4,9 +4,9 @@ New edition and translation of the Poetic Edda along with a few additional poems
 
 ## Download
 
-The file `main.pdf` is up to date. Download it [here](https://github.com/martensas/edda/blob/main/main.pdf).
+The file `The Northern Epics.pdf` is up to date. Download it [here](https://github.com/martensas/edda/blob/main/The Northern Epics.pdf).
 
-The book is also available as an .epub, although this version is experimental.  Download it [here](https://github.com/martensas/edda/blob/main/main.epub).
+The book is also available as an `.epub` file, although this version is experimental and may have errors and formatting issues.  Download it [here](https://github.com/martensas/edda/blob/main/The Northern Epics.epub).
 
 
 ## Developing
