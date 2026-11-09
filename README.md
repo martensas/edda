@@ -6,7 +6,7 @@ New edition and translation of the Poetic Edda along with a few additional poems
 
 The best way to download is through [Gumroad](https://krosenberg.gumroad.com/l/edda).  This option allows you to set an optional price starting at nothing and gives you both the `.pdf` and `.epub` files.  You can think of it as a one-time-purchase or a donation to keep the project going.
 
-The file `The Northern Epics.pdf` is up to date and can be downloaded directly [here](https://github.com/martensas/edda/blob/main/main.pdf).
+The file `main.pdf` is up to date and can be downloaded directly [here](https://github.com/martensas/edda/blob/main/main.pdf).
 
 The book is also available as an `.epub` file, although this version is experimental and may have errors and formatting issues.  Download it [here](https://github.com/martensas/edda/blob/main/main.epub).
 
