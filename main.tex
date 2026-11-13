@@ -12,11 +12,14 @@
 \usepackage{longtable}% Long tables.
 \usepackage{tabularx}% Table management
 
+%---------------------------------------
 % NOTE: Fixes for the epub version only
+%---------------------------------------
+
 \makeatletter
 \ifdefined\HCode
-  % longtables are very annoying, but since epubs don't have pages we don't need them.
 
+  % longtables are very annoying, but since epubs don't have pages we don't need them.
   \renewenvironment{longtable}[2][]{%
     \begin{tabular}{#2}%
   }{%
@@ -36,23 +39,23 @@
   \def\Hy@BeginAnnot{}
   \def\Hy@EndAnnot{}
 
-  % vibe-coded nonsense
+  % vibe-coded nonsense to add new-lines
   \usepackage{luacode}
-    \begin{luacode*}
-      -- 1. Define the line-break function, but do NOT activate it yet
-      function reledmac_stanza_br(line)
-        if string.match(line, " &%s*$") or string.match(line, " &%s*%%") then
-          line = string.gsub(line, " &(%s*)$", "\\HCode{<br />} &%1")
-          line = string.gsub(line, " &(%s*%%)", "\\HCode{<br />} &%1")
-        end
-        return line
+  \begin{luacode*}
+    -- 1. Define the line-break function, but do NOT activate it yet
+    function reledmac_stanza_br(line)
+      if string.match(line, " &%s*$") or string.match(line, " &%s*%%") then
+        line = string.gsub(line, " &(%s*)$", "\\HCode{<br />} &%1")
+        line = string.gsub(line, " &(%s*%%)", "\\HCode{<br />} &%1")
       end
-    \end{luacode*}
+      return line
+    end
+  \end{luacode*}
 
-    % 2. Wait until the preamble is completely finished, then attach the listener
-    \AtBeginDocument{
-      \directlua{luatexbase.add_to_callback('process_input_buffer', reledmac_stanza_br, 'reledmac_stanza_br')}
-    }
+  % 2. Wait until the preamble is completely finished, then attach the listener
+  \AtBeginDocument{
+    \directlua{luatexbase.add_to_callback('process_input_buffer', reledmac_stanza_br, 'reledmac_stanza_br')}
+  }
 \fi
 \makeatother
 
