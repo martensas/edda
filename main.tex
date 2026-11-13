@@ -224,9 +224,6 @@
     \fi
 		\ifx\critfootnotes\undefined \begin{ledgroup}\fi%
 		\beginnumbering%
-    \ifdefined\HCode
-      \advanceline{1}% one line more in epub due to formatting problems
-    \fi
 	}
 
 	\NewDocumentCommand{\bva}{o o}{% Begin verse a
@@ -239,6 +236,9 @@
     \IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
   		\setline{#2}%
   	}%
+    \ifdefined\HCode
+      \advanceline{1}% one line more in epub due to formatting problems
+    \fi
     \IfValueTF{#1}{% Make labels
       \IfEq{#1}{0}{}{%
         \phantomsection\edef\temp{\noexpand\label{\thisBookCode:#1}}\temp%
