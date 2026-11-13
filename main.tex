@@ -64,12 +64,19 @@
 
 \PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks=true]{hyperref}% For linking within the pdf
 
+
 % Critical edition
 \usepackage[parapparatus, series={A,B}]{reledmac}
 \newcounter{prosea}
 \newcounter{versenum}
 
-%\def\critfootnotes{}%NOTE: experimental, if we want critical notes in footnotes
+% No rules in the Epub due to glitchiness.
+\ifdefined\HCode
+  \renewcommand{\normalfootnoterule}{}
+\fi
+
+%\def\critfootnotes{}%NOTE: experimental, if we want critical notes in the page footer
+
 
 % Font and typesetting
 \usepackage[a5paper, %Geometry
@@ -236,9 +243,6 @@
     \IfValueT{#2}{% Optional line number to start on (otherwise we start on 1)
   		\setline{#2}%
   	}%
-    \ifdefined\HCode
-      \advanceline{1}% one line more in epub due to formatting problems
-    \fi
     \IfValueTF{#1}{% Make labels
       \IfEq{#1}{0}{}{%
         \phantomsection\edef\temp{\noexpand\label{\thisBookCode:#1}}\temp%
@@ -380,15 +384,23 @@
 	}
 
 	\NewDocumentCommand{\speakernote}{m}{%
-		\ledleftnote{{#1}}%
+    \ifdefined\HCode
+      \small{#1}%
+    \else
+		  \ledleftnote{{#1}}%
+    \fi
 	}
 
   \NewDocumentCommand{\speakernoteb}{m}{%
   %  {\footnotesize #1} \\%
-    \leavevmode\llap{%
-      \parbox[t]{1.5in}{\raggedleft\footnotesize #1}%
-      \hspace{0.1in}%
+    \ifdefined\HCode
+      {#1} \\%
+    \else
+      \leavevmode\llap{%
+        \parbox[t]{1.5in}{\raggedleft\footnotesize #1}%
+        \hspace{0.1in}%
       }%
+    \fi
   }
 
 	% Sidenote margin
