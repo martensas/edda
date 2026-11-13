@@ -221,6 +221,9 @@
     \fi
 		\ifx\critfootnotes\undefined \begin{ledgroup}\fi%
 		\beginnumbering%
+    \ifdefined\HCode
+      \advanceline{1}% one line more in epub due to formatting problems
+    \fi
 	}
 
 	\NewDocumentCommand{\bva}{o o}{% Begin verse a
@@ -271,7 +274,11 @@
 % Prose format commands
 
 	\NewDocumentCommand{\bpg}{o}{% Begin prose group
-		\vspace{0.3cm}%
+    \ifdefined\HCode
+        \leavevmode\HCode{<div style="height: 0.3cm;"></div>}%
+    \else
+        \vspace{0.3cm}%
+    \fi
     \ifx\critfootnotes\undefined \begin{ledgroup}\fi%
 		\beginnumbering%
   }
@@ -434,7 +441,9 @@
 
 	% Indent lines (in Ljóðaháttr or Galdralag).
 	\newcommand{\ind}{%
-		\hspace*{1.5em}%
+    \ifdefined\HCode\else
+		  \hspace*{1.5em}%
+    \fi%
 	}
 
 	% Mark alliteration.
