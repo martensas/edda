@@ -19,6 +19,8 @@
 \makeatletter
 \ifdefined\HCode
 
+  \renewcommand{\llap}[1]{#1}% no llap because it breaks stuff
+
   % longtables are very annoying, but since epubs don't have pages we don't need them.
   \renewenvironment{longtable}[2][]{%
     \begin{tabular}{#2}%
@@ -72,7 +74,7 @@
 
 % No rules in the Epub due to glitchiness.
 \ifdefined\HCode
-  \renewcommand{\normalfootnoterule}{}
+  \renewcommand{\footnoterule}{}
 \fi
 
 %\def\critfootnotes{}%NOTE: experimental, if we want critical notes in the page footer
@@ -385,7 +387,8 @@
 
 	\NewDocumentCommand{\speakernote}{m}{%
     \ifdefined\HCode
-      \small{#1}%
+      {#1}%
+      \HCode{<br />}%
     \else
 		  \ledleftnote{{#1}}%
     \fi
