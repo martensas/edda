@@ -12,11 +12,16 @@
 \usepackage{longtable}% Long tables.
 \usepackage{tabularx}% Table management
 
+%---------------------------------------
 % NOTE: Fixes for the epub version only
+%---------------------------------------
+
 \makeatletter
 \ifdefined\HCode
-  % longtables are very annoying, but since epubs don't have pages we don't need them.
 
+  \renewcommand{\llap}[1]{#1}% no llap because it breaks stuff
+
+  % longtables are very annoying, but since epubs don't have pages we don't need them.
   \renewenvironment{longtable}[2][]{%
     \begin{tabular}{#2}%
   }{%
@@ -36,23 +41,23 @@
   \def\Hy@BeginAnnot{}
   \def\Hy@EndAnnot{}
 
-  % vibe-coded nonsense
+  % vibe-coded nonsense to add new-lines
   \usepackage{luacode}
-    \begin{luacode*}
-      -- 1. Define the line-break function, but do NOT activate it yet
-      function reledmac_stanza_br(line)
-        if string.match(line, " &%s*$") or string.match(line, " &%s*%%") then
-          line = string.gsub(line, " &(%s*)$", "\\HCode{<br />} &%1")
-          line = string.gsub(line, " &(%s*%%)", "\\HCode{<br />} &%1")
-        end
-        return line
+  \begin{luacode*}
+    -- 1. Define the line-break function, but do NOT activate it yet
+    function reledmac_stanza_br(line)
+      if string.match(line, " &%s*$") or string.match(line, " &%s*%%") then
+        line = string.gsub(line, " &(%s*)$", "\\HCode{<br />} &%1")
+        line = string.gsub(line, " &(%s*%%)", "\\HCode{<br />} &%1")
       end
-    \end{luacode*}
+      return line
+    end
+  \end{luacode*}
 
-    % 2. Wait until the preamble is completely finished, then attach the listener
-    \AtBeginDocument{
-      \directlua{luatexbase.add_to_callback('process_input_buffer', reledmac_stanza_br, 'reledmac_stanza_br')}
-    }
+  % 2. Wait until the preamble is completely finished, then attach the listener
+  \AtBeginDocument{
+    \directlua{luatexbase.add_to_callback('process_input_buffer', reledmac_stanza_br, 'reledmac_stanza_br')}
+  }
 \fi
 \makeatother
 
@@ -61,12 +66,19 @@
 
 \PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks=true]{hyperref}% For linking within the pdf
 
+
 % Critical edition
 \usepackage[parapparatus, series={A,B}]{reledmac}
 \newcounter{prosea}
 \newcounter{versenum}
 
-%\def\critfootnotes{}%NOTE: experimental, if we want critical notes in footnotes
+% No rules in the Epub due to glitchiness.
+\ifdefined\HCode
+  \renewcommand{\footnoterule}{}
+\fi
+
+%\def\critfootnotes{}%NOTE: experimental, if we want critical notes in the page footer
+
 
 % Font and typesetting
 \usepackage[a5paper, %Geometry
@@ -271,7 +283,11 @@
 % Prose format commands
 
 	\NewDocumentCommand{\bpg}{o}{% Begin prose group
-		\vspace{0.3cm}%
+    \ifdefined\HCode
+        \leavevmode\HCode{<div style="height: 0.3cm;"></div>}%
+    \else
+        \vspace{0.3cm}%
+    \fi
     \ifx\critfootnotes\undefined \begin{ledgroup}\fi%
 		\beginnumbering%
   }
@@ -370,15 +386,24 @@
 	}
 
 	\NewDocumentCommand{\speakernote}{m}{%
-		\ledleftnote{{#1}}%
+    \ifdefined\HCode
+      {#1}%
+      \HCode{<br />}%
+    \else
+		  \ledleftnote{{#1}}%
+    \fi
 	}
 
   \NewDocumentCommand{\speakernoteb}{m}{%
   %  {\footnotesize #1} \\%
-    \leavevmode\llap{%
-      \parbox[t]{1.5in}{\raggedleft\footnotesize #1}%
-      \hspace{0.1in}%
+    \ifdefined\HCode
+      {#1} \\%
+    \else
+      \leavevmode\llap{%
+        \parbox[t]{1.5in}{\raggedleft\footnotesize #1}%
+        \hspace{0.1in}%
       }%
+    \fi
   }
 
 	% Sidenote margin
@@ -434,7 +459,9 @@
 
 	% Indent lines (in Ljóðaháttr or Galdralag).
 	\newcommand{\ind}{%
-		\hspace*{1.5em}%
+    \ifdefined\HCode\else
+		  \hspace*{1.5em}%
+    \fi%
 	}
 
 	% Mark alliteration.

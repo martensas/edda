@@ -1,0 +1,69 @@
+\documentclass[12pt,letterpaper,openany]{book}
+%
+\usepackage{JunicodeManual}
+
+\begin{document}
+\pagenumbering{roman}
+\frontmatter
+\addfontfeature{Script=Latin,Language=English,Contextuals=Alternate}
+
+\begin{titlepage}
+\huge\noindent
+{\color{myRed}\ornm{yyyyyyyyyyyyyyyyyy}}\\[5cm]
+\Huge \centering {\color{myBlue}Junicode} \\[1cm]
+\huge \centering the font for medievalists \\[1cm]
+ \Huge\centering {\color{myRed}\ornm{d}} \\[1cm]
+ \huge\centering {\jItalic specimens and user manual} \\[1ex]
+ \Large\centering{\jRegular for version 2.226}\\
+\vfill
+{\color{myRed}\ornm{yyyyyyyyyyyyyyyyyy}}
+\end{titlepage}
+\cleardoublepage
+\thispagestyle{plain}
+
+
+\pagestyle{fancy}
+\fancyhead[CE]{\color{myRed} \thepage\hspace{10pt}%
+\addfontfeature{Letters=UppercaseSmallCaps}\leftmark}
+\fancyhead[CO]{\color{myRed}{\scshape junicode}\hspace{10pt}\thepage}
+\tableofcontents
+\cleardoublepage
+\pagenumbering{arabic}
+\mainmatter
+
+\include{About.tex}
+
+\include{Specimens.tex}
+
+\include{GettingStarted.tex}
+
+\include{Feature_Reference.tex}
+
+\include{tag_key_ins.tex}
+
+\include{Record_Interpreter_notes.tex}
+
+\include{EnlargeAxis.tex}
+
+\include{OnTheWeb.tex}
+
+\include{in_tex.tex}
+
+\include{encoded-glyphs.tex}
+
+\printindex
+
+\vspace*{\fill}
+\begin{center}
+{\jItalic{This document was set in 12pt Junicode VF\\
+using the {\LuaLaTeX} typesetting system with fontspec for font management.\\
+The font for code is Fira Mono.\\
+The sans serif font is Fira Sans.\\
+The source for the document, JunicodeManual.tex, is available at}}\\
+\url{https://github.com/psb1558/Junicode-font}.
+
+\end{center}
+%\thispagestyle{plain}
+
+
+\end{document}
